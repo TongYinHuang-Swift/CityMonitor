@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\CityMonitor\Doc\监控中心需求.docx">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Design\CityMonitor\Doc\系统工作原理及视频节点任务.docx">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Design\CityMonitor\Doc\视频监控系统通信协议.docx">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Design\CityMonitor\Doc\代码编写基本规则.docx">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Design\CityMonitor\Headers\Acceptor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\BasicObj.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\BasicTCP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Buffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Codec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\DateTime.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Debugger.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Global.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\HistoryVideo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\HistoryVideoManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\HistoryVideoPlayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\ObjBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Receiver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Recorder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Sender.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\TcpConn.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Thread.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\ThreadManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\VideoManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\VideoRecorder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\HiK\DataType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\HiK\plaympeg4.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\HiK\Win32\HCNetSDK.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\SwiftHikSDK.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Design\CityMonitor\Sources\SwiftHikSDK.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Acceptor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\BasicTCP.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\BasicObj.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Buffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\CityMonitor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Debugger.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Codec.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\DateTime.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\HistoryVideo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\HistoryVideoManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\HistoryVideoPlayer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\ObjBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Receiver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Recorder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Sender.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\TcpConn.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Thread.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\ThreadManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\VideoManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\VideoRecorder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
