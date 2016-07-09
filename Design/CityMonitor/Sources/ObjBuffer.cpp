@@ -1,17 +1,17 @@
-﻿/**
+/**
  ************************************************************************************************************************
- * Swift Technology 重庆思委夫特科技有限公司 城市视频监控系统软件
+ * Swift Technology ����˼ί���ؿƼ����޹�˾ ������Ƶ���ϵͳ����
  * Name        : ObjBuffer.cpp
- * Author      : 董超
+ * Author      : ����
  * Version     : V1.0.0
- * Copyright   : 本软件由重庆思委夫特科技有限公司开发并拥有所有权利，在无思委夫特书面授权许可的情况下，任何其他团体或个人
- *				 不得对本文件进行部分或全部的拷贝，否则，本公司将依法追究相应的法律责任。
- * Description : 视频单元管理模块。
+ * Copyright   : ������������˼ί���ؿƼ����޹�˾������ӵ������Ȩ��������˼ί����������Ȩ���ɵ�����£��κ�������������
+ *				 ���öԱ��ļ����в��ֻ�ȫ���Ŀ��������򣬱���˾������׷����Ӧ�ķ������Ρ�
+ * Description : ��Ƶ��Ԫ����ģ�顣
  ************************************************************************************************************************
  * Revision History:
- * 修改时间    修改人  修改内容
- * 2016-06-11  董超    新建
- * 2016-06-22  董超    完成Linux 及 Windows版本 V1.0.0
+ * �޸�ʱ��    �޸���  �޸�����
+ * 2016-06-11  ����    �½�
+ * 2016-06-22  ����    ���Linux �� Windows�汾 V1.0.0
  ************************************************************************************************************************/
 #include "ObjBuffer.h" 
 #include "Debugger.h" 
@@ -19,17 +19,17 @@
 
 
 /**
- * 说明：具有任意位置对象指针读取及对象指针循环写入功能的对象指针缓冲器，对象可以是任意对象。本模块是一个多线程操作安全模块。
- * 功能：
- * 1. 缓冲器的写入（AddObject）是循环的而且是覆盖性质的，如果写入单元已经存有对象指针，caller必须删除欲覆盖的指针所指向的对象。
- *    写入完成后，写指针自动加一指向下一个单元。
- * 2. 缓冲器内对象指针的读出可以是随机的，由caller在GetObjectAt的入参中指定
- * 3. 缓冲器内对象指针可以使用GetNextObject顺序读出，读出内容是当前读指针所指向的单元的下一个单元。调用结束后，读指针指向实际读出的单元。
- * 4. 缓冲器循环长度可以动态设置，但不得超过创建缓冲器对象时所给的最大长度。
+ * ˵������������λ�ö���ָ���ȡ������ָ��ѭ��д�빦�ܵĶ���ָ�뻺���������������������󡣱�ģ����һ�����̲߳�����ȫģ�顣
+ * ���ܣ�
+ * 1. ��������д�루AddObject����ѭ���Ķ����Ǹ������ʵģ����д�뵥Ԫ�Ѿ����ж���ָ�룬caller����ɾ�������ǵ�ָ����ָ��Ķ���
+ *    д����ɺ�дָ���Զ���һָ����һ����Ԫ��
+ * 2. �������ڶ���ָ��Ķ�������������ģ���caller��GetObjectAt�������ָ��
+ * 3. �������ڶ���ָ�����ʹ��GetNextObject˳����������������ǵ�ǰ��ָ����ָ��ĵ�Ԫ����һ����Ԫ�����ý����󣬶�ָ��ָ��ʵ�ʶ����ĵ�Ԫ��
+ * 4. ������ѭ�����ȿ��Զ�̬���ã������ó�����������������ʱ��������󳤶ȡ�
  */
 ObjBuffer::ObjBuffer(uint bufLen)
 {
-	PRINT(ALWAYS_PRINT, "ObjBuffer", __FUNCTION__, __LINE__, " 创建一个长度为 %d 的对象指针循环缓冲器", bufLen);
+	PRINT(ALWAYS_PRINT, "ObjBuffer", __FUNCTION__, __LINE__, " ����һ������Ϊ %d �Ķ���ָ��ѭ��������", bufLen);
 	
 	this->bufLen = bufLen;
 	circleLen = bufLen;
@@ -42,85 +42,85 @@ ObjBuffer::ObjBuffer(uint bufLen)
 }
 ObjBuffer::~ObjBuffer()
 {
-	PRINT(ALWAYS_PRINT, "ObjBuffer", __FUNCTION__, __LINE__, " 删除一个对象指针循环缓冲器");
+	PRINT(ALWAYS_PRINT, "ObjBuffer", __FUNCTION__, __LINE__, " ɾ��һ������ָ��ѭ��������");
 
 	delete [] buffer;
 }
 /**
- * 随机读取缓冲器内所存储的对象指针，欲读出的对象指针由caller在入参中指定
+ * �����ȡ�����������洢�Ķ���ָ�룬�������Ķ���ָ����caller�������ָ��
  */
 void* ObjBuffer::GetObjectAt(uint index)
 {
-	// 获取操作锁，阻止其它线程对本对象缓冲器进行操作
+	// ��ȡ����������ֹ�����̶߳Ա����󻺳������в���
 	lock = true;	
-	PRINT(DEBUG_LEVEL_9, "ObjBuffer", __FUNCTION__, __LINE__, " 获取位于单元 %d 的ObjBuffer对象指针", index);
+	PRINT(DEBUG_LEVEL_9, "ObjBuffer", __FUNCTION__, __LINE__, " ��ȡλ�ڵ�Ԫ %d ��ObjBuffer����ָ��", index);
 
 	if (index >= circleLen)
 	{
 		return NULL;
 	}
 	rdIndex = index;
-	// 释放操作锁，允许其它线程对本对象进行操作
+	// �ͷŲ����������������̶߳Ա�������в���
 	lock = false;	
 	return buffer[rdIndex];
 }
 /**
- * 获取缓冲器内下一个单元存储的对象指针，读出内容是当前读指针所指向的单元的下一个单元。调用结束后，读指针指向实际读出的单元。
+ * ��ȡ����������һ����Ԫ�洢�Ķ���ָ�룬���������ǵ�ǰ��ָ����ָ��ĵ�Ԫ����һ����Ԫ�����ý����󣬶�ָ��ָ��ʵ�ʶ����ĵ�Ԫ��
  */
 void* ObjBuffer::GetNextObject()
 {
-	// 获取操作锁，阻止其它线程对本对象缓冲器进行操作
+	// ��ȡ����������ֹ�����̶߳Ա����󻺳������в���
 	lock = true;	
 	rdIndex++;
-	PRINT(DEBUG_LEVEL_3, "ObjBuffer", __FUNCTION__, __LINE__, " 获取位于单元 %d 的ObjBuffer对象指针", rdIndex);
+	PRINT(DEBUG_LEVEL_3, "ObjBuffer", __FUNCTION__, __LINE__, " ��ȡλ�ڵ�Ԫ %d ��ObjBuffer����ָ��", rdIndex);
 
 
 	if (rdIndex >= circleLen)
 	{
-		// 读指针越界，恢复原值
+		// ��ָ��Խ�磬�ָ�ԭֵ
 		rdIndex--;
-		// 释放操作锁，允许其它线程对本对象进行操作
+		// �ͷŲ����������������̶߳Ա�������в���
 		lock = false;
 		return NULL;
 	}
-	// 释放操作锁，允许其它线程对本对象进行操作
+	// �ͷŲ����������������̶߳Ա�������в���
 	lock = false;	
 	return buffer[rdIndex];
 }
 /**
- * 添加指定的对象指针到缓冲器当前写指针所指向的单元。写操作完成后，写指针将被修改为指向下一个单元，如果修改后的写指针超出了缓冲器的循环长度，
- * 写指针将被置零，指向缓冲器的第一个单元。如果写入单元已经存有对象指针，caller必须删除欲覆盖的指针所指向的对象。
+ * ����ָ���Ķ���ָ�뵽��������ǰдָ����ָ��ĵ�Ԫ��д������ɺ�дָ�뽫���޸�Ϊָ����һ����Ԫ������޸ĺ��дָ�볬���˻�������ѭ�����ȣ�
+ * дָ�뽫�����㣬ָ�򻺳����ĵ�һ����Ԫ�����д�뵥Ԫ�Ѿ����ж���ָ�룬caller����ɾ�������ǵ�ָ����ָ��Ķ���
  */
 void ObjBuffer::AddObject(void* obj)
 {
-	// 获取操作锁，阻止其它线程对本对象缓冲器进行操作
+	// ��ȡ����������ֹ�����̶߳Ա����󻺳������в���
 	lock = true;	
-	PRINT(DEBUG_LEVEL_9, "ObjBuffer", __FUNCTION__, __LINE__, " 将指定对象指针存入ObjBuffer单元 %d 中", wrIndex);
+	PRINT(DEBUG_LEVEL_9, "ObjBuffer", __FUNCTION__, __LINE__, " ��ָ������ָ�����ObjBuffer��Ԫ %d ��", wrIndex);
  
-	// 然后将新对象写入到当前位置
+	// Ȼ���¶���д�뵽��ǰλ��
 	buffer[wrIndex++] = obj;
 
-	// 检查写指针是否已经到达缓冲器的顶部
+	// ���дָ���Ƿ��Ѿ����ﻺ�����Ķ���
 	if (wrIndex == circleLen)
 	{
-		// 实现循环缓冲器的循环功能
+		// ʵ��ѭ����������ѭ������
 		wrIndex = 0;
 	}
-	// 释放操作锁，允许其它线程对本对象进行操作
+	// �ͷŲ����������������̶߳Ա�������в���
 	lock = false;	
 
 	if (numObjects < circleLen) { numObjects++; }
 }
 /**
- * 设置缓冲器循环长度，入参值不得超过创建缓冲器对象时所给的最大长度。当缓冲器写指针达到循环长度时写指针将被归零。
+ * ���û�����ѭ�����ȣ����ֵ���ó�����������������ʱ��������󳤶ȡ���������дָ��ﵽѭ������ʱдָ�뽫�����㡣
  */
 void ObjBuffer::SetCircleLen(uint len)
 {
-	// 获取操作锁，阻止其它线程对本对象缓冲器进行操作
+	// ��ȡ����������ֹ�����̶߳Ա����󻺳������в���
 	lock = true;	
-	PRINT(DEBUG_LEVEL_1, "ObjBuffer", __FUNCTION__, __LINE__, " 设置对象指针循环缓冲器的循环长度为 %d", wrIndex);
+	PRINT(DEBUG_LEVEL_1, "ObjBuffer", __FUNCTION__, __LINE__, " ���ö���ָ��ѭ����������ѭ������Ϊ %d", wrIndex);
 	if (len <= bufLen) { circleLen = len; }
-	// 释放操作锁，允许其它线程对本对象进行操作
+	// �ͷŲ����������������̶߳Ա�������в���
 	lock = false;	
 }
 bool ObjBuffer::IsLocked()

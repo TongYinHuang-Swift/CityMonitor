@@ -1,11 +1,11 @@
-ï»¿/**
- * æ—¶é—´ç®¡ç†æ¨¡å—ã€‚åŠŸèƒ½å¦‚ä¸‹ï¼š
- * 1. æœ‰å¹´æœˆæ—¥æ—¶åˆ†ç§’
- * 2. å®æ—¶æ—¶é’Ÿ
- * 3. æ—¶é—´å·®è®¡ç®—
- * 4. æ—¶é—´æ¯”è¾ƒï¼ˆåŠå¤§äºã€å°äºã€ç­‰äºï¼‰
- * 5. æ—¶é—´åŒæ­¥
- * è´Ÿè´£äººï¼šè‘£è¶…
+/**
+ * Ê±¼ä¹ÜÀíÄ£¿é¡£¹¦ÄÜÈçÏÂ£º
+ * 1. ÓĞÄêÔÂÈÕÊ±·ÖÃë
+ * 2. ÊµÊ±Ê±ÖÓ
+ * 3. Ê±¼ä²î¼ÆËã
+ * 4. Ê±¼ä±È½Ï£¨¼°´óÓÚ¡¢Ğ¡ÓÚ¡¢µÈÓÚ£©
+ * 5. Ê±¼äÍ¬²½
+ * ¸ºÔğÈË£º¶­³¬
  */
 #pragma once
 #include "Global.h" 
@@ -27,22 +27,22 @@ private:
 
 public:
 	void TimeSync();
-	byte Compare(byte b1, byte b2);  // å¤§å°æ¯”è¾ƒ
-	byte Compare(DateTime time1, DateTime time2);		// è¿”å› 0 - ç›¸ç­‰ï¼Œ1 - å¤§äºï¼Œ2 - å°äº
-	int TimeDiffer(DateTime time1, DateTime time2);		// è¿”å›ç§’æ•°
-	bool SetTime(byte year_, byte mouth_, byte day_, byte hour_, byte minute_, byte second_); //è®¾ç½®æ—¶é—´
+	byte Compare(byte b1, byte b2);  // ´óĞ¡±È½Ï
+	byte Compare(DateTime time1, DateTime time2);		// ·µ»Ø 0 - ÏàµÈ£¬1 - ´óÓÚ£¬2 - Ğ¡ÓÚ
+	int TimeDiffer(DateTime time1, DateTime time2);		// ·µ»ØÃëÊı
+	bool SetTime(byte year_, byte mouth_, byte day_, byte hour_, byte minute_, byte second_); //ÉèÖÃÊ±¼ä
 	
-	void SetYear(byte b);	            //è®¾ç½®å¹´
-	void SetMouth(byte b);				//è®¾ç½®æœˆ
-	void SetDay(byte b);				//è®¾ç½®æ—¥
-	void SetHour(byte b);				//è®¾ç½®æ—¶
-	void SetMin(byte b);				//è®¾ç½®åˆ†
-	void SetSec(byte b);				//è®¾ç½®ç§’
+	void SetYear(byte b);	            //ÉèÖÃÄê
+	void SetMouth(byte b);				//ÉèÖÃÔÂ
+	void SetDay(byte b);				//ÉèÖÃÈÕ
+	void SetHour(byte b);				//ÉèÖÃÊ±
+	void SetMin(byte b);				//ÉèÖÃ·Ö
+	void SetSec(byte b);				//ÉèÖÃÃë
 
-	byte GetYear();             //è·å–å¹´
-	byte GetMouth();			//è·å–æœˆ
-	byte GetDay();				//è·å–æ—¥
-	byte GetHour();				//è·å–æ—¶
-	byte GetMin();				//è·å–åˆ†
-	byte GetSec();				//è·å–ç§’
+	byte GetYear();             //»ñÈ¡Äê
+	byte GetMouth();			//»ñÈ¡ÔÂ
+	byte GetDay();				//»ñÈ¡ÈÕ
+	byte GetHour();				//»ñÈ¡Ê±
+	byte GetMin();				//»ñÈ¡·Ö
+	byte GetSec();				//»ñÈ¡Ãë
 };

@@ -1,4 +1,4 @@
-ï»¿
+
 #pragma once
 #include "Global.h" 
 #include <list>
@@ -15,16 +15,16 @@ public:
 	virtual ~HistoryVideoManager();
 
 private:
-	VideoManager*	manager;					// æœ¬è§†é¢‘èŠ‚ç‚¹çš„è§†é¢‘ç®¡ç†æ¨¡å—
-	list<HistoryVideo>*  recordedVideos;	// æœ¬åœ°è§†é¢‘èŠ‚ç‚¹çš„å†å²è§†é¢‘æ¸…å•åˆ—è¡¨
-	bool			finishPlayVideo;			// å®Œæˆæœ¬æ¬¡è§†é¢‘æ’­æ”¾çš„æ ‡å¿—
-	byte			numVideoPlaying;			// æ­£åœ¨æ’­æ”¾çš„å†å²è§†é¢‘çš„æ•°é‡
-	HistoryVideo*	historyVideo;				// æŒ‡å‘æ­£åœ¨æ’­æ”¾çš„å†å²è§†é¢‘çš„æŒ‡é’ˆï¼Œå¯èƒ½ä¸éœ€è¦
-	byte			playSpeed;					// æ’­æ”¾é€Ÿåº¦: 1 - 30ï¼Œåˆ†åˆ«å¯¹åº”æ¯ç§’ 1 - 30 å¸§
+	VideoManager*	manager;					// ±¾ÊÓÆµ½ÚµãµÄÊÓÆµ¹ÜÀíÄ£¿é
+	list<HistoryVideo>*  recordedVideos;	// ±¾µØÊÓÆµ½ÚµãµÄÀúÊ·ÊÓÆµÇåµ¥ÁĞ±í
+	bool			finishPlayVideo;			// Íê³É±¾´ÎÊÓÆµ²¥·ÅµÄ±êÖ¾
+	byte			numVideoPlaying;			// ÕıÔÚ²¥·ÅµÄÀúÊ·ÊÓÆµµÄÊıÁ¿
+	HistoryVideo*	historyVideo;				// Ö¸ÏòÕıÔÚ²¥·ÅµÄÀúÊ·ÊÓÆµµÄÖ¸Õë£¬¿ÉÄÜ²»ĞèÒª
+	byte			playSpeed;					// ²¥·ÅËÙ¶È: 1 - 30£¬·Ö±ğ¶ÔÓ¦Ã¿Ãë 1 - 30 Ö¡
 
 public:	
-	int				PlayHistoryVideo(DateTime startTime, DateTime endTime);		// è¿ç”¨HistoryVideoPlayeræ’­æ”¾æŒ‡å®šæ—¶é—´æ®µçš„è§†é¢‘ï¼Œæœ¬å‡½æ•°æ¯è¢«è°ƒç”¨ä¸€æ¬¡å°†åˆ›å»ºä¸€ä¸ªçº¿ç¨‹
-	void			SetFinishPlayVideo(byte videoID);							// è®¾ç½®è§†é¢‘å·²ç»æ’­æ”¾å®Œæ¯•æ ‡å¿—
-	bool			IsFinishPlayVideo();										// ç”¨äºVideoManageræŸ¥è¯¢è§†é¢‘æ˜¯å¦å·²ç»æ’­æ”¾å®Œæ¯•
-	void			SetPlaySpeed(byte playSpeed);								// è®¾ç½®è§†é¢‘æ’­æ”¾é€Ÿåº¦
+	int				PlayHistoryVideo(DateTime startTime, DateTime endTime);		// ÔËÓÃHistoryVideoPlayer²¥·ÅÖ¸¶¨Ê±¼ä¶ÎµÄÊÓÆµ£¬±¾º¯ÊıÃ¿±»µ÷ÓÃÒ»´Î½«´´½¨Ò»¸öÏß³Ì
+	void			SetFinishPlayVideo(byte videoID);							// ÉèÖÃÊÓÆµÒÑ¾­²¥·ÅÍê±Ï±êÖ¾
+	bool			IsFinishPlayVideo();										// ÓÃÓÚVideoManager²éÑ¯ÊÓÆµÊÇ·ñÒÑ¾­²¥·ÅÍê±Ï
+	void			SetPlaySpeed(byte playSpeed);								// ÉèÖÃÊÓÆµ²¥·ÅËÙ¶È
 };

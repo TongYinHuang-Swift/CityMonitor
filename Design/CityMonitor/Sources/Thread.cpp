@@ -7,7 +7,7 @@
 #else
 #include <pthread.h> 
 #include <assert.h>
-// 鍦↙inux涓嬪畾涔塛INAPI涓虹┖
+// 在Linux下定义WINAPI为空
 #define		WINAPI		
 #endif
 

@@ -1,4 +1,4 @@
-ï»¿#include "DateTime.h"
+#include "DateTime.h"
 #include "Debugger.h" 
 #include <time.h>
 
@@ -9,7 +9,7 @@ DateTime::DateTime()
 	time(&timep);
 	p=localtime(&timep);
 
-	year    = p->tm_year - 100; //c++å¹´æ˜¯ä»1900å¹´å¼€å§‹ç®—çš„
+	year    = p->tm_year - 100; //c++ÄêÊÇ´Ó1900Äê¿ªÊ¼ËãµÄ
 	month   = p->tm_mon;
 	day     = p->tm_mday;
 	hour    = p->tm_hour;
@@ -92,22 +92,22 @@ byte DateTime::Compare(DateTime time1, DateTime time2)
 }
 
 // struct tm {
-// int tm_sec; /* ç§’ â€“ å–å€¼åŒºé—´ä¸º[0,59] */
-// int tm_min; /* åˆ† - å–å€¼åŒºé—´ä¸º[0,59] */
-// int tm_hour; /* æ—¶ - å–å€¼åŒºé—´ä¸º[0,23] */
-// int tm_mday; /* ä¸€ä¸ªæœˆä¸­çš„æ—¥æœŸ - å–å€¼åŒºé—´ä¸º[1,31] */
-// int tm_mon; /* æœˆä»½ï¼ˆä»ä¸€æœˆå¼€å§‹ï¼Œ0ä»£è¡¨ä¸€æœˆï¼‰ - å–å€¼åŒºé—´ä¸º[0,11] */
-// int tm_year; /* å¹´ä»½ï¼Œå…¶å€¼ç­‰äºå®é™…å¹´ä»½å‡å»1900 */
-// int tm_wday; /* æ˜ŸæœŸ â€“ å–å€¼åŒºé—´ä¸º[0,6]ï¼Œå…¶ä¸­0ä»£è¡¨æ˜ŸæœŸå¤©ï¼Œ1ä»£è¡¨æ˜ŸæœŸä¸€ï¼Œä»¥æ­¤ç±»æ¨ */
-// int tm_yday; /* ä»æ¯å¹´çš„1æœˆ1æ—¥å¼€å§‹çš„å¤©æ•° â€“ å–å€¼åŒºé—´ä¸º[0,365]ï¼Œå…¶ä¸­0ä»£è¡¨1æœˆ1æ—¥ï¼Œ1ä»£è¡¨1æœˆ2æ—¥ï¼Œä»¥æ­¤ç±»æ¨ */
-// int tm_isdst; /* å¤ä»¤æ—¶æ ‡è¯†ç¬¦ï¼Œå®è¡Œå¤ä»¤æ—¶çš„æ—¶å€™ï¼Œtm_isdstä¸ºæ­£ã€‚ä¸å®è¡Œå¤ä»¤æ—¶çš„è¿›å€™ï¼Œtm_isdstä¸º0ï¼›ä¸äº†è§£æƒ…å†µæ—¶ï¼Œtm_isdst()ä¸ºè´Ÿã€‚*/
+// int tm_sec; /* Ãë ¨C È¡ÖµÇø¼äÎª[0,59] */
+// int tm_min; /* ·Ö - È¡ÖµÇø¼äÎª[0,59] */
+// int tm_hour; /* Ê± - È¡ÖµÇø¼äÎª[0,23] */
+// int tm_mday; /* Ò»¸öÔÂÖĞµÄÈÕÆÚ - È¡ÖµÇø¼äÎª[1,31] */
+// int tm_mon; /* ÔÂ·İ£¨´ÓÒ»ÔÂ¿ªÊ¼£¬0´ú±íÒ»ÔÂ£© - È¡ÖµÇø¼äÎª[0,11] */
+// int tm_year; /* Äê·İ£¬ÆäÖµµÈÓÚÊµ¼ÊÄê·İ¼õÈ¥1900 */
+// int tm_wday; /* ĞÇÆÚ ¨C È¡ÖµÇø¼äÎª[0,6]£¬ÆäÖĞ0´ú±íĞÇÆÚÌì£¬1´ú±íĞÇÆÚÒ»£¬ÒÔ´ËÀàÍÆ */
+// int tm_yday; /* ´ÓÃ¿ÄêµÄ1ÔÂ1ÈÕ¿ªÊ¼µÄÌìÊı ¨C È¡ÖµÇø¼äÎª[0,365]£¬ÆäÖĞ0´ú±í1ÔÂ1ÈÕ£¬1´ú±í1ÔÂ2ÈÕ£¬ÒÔ´ËÀàÍÆ */
+// int tm_isdst; /* ÏÄÁîÊ±±êÊ¶·û£¬ÊµĞĞÏÄÁîÊ±µÄÊ±ºò£¬tm_isdstÎªÕı¡£²»ÊµĞĞÏÄÁîÊ±µÄ½øºò£¬tm_isdstÎª0£»²»ÁË½âÇé¿öÊ±£¬tm_isdst()Îª¸º¡£*/
 // }
 int DateTime::TimeDiffer(DateTime time1, DateTime time2) 
 {
 	PRINT(ALWAYS_PRINT, "DateTime", __FUNCTION__, __LINE__);
 
 	tm tmObj1 , tmObj2; 
-	tmObj1.tm_year = time1.GetYear() + 100;  //c++å¹´æ˜¯ä»1900å¹´å¼€å§‹ç®—çš„
+	tmObj1.tm_year = time1.GetYear() + 100;  //c++ÄêÊÇ´Ó1900Äê¿ªÊ¼ËãµÄ
 	tmObj1.tm_mon  = time1.GetMouth();  
 	tmObj1.tm_mday = time1.GetDay();  
 	tmObj1.tm_hour = time1.GetHour();  
@@ -115,7 +115,7 @@ int DateTime::TimeDiffer(DateTime time1, DateTime time2)
 	tmObj1.tm_sec  = time1.GetSec();  
     tmObj1.tm_isdst= -1;  
 
-	tmObj2.tm_year = time2.GetYear() + 100;  //c++å¹´æ˜¯ä»1900å¹´å¼€å§‹ç®—çš„
+	tmObj2.tm_year = time2.GetYear() + 100;  //c++ÄêÊÇ´Ó1900Äê¿ªÊ¼ËãµÄ
 	tmObj2.tm_mon  = time2.GetMouth();  
 	tmObj2.tm_mday = time2.GetDay();  
 	tmObj2.tm_hour = time2.GetHour();  

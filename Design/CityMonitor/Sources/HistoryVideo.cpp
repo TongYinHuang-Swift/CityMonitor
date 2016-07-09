@@ -1,4 +1,4 @@
-ï»¿#include "HistoryVideo.h" 
+#include "HistoryVideo.h" 
 #include "Debugger.h"
 #ifdef WIN32
 #include <direct.h>
@@ -16,7 +16,7 @@ HistoryVideo::~HistoryVideo()
 {
 }
 /**
- * æ–‡ä»¶æ ¼å¼ï¼šèµ·å§‹æ—¶é—´
+ * ÎÄ¼ş¸ñÊ½£ºÆğÊ¼Ê±¼ä
  */
 void HistoryVideo::SaveRecord(FILE *findex)
 {

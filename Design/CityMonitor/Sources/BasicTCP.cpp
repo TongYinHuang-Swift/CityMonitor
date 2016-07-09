@@ -1,17 +1,17 @@
-ï»¿/**
+/**
  *=======================================================================================================================
- * Swift Technology é‡åº†æ€å§”å¤«ç‰¹ç§‘æŠ€æœ‰é™å…¬å¸ åŸå¸‚è§†é¢‘ç›‘æ§ç³»ç»Ÿè½¯ä»¶
+ * Swift Technology ÖØÇìË¼Î¯·òÌØ¿Æ¼¼ÓĞÏŞ¹«Ë¾ ³ÇÊĞÊÓÆµ¼à¿ØÏµÍ³Èí¼ş
  * Name        : BasicTCP.cpp
- * Author      : å‘¨æ—
+ * Author      : ÖÜÁÖ
  * Version     : V1.0.0
- * Copyright   : æœ¬è½¯ä»¶ç”±é‡åº†æ€å§”å¤«ç‰¹ç§‘æŠ€æœ‰é™å…¬å¸å¼€å‘å¹¶æ‹¥æœ‰æ‰€æœ‰æƒåˆ©ï¼Œåœ¨æ— æ€å§”å¤«ç‰¹ä¹¦é¢æˆæƒè®¸å¯çš„æƒ…å†µä¸‹ï¼Œä»»ä½•å…¶ä»–å›¢ä½“æˆ–ä¸ªäºº
- *				 ä¸å¾—å¯¹æœ¬æ–‡ä»¶è¿›è¡Œéƒ¨åˆ†æˆ–å…¨éƒ¨çš„æ‹·è´ï¼Œå¦åˆ™ï¼Œæœ¬å…¬å¸å°†ä¾æ³•è¿½ç©¶ç›¸åº”çš„æ³•å¾‹è´£ä»»ã€‚
- * Description : TCP/IP é€šä¿¡æ¨¡å—
+ * Copyright   : ±¾Èí¼şÓÉÖØÇìË¼Î¯·òÌØ¿Æ¼¼ÓĞÏŞ¹«Ë¾¿ª·¢²¢ÓµÓĞËùÓĞÈ¨Àû£¬ÔÚÎŞË¼Î¯·òÌØÊéÃæÊÚÈ¨Ğí¿ÉµÄÇé¿öÏÂ£¬ÈÎºÎÆäËûÍÅÌå»ò¸öÈË
+ *				 ²»µÃ¶Ô±¾ÎÄ¼ş½øĞĞ²¿·Ö»òÈ«²¿µÄ¿½±´£¬·ñÔò£¬±¾¹«Ë¾½«ÒÀ·¨×·¾¿ÏàÓ¦µÄ·¨ÂÉÔğÈÎ¡£
+ * Description : TCP/IP Í¨ĞÅÄ£¿é
  *=======================================================================================================================
  * Revision History:
- * ä¿®æ”¹æ—¶é—´    ä¿®æ”¹äºº  ä¿®æ”¹å†…å®¹
- * 2016-06-11  è‘£è¶…    æ–°å»º
- * 2016-06-xx  å‘¨æ—    å®Œæˆç‰ˆæœ¬V1.0.0
+ * ĞŞ¸ÄÊ±¼ä    ĞŞ¸ÄÈË  ĞŞ¸ÄÄÚÈİ
+ * 2016-06-11  ¶­³¬    ĞÂ½¨
+ * 2016-06-xx  ÖÜÁÖ    Íê³É°æ±¾V1.0.0
  *=======================================================================================================================
  */
 #include "BasicTCP.h" 
@@ -29,7 +29,7 @@
 
 #include <winsock2.h>
 #include "ws2tcpip.h"
-#pragma comment(lib, "ws2_32.lib")  //åŠ è½½ ws2_32.dll
+#pragma comment(lib, "ws2_32.lib")  //¼ÓÔØ ws2_32.dll
 #define bzero(a, b)     memset(a, 0, b)
 #else
 
@@ -59,12 +59,12 @@ BasicTCP::~BasicTCP()
 void BasicTCP::Init()
 {
 	sockID = 0;
-	strcpy(connTypeStr[COMMAND_CHAN_CONNECTION], "å‘½ä»¤é€šé“");
-	strcpy(connTypeStr[LOCAL_CAMERA_CONNECTION], "æœ¬åœ°IPC");
-	strcpy(connTypeStr[LEFT_NODE_CONNECTION],    "å·¦é‚»è¿æ¥");
-	strcpy(connTypeStr[RIGHT_NODE_CONNECTION],   "å³é‚»è¿æ¥");
-	strcpy(modeStr[MODE_CLIENT],   "å®¢æˆ·ç«¯");
-	strcpy(modeStr[MODE_SERVER],   "æœåŠ¡å™¨");
+	strcpy(connTypeStr[COMMAND_CHAN_CONNECTION], "ÃüÁîÍ¨µÀ");
+	strcpy(connTypeStr[LOCAL_CAMERA_CONNECTION], "±¾µØIPC");
+	strcpy(connTypeStr[LEFT_NODE_CONNECTION],    "×óÁÚÁ¬½Ó");
+	strcpy(connTypeStr[RIGHT_NODE_CONNECTION],   "ÓÒÁÚÁ¬½Ó");
+	strcpy(modeStr[MODE_CLIENT],   "¿Í»§¶Ë");
+	strcpy(modeStr[MODE_SERVER],   "·şÎñÆ÷");
 
 	//PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s", connTypeStr[connectType], modeStr[mode]);
@@ -74,7 +74,7 @@ void BasicTCP::Init()
 	int status = WSAStartup(MAKEWORD(1, 1), &Data);
 #endif
 }
-// å»ºç«‹è¿æ¥æœ¬åœ°æ‘„åƒæœºçš„æœåŠ¡å™¨ã€‚å°é»„ï¼Œè¯·ä¿®æ”¹æ­¤å‡½æ•°å†…å®¹ï¼Œä½¿ç”¨SDKçš„APIè¯»å–è§†é¢‘æ•°æ®
+// ½¨Á¢Á¬½Ó±¾µØÉãÏñ»úµÄ·şÎñÆ÷¡£Ğ¡»Æ£¬ÇëĞŞ¸Ä´Ëº¯ÊıÄÚÈİ£¬Ê¹ÓÃSDKµÄAPI¶ÁÈ¡ÊÓÆµÊı¾İ
 void BasicTCP::CreateServer4Cam()
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
@@ -82,16 +82,16 @@ void BasicTCP::CreateServer4Cam()
 	sockID = socket(PF_INET,SOCK_STREAM,0);
 	if( sockID < 0)
 	{
-	    PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - Socketåˆ›å»ºé”™è¯¯", connTypeStr[connectType], modeStr[mode], localIpAddr);
+	    PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - Socket´´½¨´íÎó", connTypeStr[connectType], modeStr[mode], localIpAddr);
 	    return;
 	}
 #ifdef USE_LINGER_OPTION
 	struct linger lingerStruct;
-	lingerStruct.l_onoff = 1; //åœ¨è°ƒç”¨close(socket)æ—¶è¿˜æœ‰æ•°æ®æœªå‘é€å®Œï¼Œå…è®¸ç­‰å¾…
+	lingerStruct.l_onoff = 1; //ÔÚµ÷ÓÃclose(socket)Ê±»¹ÓĞÊı¾İÎ´·¢ËÍÍê£¬ÔÊĞíµÈ´ı
 	lingerStruct.l_linger = 0;
 	setsockopt(sockID, SOL_SOCKET, SO_LINGER, (const char*)&lingerStruct, sizeof(lingerStruct));
 #else
-	int opt = 1; // èµ‹ä»»æ„å€¼ï¼Œä»€ä¹ˆæ„ä¹‰ï¼Ÿ
+	int opt = 1; // ¸³ÈÎÒâÖµ£¬Ê²Ã´ÒâÒå£¿
 	setsockopt(sockID, SOL_SOCKET, SO_REUSEADDR, (const char*)&opt, sizeof(opt));
 #endif
 	Bind();
@@ -108,12 +108,12 @@ void BasicTCP::CreateServer4Cam()
 	}
 	else
 	{      
-		PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - Accepté”™è¯¯", connTypeStr[connectType], modeStr[mode], localIpAddr);
+		PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - Accept´íÎó", connTypeStr[connectType], modeStr[mode], localIpAddr);
 	}
 #endif
 }		
 
-// å»ºç«‹æœåŠ¡å™¨è¿æ¥
+// ½¨Á¢·şÎñÆ÷Á¬½Ó
 void BasicTCP::CreateServer()
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, "%s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
@@ -121,15 +121,15 @@ void BasicTCP::CreateServer()
 	sockID = socket(PF_INET,SOCK_STREAM,0);
 	if (sockID < 0)
 	{
-	    PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - Socketåˆ›å»ºé”™è¯¯", connTypeStr[connectType], modeStr[mode], localIpAddr);
+	    PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - Socket´´½¨´íÎó", connTypeStr[connectType], modeStr[mode], localIpAddr);
 	}
 #ifdef USE_LINGER_OPTION
 	struct linger lingerStruct;
-	lingerStruct.l_onoff = 1; //åœ¨è°ƒç”¨close(socket)æ—¶è¿˜æœ‰æ•°æ®æœªå‘é€å®Œï¼Œå…è®¸ç­‰å¾…
+	lingerStruct.l_onoff = 1; //ÔÚµ÷ÓÃclose(socket)Ê±»¹ÓĞÊı¾İÎ´·¢ËÍÍê£¬ÔÊĞíµÈ´ı
 	lingerStruct.l_linger = 0;
 	setsockopt(sockID, SOL_SOCKET, SO_LINGER, (const char*)&lingerStruct, sizeof(lingerStruct));
 #else
-	int opt = 1; // èµ‹ä»»æ„å€¼ï¼Œä»€ä¹ˆæ„ä¹‰ï¼Ÿ
+	int opt = 1; // ¸³ÈÎÒâÖµ£¬Ê²Ã´ÒâÒå£¿
     setsockopt(sockID, SOL_SOCKET, SO_REUSEADDR, (const char*)&opt, sizeof(opt));
 #endif
 	Bind();
@@ -137,7 +137,7 @@ void BasicTCP::CreateServer()
 	acceptor = new Acceptor(this);
 	acceptor->Init();
 }		
-// å»ºç«‹æœåŠ¡å™¨è¿æ¥ - å·²è¿‡æ—¶ï¼ŒCreateServerè°ƒè¯•å®Œæˆååˆ é™¤
+// ½¨Á¢·şÎñÆ÷Á¬½Ó - ÒÑ¹ıÊ±£¬CreateServerµ÷ÊÔÍê³ÉºóÉ¾³ı
 void BasicTCP::CreateServerOld()
 {
 		PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__);
@@ -150,7 +150,7 @@ void BasicTCP::CreateServerOld()
 	    }
 	    {
 			struct linger lingerStruct;
-			lingerStruct.l_onoff = 1; //åœ¨è°ƒç”¨close(socket)æ—¶è¿˜æœ‰æ•°æ®æœªå‘é€å®Œï¼Œå…è®¸ç­‰å¾…
+			lingerStruct.l_onoff = 1; //ÔÚµ÷ÓÃclose(socket)Ê±»¹ÓĞÊı¾İÎ´·¢ËÍÍê£¬ÔÊĞíµÈ´ı
 			lingerStruct.l_linger = 0;
 			setsockopt(sockID, SOL_SOCKET, SO_LINGER, (const char*)&lingerStruct, sizeof(lingerStruct));
 
@@ -174,7 +174,7 @@ void BasicTCP::CreateServerOld()
 	 }
 }		
 
-// å»ºç«‹å®¢æˆ·ç«¯è¿æ¥
+// ½¨Á¢¿Í»§¶ËÁ¬½Ó
 void BasicTCP::CreateClient()
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
@@ -182,7 +182,7 @@ void BasicTCP::CreateClient()
 	bool isConnected= false;
 	do
  {
-	 sockID=socket(AF_INET, SOCK_STREAM, 0); //å»ºç«‹socket
+	 sockID=socket(AF_INET, SOCK_STREAM, 0); //½¨Á¢socket
 #ifndef WIN32
 	 signal(SIGPIPE,SIG_IGN);
 #endif 	 
@@ -196,19 +196,19 @@ void BasicTCP::CreateClient()
 	 		Close();
 	 		Elapse(5);
 
-			PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - æ— æ³•è¿æ¥æœåŠ¡å™¨, ç¬¬ %d æ¬¡å°è¯•", connTypeStr[connectType], modeStr[mode], localIpAddr, maxConnectRetryTime);
+			PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - ÎŞ·¨Á¬½Ó·şÎñÆ÷, µÚ %d ´Î³¢ÊÔ", connTypeStr[connectType], modeStr[mode], localIpAddr, maxConnectRetryTime);
 	 	}
 	}while((maxConnectRetryTime++)<MAX_NUM_CONN_TIME);
 	
 	if (!isConnected)
 	{
-		//PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %sï¼š%sï¼š%s - æ”¾å¼ƒè¿æ¥æœåŠ¡å™¨, å®¢æˆ·ç«¯åˆ›å»ºå¤±è´¥", connTypeStr[connectType], modeStr[mode], localIpAddr);
+		//PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s£º%s£º%s - ·ÅÆúÁ¬½Ó·şÎñÆ÷, ¿Í»§¶Ë´´½¨Ê§°Ü", connTypeStr[connectType], modeStr[mode], localIpAddr);
 	}
 	
 	
 }									
 
-// å·¥ä½œåœ¨æœåŠ¡å™¨æ¨¡å¼æ—¶æ¥å—è¿œç¨‹å®¢æˆ·ç«¯çš„è¿æ¥ - å·²ç»è¿‡æ—¶ï¼ŒAcceptorè°ƒè¯•å®Œæˆæ—¶åˆ é™¤
+// ¹¤×÷ÔÚ·şÎñÆ÷Ä£Ê½Ê±½ÓÊÜÔ¶³Ì¿Í»§¶ËµÄÁ¬½Ó - ÒÑ¾­¹ıÊ±£¬Acceptorµ÷ÊÔÍê³ÉÊ±É¾³ı
 SOCKET BasicTCP::Accept()
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__);
@@ -216,8 +216,8 @@ SOCKET BasicTCP::Accept()
 	int client_len = sizeof(client_address);
 	SOCKET acceptSock = accept(sockID, (struct sockaddr *)&client_address, (socklen_t*)&client_len);
 	if(acceptSock>0)
-	{ //æœ‰é“¾æ¥åˆ°æ¥
-		PRINT(ALWAYS_PRINT, "BasicTCP ", __FUNCTION__, __LINE__, "acceptæ–°åˆ°è¿æ¥ip=%s, port=%d", inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
+	{ //ÓĞÁ´½Óµ½À´
+		PRINT(ALWAYS_PRINT, "BasicTCP ", __FUNCTION__, __LINE__, "acceptĞÂµ½Á¬½Óip=%s, port=%d", inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
   		return  acceptSock;
 	}
 	else
@@ -228,19 +228,19 @@ SOCKET BasicTCP::Accept()
 	}
 	return -1;
 }			
-// å·²ç»è¿‡æ—¶ï¼ŒAcceptorè°ƒè¯•å®Œæˆæ—¶åˆ é™¤
+// ÒÑ¾­¹ıÊ±£¬Acceptorµ÷ÊÔÍê³ÉÊ±É¾³ı
 void BasicTCP::Bind2()
 {
     struct sockaddr_in server_addr;
-    bzero(&server_addr,sizeof(server_addr)); //æŠŠä¸€æ®µå†…å­˜åŒºçš„å†…å®¹å…¨éƒ¨è®¾ç½®ä¸º0
+    bzero(&server_addr,sizeof(server_addr)); //°ÑÒ»¶ÎÄÚ´æÇøµÄÄÚÈİÈ«²¿ÉèÖÃÎª0
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htons(INADDR_ANY);
     //server_addr.sin_addr.s_addr = inet_addr(localIpAddr);
     server_addr.sin_port = htons(localPort);
 
-    //åˆ›å»ºç”¨äºinternetçš„æµåè®®(TCP)socket,ç”¨server_socketä»£è¡¨æœåŠ¡å™¨socket
+    //´´½¨ÓÃÓÚinternetµÄÁ÷Ğ­Òé(TCP)socket,ÓÃserver_socket´ú±í·şÎñÆ÷socket
 
-    //æŠŠsocketå’Œsocketåœ°å€ç»“æ„è”ç³»èµ·æ¥
+    //°ÑsocketºÍsocketµØÖ·½á¹¹ÁªÏµÆğÀ´
     if( 0 != bind(sockID,(struct sockaddr*)&server_addr,sizeof(server_addr)))
     {
        // printf("Server Bind Port : %d Failed!", HELLO_WORLD_SERVER_PORT);
@@ -250,14 +250,14 @@ void BasicTCP::Bind2()
     }
 }
 
-// åšç½‘ç»œè¿æ¥çš„ç«¯å£åŠIPåœ°å€çš„ç»‘å®š
+// ×öÍøÂçÁ¬½ÓµÄ¶Ë¿Ú¼°IPµØÖ·µÄ°ó¶¨
 void BasicTCP::Bind()
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
 	//#ifdef LINUX
 	int server_len ;
 	struct sockaddr_in address;
-	bzero(&address,sizeof(address)); //æŠŠä¸€æ®µå†…å­˜åŒºçš„å†…å®¹å…¨éƒ¨è®¾ç½®ä¸º0
+	bzero(&address,sizeof(address)); //°ÑÒ»¶ÎÄÚ´æÇøµÄÄÚÈİÈ«²¿ÉèÖÃÎª0
 	address.sin_family = AF_INET;
 
 	address.sin_addr.s_addr = htons(INADDR_ANY);
@@ -266,7 +266,7 @@ void BasicTCP::Bind()
 	server_len =sizeof(address);
 	int  result=bind(sockID, (struct sockaddr *)&address, server_len);
 }						
-// å·¥ä½œåœ¨å®¢æˆ·ç«¯æ¨¡å¼æ—¶è¿æ¥è¿œç¨‹æœåŠ¡å™¨
+// ¹¤×÷ÔÚ¿Í»§¶ËÄ£Ê½Ê±Á¬½ÓÔ¶³Ì·şÎñÆ÷
 bool BasicTCP::Connect()
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
@@ -280,13 +280,13 @@ bool BasicTCP::Connect()
 	if(result != 0)
 	{
 		int err = errno;
-		PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - å®¢æˆ·ç«¯è¿æ¥é”™è¯¯ä»£ç ï¼š%s", connTypeStr[connectType], modeStr[mode], localIpAddr, strerror(errno));
+		PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - ¿Í»§¶ËÁ¬½Ó´íÎó´úÂë£º%s", connTypeStr[connectType], modeStr[mode], localIpAddr, strerror(errno));
 		return false;
 	}
 
 	return true;
 }						
-// å·¥ä½œåœ¨æœåŠ¡å™¨æ¨¡å¼æ—¶å¼€å§‹ç­‰å¾…è¿œç¨‹å®¢æˆ·ç«¯çš„è¿æ¥
+// ¹¤×÷ÔÚ·şÎñÆ÷Ä£Ê½Ê±¿ªÊ¼µÈ´ıÔ¶³Ì¿Í»§¶ËµÄÁ¬½Ó
 void BasicTCP::Listen()
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
@@ -296,36 +296,36 @@ void BasicTCP::Listen()
 	if (0 != ret)
 	{
 	    int err = errno;
-		PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - å€¾å¬é”™è¯¯ä»£ç :%s - ", connTypeStr[connectType], modeStr[mode], localIpAddr, strerror(errno));
+		PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s - ÇãÌı´íÎó´úÂë:%s - ", connTypeStr[connectType], modeStr[mode], localIpAddr, strerror(errno));
 	}
 }						
-// ä»ç½‘ç»œè¿æ¥çš„å¦ä¸€ç«¯æ¥æ”¶æ•°æ®ã€‚è¿™å¯èƒ½æ˜¯ä¸€ä¸ªä¸‹è¡Œçš„å‘½ä»¤ï¼Œä¹Ÿå¯èƒ½æ˜¯ä¸€æ®µä¸Šè¡Œçš„è§†é¢‘æ•°æ®ã€‚è¯¥å‡½æ•°éœ€è¦åœ¨ä¸€ä¸ªçº¿ç¨‹ä¸­è¿è¡Œã€‚
-// 1. ä¸æœ¬åœ°æ‘„åƒæœºè¿æ¥ï¼šæ¥æ”¶æ¥è‡ªæœ¬åœ°æ‘„åƒæœºçš„è§†é¢‘æ•°æ®
-// 2. ä¸å³é‚»è§†é¢‘å•å…ƒè¿æ¥ï¼šæ¥æ”¶æ¥è‡ªå³é‚»è§†é¢‘å•å…ƒçš„è§†é¢‘æµï¼Œè¿™å¯èƒ½æ˜¯æ¥è‡ªå³é‚»è§†é¢‘å•å…ƒçš„å¤šä¸ªè¿æ¥
-// 3. ä¸å·¦é‚»è§†é¢‘å•å…ƒè¿æ¥ï¼šæ¥æ”¶å·¦é‚»è§†é¢‘å•å…ƒè½¬å‘çš„æ¥è‡ªè¿œç¨‹ç›‘æ§ä¸­å¿ƒçš„ä¸‹è¡Œå‘½ä»¤
+// ´ÓÍøÂçÁ¬½ÓµÄÁíÒ»¶Ë½ÓÊÕÊı¾İ¡£Õâ¿ÉÄÜÊÇÒ»¸öÏÂĞĞµÄÃüÁî£¬Ò²¿ÉÄÜÊÇÒ»¶ÎÉÏĞĞµÄÊÓÆµÊı¾İ¡£¸Ãº¯ÊıĞèÒªÔÚÒ»¸öÏß³ÌÖĞÔËĞĞ¡£
+// 1. Óë±¾µØÉãÏñ»úÁ¬½Ó£º½ÓÊÕÀ´×Ô±¾µØÉãÏñ»úµÄÊÓÆµÊı¾İ
+// 2. ÓëÓÒÁÚÊÓÆµµ¥ÔªÁ¬½Ó£º½ÓÊÕÀ´×ÔÓÒÁÚÊÓÆµµ¥ÔªµÄÊÓÆµÁ÷£¬Õâ¿ÉÄÜÊÇÀ´×ÔÓÒÁÚÊÓÆµµ¥ÔªµÄ¶à¸öÁ¬½Ó
+// 3. Óë×óÁÚÊÓÆµµ¥ÔªÁ¬½Ó£º½ÓÊÕ×óÁÚÊÓÆµµ¥Ôª×ª·¢µÄÀ´×ÔÔ¶³Ì¼à¿ØÖĞĞÄµÄÏÂĞĞÃüÁî
 int BasicTCP::Receive(SOCKET socket)
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
-	Receiver* receiver = new Receiver(socket, writeBuffer); // ç½‘ç»œæ•°æ®æ¥æ”¶åŠç¼“å¾ªç¯å†²å™¨å†™æ•°æ®çº¿ç¨‹
+	Receiver* receiver = new Receiver(socket, writeBuffer); // ÍøÂçÊı¾İ½ÓÊÕ¼°»ºÑ­»·³åÆ÷Ğ´Êı¾İÏß³Ì
 	receiver->Init();
 
 	ThreadManager::GetInstance()->AddSocketThread(socket, receiver);
 	return 0;
 }						
-// å‘ç½‘ç»œè¿æ¥çš„å¦ä¸€ç«¯å‘é€æ•°æ®ã€‚è¿™å¯èƒ½æ˜¯è½¬å‘ä¸€ä¸ªä¸‹è¡Œçš„å‘½ä»¤ï¼Œä¹Ÿå¯èƒ½æ˜¯ä¸€æ®µä¸Šè¡Œçš„è§†é¢‘æ•°æ®ã€‚
-// 1. ä¸æœ¬åœ°æ‘„åƒæœºè¿æ¥ï¼šå‘é€æ‘„åƒæœºçš„æ§åˆ¶ä¿¡æ¯å’Œé…ç½®ä¿¡æ¯
-// 2. ä¸å³é‚»è§†é¢‘å•å…ƒè¿æ¥ï¼šè½¬å‘æ¥è‡ªè¿œç¨‹ç›‘æ§ä¸­å¿ƒçš„ä¸‹è¡Œå‘½ä»¤
-// 3. ä¸å·¦é‚»è§†é¢‘å•å…ƒè¿æ¥ï¼šå‘é€æˆ–è½¬å‘è§†é¢‘æµ
+// ÏòÍøÂçÁ¬½ÓµÄÁíÒ»¶Ë·¢ËÍÊı¾İ¡£Õâ¿ÉÄÜÊÇ×ª·¢Ò»¸öÏÂĞĞµÄÃüÁî£¬Ò²¿ÉÄÜÊÇÒ»¶ÎÉÏĞĞµÄÊÓÆµÊı¾İ¡£
+// 1. Óë±¾µØÉãÏñ»úÁ¬½Ó£º·¢ËÍÉãÏñ»úµÄ¿ØÖÆĞÅÏ¢ºÍÅäÖÃĞÅÏ¢
+// 2. ÓëÓÒÁÚÊÓÆµµ¥ÔªÁ¬½Ó£º×ª·¢À´×ÔÔ¶³Ì¼à¿ØÖĞĞÄµÄÏÂĞĞÃüÁî
+// 3. Óë×óÁÚÊÓÆµµ¥ÔªÁ¬½Ó£º·¢ËÍ»ò×ª·¢ÊÓÆµÁ÷
 int BasicTCP::Send(SOCKET socket)
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
-	Sender* sender = new Sender(socket, readBuffer); // å¾ªç¯ç¼“å†²å™¨æ•°æ®è¯»å‡ºåŠæ•°æ®å‘é€è‡³ç½‘ç»œçº¿ç¨‹
+	Sender* sender = new Sender(socket, readBuffer); // Ñ­»·»º³åÆ÷Êı¾İ¶Á³ö¼°Êı¾İ·¢ËÍÖÁÍøÂçÏß³Ì
 	sender->Init();
 
 	ThreadManager::GetInstance()->AddSocketThread(socket, sender);
 	return 1;
 }						
-// å…³é—­è¿æ¥
+// ¹Ø±ÕÁ¬½Ó
 void BasicTCP::Close()
 {
 	PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, " %s:%s:%s", connTypeStr[connectType], modeStr[mode], localIpAddr);
@@ -340,7 +340,7 @@ void BasicTCP::Close()
 #endif
 }						
 
-void BasicTCP::Elapse(int  timeout) //å®šæ—¶å‡½æ•°
+void BasicTCP::Elapse(int  timeout) //¶¨Ê±º¯Êı
 {
 #ifdef LINUX	
 	struct timeval tval; 
@@ -356,7 +356,7 @@ SOCKET BasicTCP::GetSockID()
 /*
 http://c.biancheng.net/cpp/html/3031.html
 
-Linux æœåŠ¡å™¨ä»£ç 
+Linux ·şÎñÆ÷´úÂë
 
 01.#include <stdio.h>
 02.#include <string.h>
@@ -367,30 +367,30 @@ Linux æœåŠ¡å™¨ä»£ç 
 07.#include <netinet/in.h>
 08.
 09.int main(){
-10.    //åˆ›å»ºå¥—æ¥å­—
+10.    //´´½¨Ì×½Ó×Ö
 11.    int serv_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 12.
-13.    //å°†å¥—æ¥å­—å’ŒIPã€ç«¯å£ç»‘å®š
+13.    //½«Ì×½Ó×ÖºÍIP¡¢¶Ë¿Ú°ó¶¨
 14.    struct sockaddr_in serv_addr;
-15.    memset(&serv_addr, 0, sizeof(serv_addr));  //æ¯ä¸ªå­—èŠ‚éƒ½ç”¨0å¡«å……
-16.    serv_addr.sin_family = AF_INET;  //ä½¿ç”¨IPv4åœ°å€
-17.    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //å…·ä½“çš„IPåœ°å€
-18.    serv_addr.sin_port = htons(1234);  //ç«¯å£
+15.    memset(&serv_addr, 0, sizeof(serv_addr));  //Ã¿¸ö×Ö½Ú¶¼ÓÃ0Ìî³ä
+16.    serv_addr.sin_family = AF_INET;  //Ê¹ÓÃIPv4µØÖ·
+17.    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //¾ßÌåµÄIPµØÖ·
+18.    serv_addr.sin_port = htons(1234);  //¶Ë¿Ú
 19.    bind(serv_sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
 20.
-21.    //è¿›å…¥ç›‘å¬çŠ¶æ€ï¼Œç­‰å¾…ç”¨æˆ·å‘èµ·è¯·æ±‚
+21.    //½øÈë¼àÌı×´Ì¬£¬µÈ´ıÓÃ»§·¢ÆğÇëÇó
 22.    listen(serv_sock, 20);
 23.
-24.    //æ¥æ”¶å®¢æˆ·ç«¯è¯·æ±‚
+24.    //½ÓÊÕ¿Í»§¶ËÇëÇó
 25.    struct sockaddr_in clnt_addr;
 26.    socklen_t clnt_addr_size = sizeof(clnt_addr);
 27.    int clnt_sock = accept(serv_sock, (struct sockaddr*)&clnt_addr, &clnt_addr_size);
 28.
-29.    //å‘å®¢æˆ·ç«¯å‘é€æ•°æ®
+29.    //Ïò¿Í»§¶Ë·¢ËÍÊı¾İ
 30.    char str[] = "Hello World!";
 31.    write(clnt_sock, str, sizeof(str));
 32.   
-33.    //å…³é—­å¥—æ¥å­—
+33.    //¹Ø±ÕÌ×½Ó×Ö
 34.    close(clnt_sock);
 35.    close(serv_sock);
 36.
@@ -398,7 +398,7 @@ Linux æœåŠ¡å™¨ä»£ç 
 38.}
 
 
-Linux å®¢æˆ·ç«¯ä»£ç 
+Linux ¿Í»§¶Ë´úÂë
 
 01.#include <stdio.h>
 02.#include <string.h>
@@ -408,109 +408,109 @@ Linux å®¢æˆ·ç«¯ä»£ç 
 06.#include <sys/socket.h>
 07.
 08.int main(){
-09.    //åˆ›å»ºå¥—æ¥å­—
+09.    //´´½¨Ì×½Ó×Ö
 10.    int sock = socket(AF_INET, SOCK_STREAM, 0);
 11.
-12.    //å‘æœåŠ¡å™¨ï¼ˆç‰¹å®šçš„IPå’Œç«¯å£ï¼‰å‘èµ·è¯·æ±‚
+12.    //Ïò·şÎñÆ÷£¨ÌØ¶¨µÄIPºÍ¶Ë¿Ú£©·¢ÆğÇëÇó
 13.    struct sockaddr_in serv_addr;
-14.    memset(&serv_addr, 0, sizeof(serv_addr));  //æ¯ä¸ªå­—èŠ‚éƒ½ç”¨0å¡«å……
-15.    serv_addr.sin_family = AF_INET;  //ä½¿ç”¨IPv4åœ°å€
-16.    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //å…·ä½“çš„IPåœ°å€
-17.    serv_addr.sin_port = htons(1234);  //ç«¯å£
+14.    memset(&serv_addr, 0, sizeof(serv_addr));  //Ã¿¸ö×Ö½Ú¶¼ÓÃ0Ìî³ä
+15.    serv_addr.sin_family = AF_INET;  //Ê¹ÓÃIPv4µØÖ·
+16.    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //¾ßÌåµÄIPµØÖ·
+17.    serv_addr.sin_port = htons(1234);  //¶Ë¿Ú
 18.    connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
 19.   
-20.    //è¯»å–æœåŠ¡å™¨ä¼ å›çš„æ•°æ®
+20.    //¶ÁÈ¡·şÎñÆ÷´«»ØµÄÊı¾İ
 21.    char buffer[40];
 22.    read(sock, buffer, sizeof(buffer)-1);
 23.   
 24.    printf("Message form server: %s\n", buffer);
 25.   
-26.    //å…³é—­å¥—æ¥å­—
+26.    //¹Ø±ÕÌ×½Ó×Ö
 27.    close(sock);
 28.
 29.    return 0;
 30.}
 
 
-Windows æœåŠ¡å™¨ä»£ç 
+Windows ·şÎñÆ÷´úÂë
 
 01.#include <stdio.h>
 02.#include <winsock2.h>
-03.#pragma comment (lib, "ws2_32.lib")  //åŠ è½½ ws2_32.dll
+03.#pragma comment (lib, "ws2_32.lib")  //¼ÓÔØ ws2_32.dll
 04.
 05.int main(){
-06.    //åˆå§‹åŒ– DLL
+06.    //³õÊ¼»¯ DLL
 07.    WSADATA wsaData;
 08.    WSAStartup( MAKEWORD(2, 2), &wsaData);
 09.
-10.    //åˆ›å»ºå¥—æ¥å­—
+10.    //´´½¨Ì×½Ó×Ö
 11.    SOCKET servSock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 12.
-13.    //ç»‘å®šå¥—æ¥å­—
+13.    //°ó¶¨Ì×½Ó×Ö
 14.    sockaddr_in sockAddr;
-15.    memset(&sockAddr, 0, sizeof(sockAddr));  //æ¯ä¸ªå­—èŠ‚éƒ½ç”¨0å¡«å……
-16.    sockAddr.sin_family = PF_INET;  //ä½¿ç”¨IPv4åœ°å€
-17.    sockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");  //å…·ä½“çš„IPåœ°å€
-18.    sockAddr.sin_port = htons(1234);  //ç«¯å£
+15.    memset(&sockAddr, 0, sizeof(sockAddr));  //Ã¿¸ö×Ö½Ú¶¼ÓÃ0Ìî³ä
+16.    sockAddr.sin_family = PF_INET;  //Ê¹ÓÃIPv4µØÖ·
+17.    sockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");  //¾ßÌåµÄIPµØÖ·
+18.    sockAddr.sin_port = htons(1234);  //¶Ë¿Ú
 19.    bind(servSock, (SOCKADDR*)&sockAddr, sizeof(SOCKADDR));
 20.
-21.    //è¿›å…¥ç›‘å¬çŠ¶æ€
+21.    //½øÈë¼àÌı×´Ì¬
 22.    listen(servSock, 20);
 23.
-24.    //æ¥æ”¶å®¢æˆ·ç«¯è¯·æ±‚
+24.    //½ÓÊÕ¿Í»§¶ËÇëÇó
 25.    SOCKADDR clntAddr;
 26.    int nSize = sizeof(SOCKADDR);
 27.    SOCKET clntSock = accept(servSock, (SOCKADDR*)&clntAddr, &nSize);
 28.
-29.    //å‘å®¢æˆ·ç«¯å‘é€æ•°æ®
+29.    //Ïò¿Í»§¶Ë·¢ËÍÊı¾İ
 30.    char *str = "Hello World!";
 31.    send(clntSock, str, strlen(str)+sizeof(char), NULL);
 32.
-33.    //å…³é—­å¥—æ¥å­—
+33.    //¹Ø±ÕÌ×½Ó×Ö
 34.    closesocket(clntSock);
 35.    closesocket(servSock);
 36.
-37.    //ç»ˆæ­¢ DLL çš„ä½¿ç”¨
+37.    //ÖÕÖ¹ DLL µÄÊ¹ÓÃ
 38.    WSACleanup();
 39.
 40.    return 0;
 41.}
 
 
-Windows å®¢æˆ·ç«¯ä»£ç 
+Windows ¿Í»§¶Ë´úÂë
 
 01.#include <stdio.h>
 02.#include <stdlib.h>
 03.#include <WinSock2.h>
-04.#pragma comment(lib, "ws2_32.lib")  //åŠ è½½ ws2_32.dll
+04.#pragma comment(lib, "ws2_32.lib")  //¼ÓÔØ ws2_32.dll
 05.
 06.int main(){
-07.    //åˆå§‹åŒ–DLL
+07.    //³õÊ¼»¯DLL
 08.    WSADATA wsaData;
 09.    WSAStartup(MAKEWORD(2, 2), &wsaData);
 10.
-11.    //åˆ›å»ºå¥—æ¥å­—
+11.    //´´½¨Ì×½Ó×Ö
 12.    SOCKET sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 13.
-14.    //å‘æœåŠ¡å™¨å‘èµ·è¯·æ±‚
+14.    //Ïò·şÎñÆ÷·¢ÆğÇëÇó
 15.    sockaddr_in sockAddr;
-16.    memset(&sockAddr, 0, sizeof(sockAddr));  //æ¯ä¸ªå­—èŠ‚éƒ½ç”¨0å¡«å……
+16.    memset(&sockAddr, 0, sizeof(sockAddr));  //Ã¿¸ö×Ö½Ú¶¼ÓÃ0Ìî³ä
 17.    sockAddr.sin_family = PF_INET;
 18.    sockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 19.    sockAddr.sin_port = htons(1234);
 20.    connect(sock, (SOCKADDR*)&sockAddr, sizeof(SOCKADDR));
 21.
-22.    //æ¥æ”¶æœåŠ¡å™¨ä¼ å›çš„æ•°æ®
+22.    //½ÓÊÕ·şÎñÆ÷´«»ØµÄÊı¾İ
 23.    char szBuffer[MAXBYTE] = {0};
 24.    recv(sock, szBuffer, MAXBYTE, NULL);
 25.
-26.    //è¾“å‡ºæ¥æ”¶åˆ°çš„æ•°æ®
+26.    //Êä³ö½ÓÊÕµ½µÄÊı¾İ
 27.    printf("Message form server: %s\n", szBuffer);
 28.
-29.    //å…³é—­å¥—æ¥å­—
+29.    //¹Ø±ÕÌ×½Ó×Ö
 30.    closesocket(sock);
 31.
-32.    //ç»ˆæ­¢ä½¿ç”¨ DLL
+32.    //ÖÕÖ¹Ê¹ÓÃ DLL
 33.    WSACleanup();
 34.
 35.    system("pause");
@@ -518,12 +518,12 @@ Windows å®¢æˆ·ç«¯ä»£ç 
 37.}
 
 
-Windows ä¸‹çš„ socket ç¨‹åºå’Œ Linux æ€è·¯ç›¸åŒï¼Œä½†ç»†èŠ‚æœ‰æ‰€å·®åˆ«ï¼š
-1) Windows ä¸‹çš„ socket ç¨‹åºä¾èµ– Winsock.dll æˆ– ws2_32.dllï¼Œå¿…é¡»æå‰åŠ è½½ã€‚DLL æœ‰ä¸¤ç§åŠ è½½æ–¹å¼ï¼Œè¯·æŸ¥çœ‹ï¼šåŠ¨æ€é“¾æ¥åº“DLLçš„åŠ è½½
+Windows ÏÂµÄ socket ³ÌĞòºÍ Linux Ë¼Â·ÏàÍ¬£¬µ«Ï¸½ÚÓĞËù²î±ğ£º
+1) Windows ÏÂµÄ socket ³ÌĞòÒÀÀµ Winsock.dll »ò ws2_32.dll£¬±ØĞëÌáÇ°¼ÓÔØ¡£DLL ÓĞÁ½ÖÖ¼ÓÔØ·½Ê½£¬Çë²é¿´£º¶¯Ì¬Á´½Ó¿âDLLµÄ¼ÓÔØ
 
-2) Linux ä½¿ç”¨â€œæ–‡ä»¶æè¿°ç¬¦â€çš„æ¦‚å¿µï¼Œè€Œ Windows ä½¿ç”¨â€œæ–‡ä»¶å¥æŸ„â€çš„æ¦‚å¿µï¼›Linux ä¸åŒºåˆ† socket æ–‡ä»¶å’Œæ™®é€šæ–‡ä»¶ï¼Œè€Œ Windows åŒºåˆ†ï¼›Linux ä¸‹ socket() å‡½æ•°çš„è¿”å›å€¼ä¸º int ç±»å‹ï¼Œè€Œ Windows ä¸‹ä¸º SOCKET ç±»å‹ï¼Œä¹Ÿå°±æ˜¯å¥æŸ„ã€‚
+2) Linux Ê¹ÓÃ¡°ÎÄ¼şÃèÊö·û¡±µÄ¸ÅÄî£¬¶ø Windows Ê¹ÓÃ¡°ÎÄ¼ş¾ä±ú¡±µÄ¸ÅÄî£»Linux ²»Çø·Ö socket ÎÄ¼şºÍÆÕÍ¨ÎÄ¼ş£¬¶ø Windows Çø·Ö£»Linux ÏÂ socket() º¯ÊıµÄ·µ»ØÖµÎª int ÀàĞÍ£¬¶ø Windows ÏÂÎª SOCKET ÀàĞÍ£¬Ò²¾ÍÊÇ¾ä±ú¡£
 
-3) Linux ä¸‹ä½¿ç”¨ read() / write() å‡½æ•°è¯»å†™ï¼Œè€Œ Windows ä¸‹ä½¿ç”¨ recv() / send() å‡½æ•°å‘é€å’Œæ¥æ”¶ã€‚
+3) Linux ÏÂÊ¹ÓÃ read() / write() º¯Êı¶ÁĞ´£¬¶ø Windows ÏÂÊ¹ÓÃ recv() / send() º¯Êı·¢ËÍºÍ½ÓÊÕ¡£
 
-4) å…³é—­ socket æ—¶ï¼ŒLinux ä½¿ç”¨ close() å‡½æ•°ï¼Œè€Œ Windows ä½¿ç”¨ closesocket() å‡½æ•°ã€‚
+4) ¹Ø±Õ socket Ê±£¬Linux Ê¹ÓÃ close() º¯Êı£¬¶ø Windows Ê¹ÓÃ closesocket() º¯Êı¡£
 */

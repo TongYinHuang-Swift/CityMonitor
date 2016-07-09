@@ -1,4 +1,4 @@
-ï»¿#include "VideoRecorder.h"
+#include "VideoRecorder.h"
 #include "Buffer.h" 
 #include "Recorder.h" 
 #include "Debugger.h" 
@@ -11,37 +11,37 @@
 	#include <sys/stat.h>
 #endif
 /*
-modeæœ‰ä¸‹åˆ—å‡ ç§å½¢æ€å­—ç¬¦ä¸²:
-â€œrâ€ ä»¥åªè¯»æ–¹å¼æ‰“å¼€æ–‡ä»¶ï¼Œè¯¥æ–‡ä»¶å¿…é¡»å­˜åœ¨ã€‚
-â€œr+â€ ä»¥å¯è¯»å†™æ–¹å¼æ‰“å¼€æ–‡ä»¶ï¼Œè¯¥æ–‡ä»¶å¿…é¡»å­˜åœ¨ã€‚
-â€rb+â€œ è¯»å†™æ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œå…è®¸è¯»å†™æ•°æ®ï¼Œæ–‡ä»¶å¿…é¡»å­˜åœ¨ã€‚
-â€œwâ€ æ‰“å¼€åªå†™æ–‡ä»¶ï¼Œè‹¥æ–‡ä»¶å­˜åœ¨åˆ™æ–‡ä»¶é•¿åº¦æ¸…ä¸º0ï¼Œå³è¯¥æ–‡ä»¶å†…å®¹ä¼šæ¶ˆå¤±ã€‚è‹¥æ–‡ä»¶ä¸å­˜åœ¨åˆ™å»ºç«‹è¯¥æ–‡ä»¶ã€‚
-â€œw+â€ æ‰“å¼€å¯è¯»å†™æ–‡ä»¶ï¼Œè‹¥æ–‡ä»¶å­˜åœ¨åˆ™æ–‡ä»¶é•¿åº¦æ¸…ä¸ºé›¶ï¼Œå³è¯¥æ–‡ä»¶å†…å®¹ä¼šæ¶ˆå¤±ã€‚è‹¥æ–‡ä»¶ä¸å­˜åœ¨åˆ™å»ºç«‹è¯¥æ–‡ä»¶ã€‚
-â€œaâ€ ä»¥é™„åŠ çš„æ–¹å¼æ‰“å¼€åªå†™æ–‡ä»¶ã€‚è‹¥æ–‡ä»¶ä¸å­˜åœ¨ï¼Œåˆ™ä¼šå»ºç«‹è¯¥æ–‡ä»¶ï¼Œå¦‚æžœæ–‡ä»¶å­˜åœ¨ï¼Œå†™å…¥çš„æ•°æ®ä¼šè¢«åŠ åˆ°æ–‡ä»¶å°¾ï¼Œå³æ–‡ä»¶åŽŸå…ˆçš„å†…å®¹ä¼šè¢«ä¿ç•™ã€‚ï¼ˆEOFç¬¦ä¿ç•™ï¼‰
-â€a+â€œ ä»¥é™„åŠ æ–¹å¼æ‰“å¼€å¯è¯»å†™çš„æ–‡ä»¶ã€‚è‹¥æ–‡ä»¶ä¸å­˜åœ¨ï¼Œåˆ™ä¼šå»ºç«‹è¯¥æ–‡ä»¶ï¼Œå¦‚æžœæ–‡ä»¶å­˜åœ¨ï¼Œå†™å…¥çš„æ•°æ®ä¼šè¢«åŠ åˆ°æ–‡ä»¶å°¾åŽï¼Œå³æ–‡ä»¶åŽŸå…ˆçš„å†…å®¹ä¼šè¢«ä¿ç•™ã€‚ ï¼ˆåŽŸæ¥çš„EOFç¬¦ä¸ä¿ç•™ï¼‰
-â€œwbâ€ åªå†™æ‰“å¼€æˆ–æ–°å»ºä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼›åªå…è®¸å†™æ•°æ®ã€‚
-â€œwb+â€ è¯»å†™æ‰“å¼€æˆ–å»ºç«‹ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œå…è®¸è¯»å’Œå†™
-â€œwxâ€ åˆ›å»ºæ–‡æœ¬æ–‡ä»¶,åªå…è®¸å†™å…¥æ•°æ®.[C11]
-â€œwbxâ€ åˆ›å»ºä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶,åªå…è®¸å†™å…¥æ•°æ®.[C11]
-â€w+xâ€œ åˆ›å»ºä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶,å…è®¸è¯»å†™.[C11]
-â€œwb+xâ€ åˆ›å»ºä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶,å…è®¸è¯»å†™.[C11]
-â€œw+bxâ€ å’Œ"wb+x"ç›¸åŒ[C11]
-â€œrtâ€ åªè¯»æ‰“å¼€ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶ï¼Œåªå…è®¸è¯»æ•°æ®
-ã€€ã€€â€œwtâ€ åªå†™æ‰“å¼€æˆ–å»ºç«‹ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶ï¼Œåªå…è®¸å†™æ•°æ®
-ã€€ã€€â€œatâ€ è¿½åŠ æ‰“å¼€ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶ï¼Œå¹¶åœ¨æ–‡ä»¶æœ«å°¾å†™æ•°æ®
-ã€€ã€€â€œrbâ€ åªè¯»æ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œåªå…è®¸è¯»æ•°æ®
-ã€€ã€€â€œwbâ€ åªå†™æ‰“å¼€æˆ–å»ºç«‹ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œåªå…è®¸å†™æ•°æ®
-ã€€ã€€â€œabâ€ è¿½åŠ æ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œå¹¶åœ¨æ–‡ä»¶æœ«å°¾å†™æ•°æ®
-ã€€ã€€â€œrt+â€ è¯»å†™æ‰“å¼€ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶ï¼Œå…è®¸è¯»å’Œå†™
-ã€€ã€€â€œwt+â€ è¯»å†™æ‰“å¼€æˆ–å»ºç«‹ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶ï¼Œå…è®¸è¯»å†™
-ã€€ã€€â€œat+â€ è¯»å†™æ‰“å¼€ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶ï¼Œå…è®¸è¯»ï¼Œæˆ–åœ¨æ–‡ä»¶æœ«è¿½åŠ æ•°æ®
-ã€€ã€€â€œrb+â€ è¯»å†™æ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œå…è®¸è¯»å’Œå†™
-ã€€ã€€â€œab+â€ è¯»å†™æ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œå…è®¸è¯»ï¼Œæˆ–åœ¨æ–‡ä»¶æœ«è¿½åŠ æ•°æ®
+modeÓÐÏÂÁÐ¼¸ÖÖÐÎÌ¬×Ö·û´®:
+¡°r¡± ÒÔÖ»¶Á·½Ê½´ò¿ªÎÄ¼þ£¬¸ÃÎÄ¼þ±ØÐë´æÔÚ¡£
+¡°r+¡± ÒÔ¿É¶ÁÐ´·½Ê½´ò¿ªÎÄ¼þ£¬¸ÃÎÄ¼þ±ØÐë´æÔÚ¡£
+¡±rb+¡° ¶ÁÐ´´ò¿ªÒ»¸ö¶þ½øÖÆÎÄ¼þ£¬ÔÊÐí¶ÁÐ´Êý¾Ý£¬ÎÄ¼þ±ØÐë´æÔÚ¡£
+¡°w¡± ´ò¿ªÖ»Ð´ÎÄ¼þ£¬ÈôÎÄ¼þ´æÔÚÔòÎÄ¼þ³¤¶ÈÇåÎª0£¬¼´¸ÃÎÄ¼þÄÚÈÝ»áÏûÊ§¡£ÈôÎÄ¼þ²»´æÔÚÔò½¨Á¢¸ÃÎÄ¼þ¡£
+¡°w+¡± ´ò¿ª¿É¶ÁÐ´ÎÄ¼þ£¬ÈôÎÄ¼þ´æÔÚÔòÎÄ¼þ³¤¶ÈÇåÎªÁã£¬¼´¸ÃÎÄ¼þÄÚÈÝ»áÏûÊ§¡£ÈôÎÄ¼þ²»´æÔÚÔò½¨Á¢¸ÃÎÄ¼þ¡£
+¡°a¡± ÒÔ¸½¼ÓµÄ·½Ê½´ò¿ªÖ»Ð´ÎÄ¼þ¡£ÈôÎÄ¼þ²»´æÔÚ£¬Ôò»á½¨Á¢¸ÃÎÄ¼þ£¬Èç¹ûÎÄ¼þ´æÔÚ£¬Ð´ÈëµÄÊý¾Ý»á±»¼Óµ½ÎÄ¼þÎ²£¬¼´ÎÄ¼þÔ­ÏÈµÄÄÚÈÝ»á±»±£Áô¡££¨EOF·û±£Áô£©
+¡±a+¡° ÒÔ¸½¼Ó·½Ê½´ò¿ª¿É¶ÁÐ´µÄÎÄ¼þ¡£ÈôÎÄ¼þ²»´æÔÚ£¬Ôò»á½¨Á¢¸ÃÎÄ¼þ£¬Èç¹ûÎÄ¼þ´æÔÚ£¬Ð´ÈëµÄÊý¾Ý»á±»¼Óµ½ÎÄ¼þÎ²ºó£¬¼´ÎÄ¼þÔ­ÏÈµÄÄÚÈÝ»á±»±£Áô¡£ £¨Ô­À´µÄEOF·û²»±£Áô£©
+¡°wb¡± Ö»Ð´´ò¿ª»òÐÂ½¨Ò»¸ö¶þ½øÖÆÎÄ¼þ£»Ö»ÔÊÐíÐ´Êý¾Ý¡£
+¡°wb+¡± ¶ÁÐ´´ò¿ª»ò½¨Á¢Ò»¸ö¶þ½øÖÆÎÄ¼þ£¬ÔÊÐí¶ÁºÍÐ´
+¡°wx¡± ´´½¨ÎÄ±¾ÎÄ¼þ,Ö»ÔÊÐíÐ´ÈëÊý¾Ý.[C11]
+¡°wbx¡± ´´½¨Ò»¸ö¶þ½øÖÆÎÄ¼þ,Ö»ÔÊÐíÐ´ÈëÊý¾Ý.[C11]
+¡±w+x¡° ´´½¨Ò»¸öÎÄ±¾ÎÄ¼þ,ÔÊÐí¶ÁÐ´.[C11]
+¡°wb+x¡± ´´½¨Ò»¸ö¶þ½øÖÆÎÄ¼þ,ÔÊÐí¶ÁÐ´.[C11]
+¡°w+bx¡± ºÍ"wb+x"ÏàÍ¬[C11]
+¡°rt¡± Ö»¶Á´ò¿ªÒ»¸öÎÄ±¾ÎÄ¼þ£¬Ö»ÔÊÐí¶ÁÊý¾Ý
+¡¡¡¡¡°wt¡± Ö»Ð´´ò¿ª»ò½¨Á¢Ò»¸öÎÄ±¾ÎÄ¼þ£¬Ö»ÔÊÐíÐ´Êý¾Ý
+¡¡¡¡¡°at¡± ×·¼Ó´ò¿ªÒ»¸öÎÄ±¾ÎÄ¼þ£¬²¢ÔÚÎÄ¼þÄ©Î²Ð´Êý¾Ý
+¡¡¡¡¡°rb¡± Ö»¶Á´ò¿ªÒ»¸ö¶þ½øÖÆÎÄ¼þ£¬Ö»ÔÊÐí¶ÁÊý¾Ý
+¡¡¡¡¡°wb¡± Ö»Ð´´ò¿ª»ò½¨Á¢Ò»¸ö¶þ½øÖÆÎÄ¼þ£¬Ö»ÔÊÐíÐ´Êý¾Ý
+¡¡¡¡¡°ab¡± ×·¼Ó´ò¿ªÒ»¸ö¶þ½øÖÆÎÄ¼þ£¬²¢ÔÚÎÄ¼þÄ©Î²Ð´Êý¾Ý
+¡¡¡¡¡°rt+¡± ¶ÁÐ´´ò¿ªÒ»¸öÎÄ±¾ÎÄ¼þ£¬ÔÊÐí¶ÁºÍÐ´
+¡¡¡¡¡°wt+¡± ¶ÁÐ´´ò¿ª»ò½¨Á¢Ò»¸öÎÄ±¾ÎÄ¼þ£¬ÔÊÐí¶ÁÐ´
+¡¡¡¡¡°at+¡± ¶ÁÐ´´ò¿ªÒ»¸öÎÄ±¾ÎÄ¼þ£¬ÔÊÐí¶Á£¬»òÔÚÎÄ¼þÄ©×·¼ÓÊý¾Ý
+¡¡¡¡¡°rb+¡± ¶ÁÐ´´ò¿ªÒ»¸ö¶þ½øÖÆÎÄ¼þ£¬ÔÊÐí¶ÁºÍÐ´
+¡¡¡¡¡°ab+¡± ¶ÁÐ´´ò¿ªÒ»¸ö¶þ½øÖÆÎÄ¼þ£¬ÔÊÐí¶Á£¬»òÔÚÎÄ¼þÄ©×·¼ÓÊý¾Ý
   */
 VideoRecorder::VideoRecorder(Buffer* videoDataBuffer)
 {
 	PRINT(ALWAYS_PRINT, "VideoRecorder", __FUNCTION__, __LINE__);
-	recorder = new Recorder(this, videoDataBuffer); // åˆ›å»ºè‡ªåŠ¨å­˜å‚¨æœ¬åœ°æ‘„åƒæœºè§†é¢‘æ•°æ®çš„å½•åƒæœº
+	recorder = new Recorder(this, videoDataBuffer); // ´´½¨×Ô¶¯´æ´¢±¾µØÉãÏñ»úÊÓÆµÊý¾ÝµÄÂ¼Ïñ»ú
 	strcpy(fileindexpath, RECORD_DATA_PATH);
 
 	bgtime = NULL;
@@ -63,10 +63,10 @@ VideoRecorder::VideoRecorder(Buffer* videoDataBuffer)
 VideoRecorder::~VideoRecorder()
 {
 	delete recorder;
-	// åˆ é™¤recordedVideoList
+	// É¾³ýrecordedVideoList
 }
 
-// å­˜å‚¨æœ¬åœ°æ‘„åƒæœºè§†é¢‘æ•°æ® - å·²ç»è¿‡æ—¶ï¼ŒRecorderè°ƒè¯•ç»“æŸæ—¶åˆ æŽ‰
+// ´æ´¢±¾µØÉãÏñ»úÊÓÆµÊý¾Ý - ÒÑ¾­¹ýÊ±£¬Recorderµ÷ÊÔ½áÊøÊ±É¾µô
 bool VideoRecorder::SaveLiveVideoOld(byte* data, uint dataLen)				
 {
 	PRINT(ALWAYS_PRINT, "VideoRecorder", __FUNCTION__, __LINE__, " dataLen = %d", dataLen);
@@ -95,10 +95,10 @@ bool VideoRecorder::SaveLiveVideoOld(byte* data, uint dataLen)
 
 		fclose(recordingFile);
 		recordingFile = NULL;
-		RefreshCurHistoryVideo();		//bä¿å­˜å½“å‰HistoryVideoä¿¡æ¯
+		RefreshCurHistoryVideo();		//b±£´æµ±Ç°HistoryVideoÐÅÏ¢
 
 //		delete hv;
-		SaveVideoRecords();	//å°†è®°å½•å­˜å…¥æ–‡ä»¶
+		SaveVideoRecords();	//½«¼ÇÂ¼´æÈëÎÄ¼þ
 
 		videoLength = 0;
 		return true;
@@ -106,25 +106,25 @@ bool VideoRecorder::SaveLiveVideoOld(byte* data, uint dataLen)
 	return true;
 }
 
-// èŽ·å–åŽ†å²è§†é¢‘æ–‡ä»¶æ¸…å•
+// »ñÈ¡ÀúÊ·ÊÓÆµÎÄ¼þÇåµ¥
 ObjBuffer* VideoRecorder::GetHistoryVideos()					
 {
 	PRINT(ALWAYS_PRINT, "VideoRecorder", __FUNCTION__, __LINE__);
 	return recordedVideoList;
 }
-// æŒ‰æŒ‡å®šçš„é€Ÿåº¦è¯»å–è§†é¢‘æ–‡ä»¶
+// °´Ö¸¶¨µÄËÙ¶È¶ÁÈ¡ÊÓÆµÎÄ¼þ
 int	VideoRecorder::ReadVideo(byte* buf, byte speed)						
 {
 	PRINT(ALWAYS_PRINT, "VideoRecorder", __FUNCTION__, __LINE__, " speed = %d", speed);
 	return 0;
 }
-// æ·»åŠ æ¬²æ’­æ”¾çš„åŽ†å²è§†é¢‘ä¿¡æ¯è¿›æ’­æ”¾æ¸…å•
+// Ìí¼ÓÓû²¥·ÅµÄÀúÊ·ÊÓÆµÐÅÏ¢½ø²¥·ÅÇåµ¥
 void VideoRecorder::AddRecodedVideo(HistoryVideo* historyVideo)		
 {
 	PRINT(ALWAYS_PRINT, "VideoRecorder", __FUNCTION__, __LINE__);
 	recordedVideoList->AddObject(historyVideo);
 }
-// å¯»æ‰¾åŒ…å«æŒ‡å®šæ—¶é—´çš„è§†é¢‘
+// Ñ°ÕÒ°üº¬Ö¸¶¨Ê±¼äµÄÊÓÆµ
 HistoryVideo* VideoRecorder::FindHistoryVideo(DateTime startTime)			
 {
 	PRINT(ALWAYS_PRINT, "VideoRecorder", __FUNCTION__, __LINE__);
@@ -146,7 +146,7 @@ HistoryVideo* VideoRecorder::FindHistoryVideo(DateTime startTime)
 	}
 	return NULL;
 }
-// å°†è®°å½•å­˜å…¥æ–‡ä»¶ã€‚åˆ é™¤æ–‡ä»¶ä¸­çš„ç¬¬ä¸€ä¸ªè®°å½•ï¼Œå°†è¿™é‡Œæ–°å»ºçš„è®°å½•æ”¾åœ¨æ–‡ä»¶æœ€åŽï¼ˆé€šè¿‡å…ˆåˆ é™¤æ‰€æœ‰è®°å½•å†é‡å»ºæ‰€æœ‰è®°å½•æ¥å®žçŽ°ï¼‰
+// ½«¼ÇÂ¼´æÈëÎÄ¼þ¡£É¾³ýÎÄ¼þÖÐµÄµÚÒ»¸ö¼ÇÂ¼£¬½«ÕâÀïÐÂ½¨µÄ¼ÇÂ¼·ÅÔÚÎÄ¼þ×îºó£¨Í¨¹ýÏÈÉ¾³ýËùÓÐ¼ÇÂ¼ÔÙÖØ½¨ËùÓÐ¼ÇÂ¼À´ÊµÏÖ£©
 void VideoRecorder::SaveVideoRecords()
 {
 	char chpath[MAX_FILE_PATH];
@@ -155,19 +155,19 @@ void VideoRecorder::SaveVideoRecords()
 #endif
 	strcpy(chpath, fileindexpath);
 	strcat(chpath, "index.bin");
-	// æ‰“å¼€æ–‡ä»¶ï¼Œè‹¥æ–‡ä»¶å­˜åœ¨åˆ™æ–‡ä»¶é•¿åº¦æ¸…é›¶ï¼Œå³è¯¥æ–‡ä»¶å†…å®¹ä¼šæ¶ˆå¤±ã€‚è‹¥æ–‡ä»¶ä¸å­˜åœ¨åˆ™å»ºç«‹è¯¥æ–‡ä»¶ã€‚
+	// ´ò¿ªÎÄ¼þ£¬ÈôÎÄ¼þ´æÔÚÔòÎÄ¼þ³¤¶ÈÇåÁã£¬¼´¸ÃÎÄ¼þÄÚÈÝ»áÏûÊ§¡£ÈôÎÄ¼þ²»´æÔÚÔò½¨Á¢¸ÃÎÄ¼þ¡£
 	FILE *fpindex = fopen(chpath, "wb+");
 
 	ObjBuffer* obj = GetHistoryVideos();
-	// èŽ·å–å½“å‰å†™æŒ‡é’ˆ
+	// »ñÈ¡µ±Ç°Ð´Ö¸Õë
 	uint curIndex = obj->GetWriteIndex();
 	uint index;	
-	// èŽ·å–å­˜æ”¾åŽ†å²è§†é¢‘è®°å½•æ•°æ®ç»“æž„æŒ‡é’ˆçš„å¾ªçŽ¯ç¼“å†²å™¨çš„é•¿åº¦
+	// »ñÈ¡´æ·ÅÀúÊ·ÊÓÆµ¼ÇÂ¼Êý¾Ý½á¹¹Ö¸ÕëµÄÑ­»·»º³åÆ÷µÄ³¤¶È
 	uint circleLen = obj->GetCircleLen();
 	for (int i = 0; i < circleLen; i++)
 	{
 		index = (curIndex + i) % circleLen;
-		// èŽ·å–å¾ªçŽ¯ç¼“å†²å™¨æŒ‡å®šä½ç½®çš„åŽ†å²è§†é¢‘è®°å½•æ•°æ®ç»“æž„æŒ‡é’ˆ
+		// »ñÈ¡Ñ­»·»º³åÆ÷Ö¸¶¨Î»ÖÃµÄÀúÊ·ÊÓÆµ¼ÇÂ¼Êý¾Ý½á¹¹Ö¸Õë
 		HistoryVideo* p = ((HistoryVideo*)obj->GetObjectAt(index));
 			
 		if (p != NULL)
@@ -178,7 +178,7 @@ void VideoRecorder::SaveVideoRecords()
 
 	fclose(fpindex);
 }
-void VideoRecorder::ReadVideoRecordsFromFile()                 // ä»Žç´¢å¼•è¯»å‡ºæ—¥å¿—æ–‡ä»¶ 
+void VideoRecorder::ReadVideoRecordsFromFile()                 // ´ÓË÷Òý¶Á³öÈÕÖ¾ÎÄ¼þ 
 {
 	char indexpath[MAX_FILE_PATH];
 #ifdef WIN32
@@ -195,10 +195,10 @@ void VideoRecorder::ReadVideoRecordsFromFile()                 // ä»Žç´¢å¼•è¯»å‡
 	uint flen = 0;
 	uint flenindex = 0;
 	uint freadstep = 10240;
-	fseek(fileindex, 0L, SEEK_END); /* å®šä½åˆ°æ–‡ä»¶æœ«å°¾ */
-	flen = ftell(fileindex); /* å¾—åˆ°æ–‡ä»¶å¤§å° */
+	fseek(fileindex, 0L, SEEK_END); /* ¶¨Î»µ½ÎÄ¼þÄ©Î² */
+	flen = ftell(fileindex); /* µÃµ½ÎÄ¼þ´óÐ¡ */
 
-	fseek(fileindex, 0L, SEEK_SET); /* å®šä½åˆ°æ–‡ä»¶å¤´ */
+	fseek(fileindex, 0L, SEEK_SET); /* ¶¨Î»µ½ÎÄ¼þÍ· */
 
 	byte buf[1024];
 	memset(buf, 0, sizeof(buf));
@@ -227,77 +227,77 @@ void VideoRecorder::AddRecodedVideo(byte* historyVideo, int len)
 		byte b = historyVideo[curindex];
 		switch(state)
 		{
-		case 0:	//å¼€å§‹å¹´
+		case 0:	//¿ªÊ¼Äê
 			bgtime = new DateTime;
 			bgtime->SetYear(b);
 			curindex++; state++;
 			break;
-		case 1: //å¼€å§‹æœˆ
+		case 1: //¿ªÊ¼ÔÂ
 			bgtime->SetMouth(b);
 			curindex++; state++;
 			break;
-		case 2: //å¼€å§‹æ—¥
+		case 2: //¿ªÊ¼ÈÕ
 			bgtime->SetDay(b);
 			curindex++; state++;
 			break;
-		case 3: //å¼€å§‹æ—¶
+		case 3: //¿ªÊ¼Ê±
 			bgtime->SetHour(b);
 			curindex++; state++;
 			break;
-		case 4: //å¼€å§‹åˆ†
+		case 4: //¿ªÊ¼·Ö
 			bgtime->SetMin(b);
 			curindex++; state++;
 			break;
-		case 5: //å¼€å§‹ç§’
+		case 5: //¿ªÊ¼Ãë
 			bgtime->SetSec(b);
 			curindex++; state++;
 			break;
-		case 6: //ç»“æŸå¹´
+		case 6: //½áÊøÄê
 			edtime = new DateTime;
 			edtime->SetYear(b);
 			curindex++; state++;
 			break;
-		case 7: //ç»“æŸæœˆ
+		case 7: //½áÊøÔÂ
 			edtime->SetMouth(b);
 			curindex++; state++;
 			break;
-		case 8: //ç»“æŸæ—¥
+		case 8: //½áÊøÈÕ
 			edtime->SetDay(b);
 			curindex++; state++;
 			break;
-		case 9: //ç»“æŸæ—¶
+		case 9: //½áÊøÊ±
 			edtime->SetHour(b);
 			curindex++; state++;
 			break;
-		case 10: //ç»“æŸåˆ†
+		case 10: //½áÊø·Ö
 			edtime->SetMin(b);
 			curindex++; state++;
 			break;
-		case 11: //ç»“æŸç§’
+		case 11: //½áÊøÃë
 			edtime->SetSec(b);
 			curindex++; state++;
 			break;
-		case 12: //æ–‡ä»¶é•¿åº¦1
+		case 12: //ÎÄ¼þ³¤¶È1
 			filelen += b;
 			curindex++; state++;
 			break;
-		case 13: //æ–‡ä»¶é•¿åº¦2
+		case 13: //ÎÄ¼þ³¤¶È2
 			filelen += b<<8;
 			curindex++; state++;
 			break;
-		case 14: //æ–‡ä»¶é•¿åº¦3
+		case 14: //ÎÄ¼þ³¤¶È3
 			filelen += b<<16;
 			curindex++; state++;
 			break;
-		case 15: //æ–‡ä»¶é•¿åº¦4
+		case 15: //ÎÄ¼þ³¤¶È4
 			filelen += b<<24;
 			curindex++; state++;
 			break;
-		case 16: //è·¯å¾„é•¿åº¦
+		case 16: //Â·¾¶³¤¶È
 			pathlen = b;
 			curindex++; state++;
 			break;
-		case 17: //è·¯å¾„
+		case 17: //Â·¾¶
 			if (path.length() < pathlen)
 			{
 				path += (char)b;
@@ -322,8 +322,8 @@ void VideoRecorder::AddRecodedVideo(byte* historyVideo, int len)
 		}
 	}
 }
-// åˆ›å»ºä¸€ä¸ªæ–°çš„åŽ†å²è§†é¢‘è®°å½•
-bool VideoRecorder::CreateHistoryVideo()                       // åˆ›å»ºæ–°çš„ç´¢å¼•æ–‡ä»¶å¹¶æ·»åŠ åˆ°åŽ†å²è§†é¢‘åˆ—è¡¨ä¸­   
+// ´´½¨Ò»¸öÐÂµÄÀúÊ·ÊÓÆµ¼ÇÂ¼
+bool VideoRecorder::CreateHistoryVideo()                       // ´´½¨ÐÂµÄË÷ÒýÎÄ¼þ²¢Ìí¼Óµ½ÀúÊ·ÊÓÆµÁÐ±íÖÐ   
 {
 	startTime = new DateTime;
 	char path[MAX_FILE_PATH];
@@ -361,8 +361,8 @@ bool VideoRecorder::CreateHistoryVideo()                       // åˆ›å»ºæ–°çš„ç´
 
 	return true;
 }
-// ä¿å­˜å½“å‰HistoryVideoä¿¡æ¯ã€‚å¦‚æžœå½“å‰è®°å½•ä½ç½®å·²ç»æœ‰åŽ†å²è®°å½•å­˜åœ¨ï¼Œé‚£ä¹ˆå°±ç”¨æ–°è®°å½•è¦†ç›–æ—§è®°å½•
-// å¦‚æžœå½“å‰è®°å½•ä½ç½®æ²¡æœ‰åŽ†å²è®°å½•å­˜åœ¨ï¼Œå°±åˆ›å»ºä¸€ä¸ªæ–°è®°å½•ã€‚
+// ±£´æµ±Ç°HistoryVideoÐÅÏ¢¡£Èç¹ûµ±Ç°¼ÇÂ¼Î»ÖÃÒÑ¾­ÓÐÀúÊ·¼ÇÂ¼´æÔÚ£¬ÄÇÃ´¾ÍÓÃÐÂ¼ÇÂ¼¸²¸Ç¾É¼ÇÂ¼
+// Èç¹ûµ±Ç°¼ÇÂ¼Î»ÖÃÃ»ÓÐÀúÊ·¼ÇÂ¼´æÔÚ£¬¾Í´´½¨Ò»¸öÐÂ¼ÇÂ¼¡£
 bool VideoRecorder::RefreshCurHistoryVideo()
 {
 	endTime = new DateTime;
@@ -418,7 +418,7 @@ int VideoRecorder::CheckFileDir(char* dir)
 #endif
         {  
         	PRINT(ALWAYS_PRINT, "VideoRecorder", __FUNCTION__, __LINE__, "Create Dir Ok \n");
-            return 1;//æ–‡ä»¶å¤¹åˆ›å»ºæˆåŠŸ  
+            return 1;//ÎÄ¼þ¼Ð´´½¨³É¹¦  
         }  
         else  
         {  

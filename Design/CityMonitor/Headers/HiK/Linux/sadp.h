@@ -1,4 +1,4 @@
-ï»¿#ifndef _SADP_H_
+#ifndef _SADP_H_
 #define _SADP_H_
 
 
@@ -15,31 +15,31 @@
 #endif
 
 
-//æ¶ˆæ¯æ“ä½œçš„ç±»å‹
-#define SADP_ADD		  1			//å¢åŠ ä¸€è®¾å¤‡
-#define SADP_UPDATE		  2			//æ›´æ–°è®¾å¤‡
-#define SADP_DEC		  3			//è®¾å¤‡ä¸‹çº¿
-#define SADP_RESTART	  4			//è®¾å¤‡é‡æ–°å¯åŠ¨
-#define SADP_UPDATEFAIL	  5			//è®¾å¤‡æ›´æ–°å¤±è´¥
+//ÏûÏ¢²Ù×÷µÄÀàĞÍ
+#define SADP_ADD		  1			//Ôö¼ÓÒ»Éè±¸
+#define SADP_UPDATE		  2			//¸üĞÂÉè±¸
+#define SADP_DEC		  3			//Éè±¸ÏÂÏß
+#define SADP_RESTART	  4			//Éè±¸ÖØĞÂÆô¶¯
+#define SADP_UPDATEFAIL	  5			//Éè±¸¸üĞÂÊ§°Ü
 
-#define MSG_FIND_DEVICE  9000    // å‘ç°è®¾å¤‡æ¶ˆæ¯
+#define MSG_FIND_DEVICE  9000    // ·¢ÏÖÉè±¸ÏûÏ¢
 
-// é”™è¯¯ç 
+// ´íÎóÂë
 #define SADP_ERROR_BASE					2000
-#define SADP_NOERROR 					0					// æ²¡æœ‰é”™è¯¯
-#define SADP_ALLOC_RESOURCE_ERROR		SADP_ERROR_BASE+1   // èµ„æºåˆ†é…é”™è¯¯
-#define SADP_NOT_START_ERROR			SADP_ERROR_BASE+2   // SADPæœªå¯åŠ¨
-#define SADP_NO_ADAPTER_ERROR			SADP_ERROR_BASE+3   // æ— ç½‘å¡
-#define SADP_GET_ADAPTER_FAIL_ERROR		SADP_ERROR_BASE+4   // è·å–ç½‘å¡ä¿¡æ¯å¤±è´¥
-#define SADP_PARAMETER_ERROR			SADP_ERROR_BASE+5   // å‚æ•°é”™è¯¯
-#define SADP_OPEN_ADAPTER_FAIL_ERROR	SADP_ERROR_BASE+6   // æ‰“å¼€ç½‘å¡å¤±è´¥
-#define SADP_SEND_PACKET_FAIL_ERROR		SADP_ERROR_BASE+7   // å‘é€æ•°æ®å¤±è´¥
-#define SADP_SYSTEM_CALL_ERROR			SADP_ERROR_BASE+8   // ç³»ç»Ÿæ¥å£è°ƒç”¨å¤±è´¥
-#define SADP_DENY_OR_TIMEOUT_ERROR		SADP_ERROR_BASE+9   // è®¾å¤‡æ‹’ç»å¤„ç†æˆ–è¶…æ—¶
-#define SADP_NPF_INSTALL_FAILED			SADP_ERROR_BASE+10  // å®‰è£…NPFæœåŠ¡å¤±è´¥
+#define SADP_NOERROR 					0					// Ã»ÓĞ´íÎó
+#define SADP_ALLOC_RESOURCE_ERROR		SADP_ERROR_BASE+1   // ×ÊÔ´·ÖÅä´íÎó
+#define SADP_NOT_START_ERROR			SADP_ERROR_BASE+2   // SADPÎ´Æô¶¯
+#define SADP_NO_ADAPTER_ERROR			SADP_ERROR_BASE+3   // ÎŞÍø¿¨
+#define SADP_GET_ADAPTER_FAIL_ERROR		SADP_ERROR_BASE+4   // »ñÈ¡Íø¿¨ĞÅÏ¢Ê§°Ü
+#define SADP_PARAMETER_ERROR			SADP_ERROR_BASE+5   // ²ÎÊı´íÎó
+#define SADP_OPEN_ADAPTER_FAIL_ERROR	SADP_ERROR_BASE+6   // ´ò¿ªÍø¿¨Ê§°Ü
+#define SADP_SEND_PACKET_FAIL_ERROR		SADP_ERROR_BASE+7   // ·¢ËÍÊı¾İÊ§°Ü
+#define SADP_SYSTEM_CALL_ERROR			SADP_ERROR_BASE+8   // ÏµÍ³½Ó¿Úµ÷ÓÃÊ§°Ü
+#define SADP_DENY_OR_TIMEOUT_ERROR		SADP_ERROR_BASE+9   // Éè±¸¾Ü¾ø´¦Àí»ò³¬Ê±
+#define SADP_NPF_INSTALL_FAILED			SADP_ERROR_BASE+10  // °²×°NPF·şÎñÊ§°Ü
 
 
-// ç»“æ„ä½“
+// ½á¹¹Ìå
 typedef struct tagSADP_DEVICE_INFO
 {
 	char			szSeries[12];
@@ -55,48 +55,48 @@ typedef struct tagSADP_DEVICE_INFO
 	char			szDSPVersion[48]; 
 	char			szBootTime[48];
 	int				iResult;
-	char			szDevDesc[24];       //è®¾å¤‡ç±»å‹æè¿°
-	char			szOEMinfo[24];       //OEMäº§å•†ä¿¡æ¯
-	char			szIPv4Gateway[16];   //IPv4ç½‘å…³
-	char			szIPv6Address[46];	 //IPv6åœ°å€
-	char			szIPv6Gateway[46];   //IPv6ç½‘å…³
-	unsigned char   byIPv6MaskLen;       //IPv6å­ç½‘å‰ç¼€é•¿åº¦
-	unsigned char   bySupport;           //æŒ‰ä½è¡¨ç¤º,å¯¹åº”ä¸ºä¸º1è¡¨ç¤ºæ”¯æŒ,0x01:æ˜¯å¦æ”¯æŒIpv6,0x02:æ˜¯å¦æ”¯æŒä¿®æ”¹Ipv6å‚æ•°,0x04:æ˜¯å¦æ”¯æŒDhcp				 
-	unsigned char   byDhcpEnabled;       //DhcpçŠ¶æ€, 0 ä¸å¯ç”¨ 1 å¯ç”¨
-	unsigned char   byDeviceAbility;	//0ï¼šè®¾å¤‡ä¸æ”¯æŒâ€œâ€˜è®¾å¤‡ç±»å‹æè¿°â€™ 'OEMå‚å•†' 'IPv4ç½‘å…³' â€˜IPv6åœ°å€â€™ 'IPv6ç½‘å…³' â€˜IPv6å­ç½‘å‰ç¼€â€™â€˜DHCPâ€™â€  1ï¼šæ”¯æŒä¸Šè¯‰åŠŸèƒ½
-	unsigned char   byRes1[64];          //ä¿ç•™
+	char			szDevDesc[24];       //Éè±¸ÀàĞÍÃèÊö
+	char			szOEMinfo[24];       //OEM²úÉÌĞÅÏ¢
+	char			szIPv4Gateway[16];   //IPv4Íø¹Ø
+	char			szIPv6Address[46];	 //IPv6µØÖ·
+	char			szIPv6Gateway[46];   //IPv6Íø¹Ø
+	unsigned char   byIPv6MaskLen;       //IPv6×ÓÍøÇ°×º³¤¶È
+	unsigned char   bySupport;           //°´Î»±íÊ¾,¶ÔÓ¦ÎªÎª1±íÊ¾Ö§³Ö,0x01:ÊÇ·ñÖ§³ÖIpv6,0x02:ÊÇ·ñÖ§³ÖĞŞ¸ÄIpv6²ÎÊı,0x04:ÊÇ·ñÖ§³ÖDhcp				 
+	unsigned char   byDhcpEnabled;       //Dhcp×´Ì¬, 0 ²»ÆôÓÃ 1 ÆôÓÃ
+	unsigned char   byDeviceAbility;	//0£ºÉè±¸²»Ö§³Ö¡°¡®Éè±¸ÀàĞÍÃèÊö¡¯ 'OEM³§ÉÌ' 'IPv4Íø¹Ø' ¡®IPv6µØÖ·¡¯ 'IPv6Íø¹Ø' ¡®IPv6×ÓÍøÇ°×º¡¯¡®DHCP¡¯¡±  1£ºÖ§³ÖÉÏËß¹¦ÄÜ
+	unsigned char   byRes1[64];          //±£Áô
 }SADP_DEVICE_INFO, *LPSADP_DEVICE_INFO;
 
-//å¾…ä¿®æ”¹çš„è®¾å¤‡ç½‘ç»œå‚æ•°
+//´ıĞŞ¸ÄµÄÉè±¸ÍøÂç²ÎÊı
 typedef struct tagSADP_DEV_NET_PARAM
 {
-	char			szIPv4Address[16];		// IPv4åœ°å€
-	char			szIPv4SubNetMask[16];	// IPv4å­ç½‘æ©ç 
-	char			szIPv4Gateway[16];		// IPv4ç½‘å…³
-	char			szIPv6Address[128];		// IPv6åœ°å€
-	char			szIPv6Gateway[128];		// IPv6ç½‘å…³
-	unsigned short	wPort;					// è®¾å¤‡ç›‘å¬ç«¯å£
-	unsigned char	byIPv6MaskLen;			// IPv6æ©ç é•¿åº¦
-	unsigned char	byDhcpEnable;			// DHCPä½¿èƒ½
+	char			szIPv4Address[16];		// IPv4µØÖ·
+	char			szIPv4SubNetMask[16];	// IPv4×ÓÍøÑÚÂë
+	char			szIPv4Gateway[16];		// IPv4Íø¹Ø
+	char			szIPv6Address[128];		// IPv6µØÖ·
+	char			szIPv6Gateway[128];		// IPv6Íø¹Ø
+	unsigned short	wPort;					// Éè±¸¼àÌı¶Ë¿Ú
+	unsigned char	byIPv6MaskLen;			// IPv6ÑÚÂë³¤¶È
+	unsigned char	byDhcpEnable;			// DHCPÊ¹ÄÜ
 	unsigned char	byRes[128];
 }SADP_DEV_NET_PARAM, *LPSADP_DEV_NET_PARAM;
 
 
-// CMSå‚æ•°
+// CMS²ÎÊı
 typedef struct tagSADP_CMS_PARAM
 {
-	char			szPUID[32];			// é¢„åˆ†é…çš„PUID
-	char			szPassword[16];		// è®¾ç½®çš„ç™»å½•å¯†ç 
-	char			szCmsIPv4[16];		// CMSæœåŠ¡å™¨IPv4åœ°å€
-	char			szCmsIPv6[128];		// CMSæœåŠ¡å™¨IPv6åœ°å€
-	unsigned short	wCmsPort;			// CMSæœåŠ¡å™¨ç›‘å¬ç«¯å£
+	char			szPUID[32];			// Ô¤·ÖÅäµÄPUID
+	char			szPassword[16];		// ÉèÖÃµÄµÇÂ¼ÃÜÂë
+	char			szCmsIPv4[16];		// CMS·şÎñÆ÷IPv4µØÖ·
+	char			szCmsIPv6[128];		// CMS·şÎñÆ÷IPv6µØÖ·
+	unsigned short	wCmsPort;			// CMS·şÎñÆ÷¼àÌı¶Ë¿Ú
 	unsigned char	byRes[30];
 }SADP_CMS_PARAM, *LPSADP_CMS_PARAM;
 
 
 
 
-// æ¥å£
+// ½Ó¿Ú
 typedef void (CALLBACK *PDEVICE_FIND_CALLBACK)(const SADP_DEVICE_INFO *lpDeviceInfo, void *pUserData);
 CSADP_API int CALLBACK SADP_Start_V30(PDEVICE_FIND_CALLBACK pDeviceFindCallBack, int bInstallNPF = 1, void* pUserData = NULL);
 CSADP_API int  CALLBACK SADP_SendInquiry(void);

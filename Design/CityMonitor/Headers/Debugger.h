@@ -1,6 +1,6 @@
-ï»¿/**
- * è°ƒè¯•ç®¡ç†æ¨¡å—ã€‚æŒ‰ç…§é¢„è®¾çš„è°ƒè¯•ç­‰çº§è¿›è¡Œæœ‰æ¡ä»¶æ–‡å­—æ‰“å°å’ŒVCDæ•…éšœè¯Šæ–­ä¿¡æ¯åˆ›å»ºå’Œè®°å½•ï¼Œç„¶åé€šè¿‡TCP/IPçš„æ–¹å¼å°†è¿™äº›è°ƒè¯•ä¿¡æ¯ä¼ å›ç»™å¼€å‘è€…ã€‚
- * è´Ÿè´£äººï¼šè‘£è¶…
+/**
+ * µ÷ÊÔ¹ÜÀíÄ£¿é¡£°´ÕÕÔ¤ÉèµÄµ÷ÊÔµÈ¼¶½øĞĞÓĞÌõ¼şÎÄ×Ö´òÓ¡ºÍVCD¹ÊÕÏÕï¶ÏĞÅÏ¢´´½¨ºÍ¼ÇÂ¼£¬È»ºóÍ¨¹ıTCP/IPµÄ·½Ê½½«ÕâĞ©µ÷ÊÔĞÅÏ¢´«»Ø¸ø¿ª·¢Õß¡£
+ * ¸ºÔğÈË£º¶­³¬
  */
 #pragma once
 #include "Global.h" 
@@ -41,27 +41,27 @@ public:
 private:
 	FILE*			logger;
 	char*			lineBuffer;
-	TcpConn*		TcpConnect;		// æœ¬è§†é¢‘èŠ‚ç‚¹è°ƒè¯•å™¨ç”¨TCP/IPé€šä¿¡æ¨¡å—
-	byte			localPort;		// æœ¬è§†é¢‘èŠ‚ç‚¹è°ƒè¯•å™¨çš„æœ¬åœ°TCP/IPé€šä¿¡ç«¯å£
-	char*			localIpAddr;	// æœ¬è§†é¢‘èŠ‚ç‚¹è°ƒè¯•å™¨çš„æœ¬åœ°IPåœ°å€
-	byte			remotePort;		// æœ¬è§†é¢‘èŠ‚ç‚¹è°ƒè¯•å™¨çš„è¿œç¨‹è¿æ¥TCP/IPé€šä¿¡ç«¯å£
-	char*			remoteIpAddr;	// æœ¬è§†é¢‘èŠ‚ç‚¹è°ƒè¯•å™¨çš„è¿œç¨‹è¿æ¥IPåœ°å€
-	byte			debugLevel;		// è°ƒè¯•ç­‰çº§
-	Buffer*			buffread;       // è¯»æ•°æ®buff
-	Buffer*			buffwrite;      // å†™æ•°æ®buff
+	TcpConn*		TcpConnect;		// ±¾ÊÓÆµ½Úµãµ÷ÊÔÆ÷ÓÃTCP/IPÍ¨ĞÅÄ£¿é
+	byte			localPort;		// ±¾ÊÓÆµ½Úµãµ÷ÊÔÆ÷µÄ±¾µØTCP/IPÍ¨ĞÅ¶Ë¿Ú
+	char*			localIpAddr;	// ±¾ÊÓÆµ½Úµãµ÷ÊÔÆ÷µÄ±¾µØIPµØÖ·
+	byte			remotePort;		// ±¾ÊÓÆµ½Úµãµ÷ÊÔÆ÷µÄÔ¶³ÌÁ¬½ÓTCP/IPÍ¨ĞÅ¶Ë¿Ú
+	char*			remoteIpAddr;	// ±¾ÊÓÆµ½Úµãµ÷ÊÔÆ÷µÄÔ¶³ÌÁ¬½ÓIPµØÖ·
+	byte			debugLevel;		// µ÷ÊÔµÈ¼¶
+	Buffer*			buffread;       // ¶ÁÊı¾İbuff
+	Buffer*			buffwrite;      // Ğ´Êı¾İbuff
 
 public:
 	void			ExtractArgs(char* strBuffer, va_list varList, char* format);
-	void			Print(byte dbgLevel, char* format, ...);		// æ‰“å°è°ƒè¯•ä¿¡æ¯
-	void			Print(byte dbgLevel, char* VideoRecorderName, char* format, ...);		// æ‰“å°è°ƒè¯•ä¿¡æ¯
-	void			Print(byte dbgLevel, char* VideoRecorderName, byte lineNumber, char* format, ...);		// æ‰“å°è°ƒè¯•ä¿¡æ¯
-	void			Print(byte dbgLevel, char* className, const char* funcName, byte lineNumber, char* format, ...);		// æ‰“å°è°ƒè¯•ä¿¡æ¯
+	void			Print(byte dbgLevel, char* format, ...);		// ´òÓ¡µ÷ÊÔĞÅÏ¢
+	void			Print(byte dbgLevel, char* VideoRecorderName, char* format, ...);		// ´òÓ¡µ÷ÊÔĞÅÏ¢
+	void			Print(byte dbgLevel, char* VideoRecorderName, byte lineNumber, char* format, ...);		// ´òÓ¡µ÷ÊÔĞÅÏ¢
+	void			Print(byte dbgLevel, char* className, const char* funcName, byte lineNumber, char* format, ...);		// ´òÓ¡µ÷ÊÔĞÅÏ¢
 	void			Print(byte dbgLevel, char* className, const char* funcName, byte lineNumber);
-	void			SetDebugLevel(byte debugLevel);		// è®¾ç½®è°ƒè¯•ç­‰çº§
+	void			SetDebugLevel(byte debugLevel);		// ÉèÖÃµ÷ÊÔµÈ¼¶
 public:
 	void            SendToMonitorServer(char* buf, int len);
 //protected:
-	char *          SendBuf;            // å‘å¾€ç›‘æ§æœåŠ¡å™¨çš„æ•°æ®é•¿åº¦  
-	int             sendlen;            // æ•´ä¸ªå‘å¾€è¿œç«¯çš„æ•°æ®é•¿åº¦ 
+	char *          SendBuf;            // ·¢Íù¼à¿Ø·şÎñÆ÷µÄÊı¾İ³¤¶È  
+	int             sendlen;            // Õû¸ö·¢ÍùÔ¶¶ËµÄÊı¾İ³¤¶È 
 
 };

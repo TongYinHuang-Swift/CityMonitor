@@ -1,6 +1,6 @@
-ï»¿/**
- * å¤šçº¿ç¨‹æ•°æ®æ¥æ”¶æ¨¡å—
- * è´Ÿè´£äººï¼šè‘£è¶…
+/**
+ * ¶àÏß³ÌÊı¾İ½ÓÊÕÄ£¿é
+ * ¸ºÔğÈË£º¶­³¬
  */
 #include "Global.h"
 #ifdef WIN32
@@ -45,8 +45,8 @@ void Receiver::Start()
 		the return value is zero. If an error occurs, a value of SOCKET_ERROR is returned, and a specific error code can be
 		retrieved by calling WSAGetLastError
 		*/
-		//int len = recv( socket, (char*)recvBuffer, NUM_BYTES_TO_RECEIVE_EACH_TIME, MSG_OOB );	// è€ƒè™‘æ¯æ¬¡åº”è¯¥æ¥æ”¶å¤šå°‘å­—èŠ‚ï¼ŸMSG_OOB or MSG_PEEK ?
-		int len = recv( socket, (char*)recvBuffer, NUM_BYTES_TO_RECEIVE_EACH_TIME, 0 );	// 0ä¸ºæ²¡æœ‰ç‰¹æ®Šæ•ˆæœ
+		//int len = recv( socket, (char*)recvBuffer, NUM_BYTES_TO_RECEIVE_EACH_TIME, MSG_OOB );	// ¿¼ÂÇÃ¿´ÎÓ¦¸Ã½ÓÊÕ¶àÉÙ×Ö½Ú£¿MSG_OOB or MSG_PEEK ?
+		int len = recv( socket, (char*)recvBuffer, NUM_BYTES_TO_RECEIVE_EACH_TIME, 0 );	// 0ÎªÃ»ÓĞÌØÊâĞ§¹û
 		if (len > 0)
 		{
 			uint i = 0;
@@ -54,7 +54,7 @@ void Receiver::Start()
 			PRINT(ALWAYS_PRINT, "Receiver", __FUNCTION__, __LINE__, "Received Data=%d",len);
 			while ( len > 0 )
 			{
-				// æŸ¥è¯¢å¾ªç¯ç¼“å†²å™¨å‰©ä½™ç©ºé—´
+				// ²éÑ¯Ñ­»·»º³åÆ÷Ê£Óà¿Õ¼ä
 				uint writelen = 0;
 				uint availLen = buffer->GetUnusedSpace();
 				if (availLen < len)
@@ -68,12 +68,12 @@ void Receiver::Start()
 
 				if (writelen > 0)
 				{
-					// å¾ªç¯ç¼“å†²å™¨æœ¬æ¬¡å¯å†™å…¥availLenä¸ªå­—èŠ‚
-					result=buffer->Write(recvBuffer + i, writelen);	// å†™å…¥æ•°æ®
+					// Ñ­»·»º³åÆ÷±¾´Î¿ÉĞ´ÈëavailLen¸ö×Ö½Ú
+					result=buffer->Write(recvBuffer + i, writelen);	// Ğ´ÈëÊı¾İ
 					PRINT(ALWAYS_PRINT, "Receiver", __FUNCTION__, __LINE__, "write len=%d,%d",writelen,result);
 
-					len -= writelen;							// è®¡ç®—ä¸‹æ¬¡å¯å†™å…¥çš„å­—èŠ‚æ•°
-					i  += writelen;							// è°ƒæ•´æ•°æ®æºåœ°å€æŒ‡é’ˆ
+					len -= writelen;							// ¼ÆËãÏÂ´Î¿ÉĞ´ÈëµÄ×Ö½ÚÊı
+					i  += writelen;							// µ÷ÕûÊı¾İÔ´µØÖ·Ö¸Õë
 				}
 				else
 				{
@@ -117,7 +117,7 @@ void Receiver::Start()
 			case WSAECONNRESET:		// The virtual circuit was reset by the remote side executing a hard or abortive close. The application should close the socket because it is no longer usable
 				break;
 			case 10038:
-				PRINT(ALWAYS_PRINT, "Receiver", __FUNCTION__, __LINE__, "receiveerror: %d %s\n",   lastError,"åœ¨ä¸€ä¸ªéå¥—æ¥å­—ä¸Šå°è¯•äº†ä¸€ä¸ªæ“ä½œ");
+				PRINT(ALWAYS_PRINT, "Receiver", __FUNCTION__, __LINE__, "receiveerror: %d %s\n",   lastError,"ÔÚÒ»¸ö·ÇÌ×½Ó×ÖÉÏ³¢ÊÔÁËÒ»¸ö²Ù×÷");
 				break;
 			}
 
@@ -140,25 +140,25 @@ void Receiver::Start()
 		if (len > 0)
 		{
 			uint i = 0;
-			// å°†æœ¬æ¬¡æ¥æ”¶åˆ°çš„æ•°æ®å­˜å…¥å¾ªç¯ç¼“å†²å™¨ buffer ä¸­
+			// ½«±¾´Î½ÓÊÕµ½µÄÊı¾İ´æÈëÑ­»·»º³åÆ÷ buffer ÖĞ
 			while ( len > 0 )
 			{
-				// æŸ¥è¯¢å¾ªç¯ç¼“å†²å™¨å‰©ä½™ç©ºé—´
+				// ²éÑ¯Ñ­»·»º³åÆ÷Ê£Óà¿Õ¼ä
 				uint availLen = buffer->GetUnusedSpace();
 				if (availLen > 0)
 				{
-					// å¾ªç¯ç¼“å†²å™¨æœ¬æ¬¡å¯å†™å…¥availLenä¸ªå­—èŠ‚
-					buffer->Write(recvBuffer + i, availLen);	// å†™å…¥æ•°æ®
-					len -= availLen;							// è®¡ç®—ä¸‹æ¬¡å¯å†™å…¥çš„å­—èŠ‚æ•°
-					i  += availLen;							// è°ƒæ•´æ•°æ®æºåœ°å€æŒ‡é’ˆ
+					// Ñ­»·»º³åÆ÷±¾´Î¿ÉĞ´ÈëavailLen¸ö×Ö½Ú
+					buffer->Write(recvBuffer + i, availLen);	// Ğ´ÈëÊı¾İ
+					len -= availLen;							// ¼ÆËãÏÂ´Î¿ÉĞ´ÈëµÄ×Ö½ÚÊı
+					i  += availLen;							// µ÷ÕûÊı¾İÔ´µØÖ·Ö¸Õë
 				}
 			}
 		}
 		else if(len==0)
  {  
-			  break;//è¿æ¥æ–­å¼€
+			  break;//Á¬½Ó¶Ï¿ª
 		} else { 
-			break; //å‡ºé”™errno
+			break; //³ö´íerrno
 		}
 	}
 

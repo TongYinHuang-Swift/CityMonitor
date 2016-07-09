@@ -1,4 +1,4 @@
-ï»¿#include "Recorder.h"
+#include "Recorder.h"
 #include "VideoRecorder.h"
 #include "HistoryVideo.h"
 #include "Buffer.h" 
@@ -30,10 +30,10 @@ void Recorder::Start()
 	{
 		if (!buffer->IsEmpty())
 		{
-			// ä»Žå®žæ—¶è§†é¢‘æµç¼“å†²å™¨é‡Œé¢èŽ·å–æ•°æ®ï¼Œæ¯æ¬¡æœ€å¤šè¯»TMP_BUFFER_LENå­—èŠ‚æ•°æ®
+			// ´ÓÊµÊ±ÊÓÆµÁ÷»º³åÆ÷ÀïÃæ»ñÈ¡Êý¾Ý£¬Ã¿´Î×î¶à¶ÁTMP_BUFFER_LEN×Ö½ÚÊý¾Ý
 			int len = buffer->Read(tmpBuffer, TMP_BUFFER_LEN); 
 			PRINT(ALWAYS_PRINT, "Recorder", __FUNCTION__, __LINE__,"Recorder Read=%d",len);
-			// ä¿å­˜lenä¸ªå­—èŠ‚çš„å®žæ—¶è§†é¢‘æ•°æ®
+			// ±£´ælen¸ö×Ö½ÚµÄÊµÊ±ÊÓÆµÊý¾Ý
 			SaveLiveVideo(tmpBuffer, len);
 		}
 		else
@@ -47,11 +47,11 @@ void Recorder::Start()
 	}
 }
 
-// å­˜å‚¨æœ¬åœ°æ‘„åƒæœºè§†é¢‘æ•°æ®
+// ´æ´¢±¾µØÉãÏñ»úÊÓÆµÊý¾Ý
 bool Recorder::SaveLiveVideo(byte* data, uint dataLen)				
 {
 	uint result;
-	PRINT(DEBUG_LEVEL_5, "Recorder", __FUNCTION__, __LINE__, " ä¿å­˜ %d å­—èŠ‚è§†é¢‘æ•°æ®", dataLen);
+	PRINT(DEBUG_LEVEL_5, "Recorder", __FUNCTION__, __LINE__, " ±£´æ %d ×Ö½ÚÊÓÆµÊý¾Ý", dataLen);
 
 	FILE* recordingFile = videoRecorder->GetRecordingFile();
 
@@ -86,10 +86,10 @@ bool Recorder::SaveLiveVideo(byte* data, uint dataLen)
 			remove(ppath.c_str());
 		}
 		videoRecorder->CloseRecordingFile();
-		// ä¿å­˜å½“å‰HistoryVideoä¿¡æ¯ã€‚å¦‚æžœå½“å‰è®°å½•ä½ç½®å·²ç»æœ‰åŽ†å²è®°å½•å­˜åœ¨ï¼Œé‚£ä¹ˆå°±ç”¨æ–°è®°å½•è¦†ç›–æ—§è®°å½•
-		// å¦‚æžœå½“å‰è®°å½•ä½ç½®æ²¡æœ‰åŽ†å²è®°å½•å­˜åœ¨ï¼Œå°±åˆ›å»ºä¸€ä¸ªæ–°è®°å½•ã€‚
+		// ±£´æµ±Ç°HistoryVideoÐÅÏ¢¡£Èç¹ûµ±Ç°¼ÇÂ¼Î»ÖÃÒÑ¾­ÓÐÀúÊ·¼ÇÂ¼´æÔÚ£¬ÄÇÃ´¾ÍÓÃÐÂ¼ÇÂ¼¸²¸Ç¾É¼ÇÂ¼
+		// Èç¹ûµ±Ç°¼ÇÂ¼Î»ÖÃÃ»ÓÐÀúÊ·¼ÇÂ¼´æÔÚ£¬¾Í´´½¨Ò»¸öÐÂ¼ÇÂ¼¡£
 		videoRecorder->RefreshCurHistoryVideo(videoLength);
-		// å°†è®°å½•å­˜å…¥æ–‡ä»¶ã€‚åˆ é™¤æ–‡ä»¶ä¸­çš„ç¬¬ä¸€ä¸ªè®°å½•ï¼Œå°†è¿™é‡Œæ–°å»ºçš„è®°å½•æ”¾åœ¨æ–‡ä»¶æœ€åŽï¼ˆé€šè¿‡å…ˆåˆ é™¤æ‰€æœ‰è®°å½•å†é‡å»ºæ‰€æœ‰è®°å½•æ¥å®žçŽ°ï¼‰
+		// ½«¼ÇÂ¼´æÈëÎÄ¼þ¡£É¾³ýÎÄ¼þÖÐµÄµÚÒ»¸ö¼ÇÂ¼£¬½«ÕâÀïÐÂ½¨µÄ¼ÇÂ¼·ÅÔÚÎÄ¼þ×îºó£¨Í¨¹ýÏÈÉ¾³ýËùÓÐ¼ÇÂ¼ÔÙÖØ½¨ËùÓÐ¼ÇÂ¼À´ÊµÏÖ£©
 		videoRecorder->SaveVideoRecords();         
 
 		videoLength = 0;

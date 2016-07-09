@@ -1,4 +1,4 @@
-ï»¿#include "VideoManager.h"
+#include "VideoManager.h"
 #include "HistoryVideoPlayer.h" 
 #include "VideoRecorder.h" 
 #include "TcpConn.h" 
@@ -31,17 +31,17 @@ VideoManager::~VideoManager()
 	ReleaseMemory();
 }
 /**
- * å®Œæˆè§†é¢‘ç®¡ç†å™¨çš„åˆå§‹åŒ–ã€‚åˆå§‹åŒ–åŒ…æ‹¬ï¼š
- * 1. ä¸‹è¡Œå‘½ä»¤é€šé“æœåŠ¡å™¨çš„å»ºç«‹
- * 2. ä¼ é€ä¸‹è¡Œå‘½ä»¤å“åº”çš„ä¸Šè¡Œä¿¡æ¯é€šé“çš„å»ºç«‹
- * 3. æœ¬åœ°æ‘„åƒæœºæ•°æ®è·å–æœåŠ¡å™¨çš„å»ºç«‹
- * 4. æœ¬åœ°æ‘„åƒæœºæ§åˆ¶é€šé“çš„å»ºç«‹
- * 5. è§†é¢‘æµæ¥åŠ›ä¼ è¾“æœåŠ¡å™¨çš„å»ºç«‹
- * 6. æœ¬åœ°è§†é¢‘å½•åƒæœºåŠŸèƒ½çš„åˆ›å»º
- * 7. åˆ›å»ºå‘½ä»¤è¯‘ç å™¨
- * 8. åˆ›å»ºå†å²è§†é¢‘æ’­æ”¾å™¨
- * å®Œæˆè§†é¢‘è½¬å‘åŠŸèƒ½çš„å®¢æˆ·ç«¯åœ¨è§†é¢‘æµæ¥åŠ›ä¼ è¾“æœåŠ¡å™¨å†…éƒ¨åŠ¨æ€å»ºç«‹ï¼šæœåŠ¡å™¨æ¯è¿æ¥ä¸€ä¸ªå³é‚»å®¢æˆ·ç«¯å°±åŠ¨æ€åœ°åˆ›å»ºä¸€ä¸ªæœ¬åœ°å®¢æˆ·ç«¯ä¸å·¦é‚»æœåŠ¡å™¨çš„è¿æ¥
- * å®Œæˆæœ¬åœ°è§†é¢‘æ’­æ”¾åŠŸèƒ½çš„å®¢æˆ·ç«¯åœ¨Codecè¯‘ç ä¸‹è¡Œå‘½ä»¤æ—¶åˆ›å»ºã€‚
+ * Íê³ÉÊÓÆµ¹ÜÀíÆ÷µÄ³õÊ¼»¯¡£³õÊ¼»¯°üÀ¨£º
+ * 1. ÏÂĞĞÃüÁîÍ¨µÀ·şÎñÆ÷µÄ½¨Á¢
+ * 2. ´«ËÍÏÂĞĞÃüÁîÏìÓ¦µÄÉÏĞĞĞÅÏ¢Í¨µÀµÄ½¨Á¢
+ * 3. ±¾µØÉãÏñ»úÊı¾İ»ñÈ¡·şÎñÆ÷µÄ½¨Á¢
+ * 4. ±¾µØÉãÏñ»ú¿ØÖÆÍ¨µÀµÄ½¨Á¢
+ * 5. ÊÓÆµÁ÷½ÓÁ¦´«Êä·şÎñÆ÷µÄ½¨Á¢
+ * 6. ±¾µØÊÓÆµÂ¼Ïñ»ú¹¦ÄÜµÄ´´½¨
+ * 7. ´´½¨ÃüÁîÒëÂëÆ÷
+ * 8. ´´½¨ÀúÊ·ÊÓÆµ²¥·ÅÆ÷
+ * Íê³ÉÊÓÆµ×ª·¢¹¦ÄÜµÄ¿Í»§¶ËÔÚÊÓÆµÁ÷½ÓÁ¦´«Êä·şÎñÆ÷ÄÚ²¿¶¯Ì¬½¨Á¢£º·şÎñÆ÷Ã¿Á¬½ÓÒ»¸öÓÒÁÚ¿Í»§¶Ë¾Í¶¯Ì¬µØ´´½¨Ò»¸ö±¾µØ¿Í»§¶ËÓë×óÁÚ·şÎñÆ÷µÄÁ¬½Ó
+ * Íê³É±¾µØÊÓÆµ²¥·Å¹¦ÄÜµÄ¿Í»§¶ËÔÚCodecÒëÂëÏÂĞĞÃüÁîÊ±´´½¨¡£
  */
 void VideoManager::Init()
 {
@@ -58,33 +58,33 @@ void VideoManager::Init()
 	PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__,"local ip=%s",localAddr);
 
 	#ifndef NO_RIGHT_SERVER
-	// åˆ›å»ºå°†æ¥è‡ªå·¦é‚»èŠ‚ç‚¹çš„ä¸‹è¡Œå‘½ä»¤è½¬å‘è‡³å³é‚»èŠ‚ç‚¹çš„å®¢æˆ·ç«¯
+	// ´´½¨½«À´×Ô×óÁÚ½ÚµãµÄÏÂĞĞÃüÁî×ª·¢ÖÁÓÒÁÚ½ÚµãµÄ¿Í»§¶Ë
 	cmdClient4RightNode = new TcpConn(MODE_CLIENT, COMMAND_CHAN_CONNECTION, this, cmdBuffer, cmdAckBuffer);
 	cmdClient4RightNode->SetLocalInfo(localAddr);
 	cmdClient4RightNode->SetRemoteInfo(rightNodeAddr, CMD_RELAY_CONN_PORT);
-	// å»ºç«‹TCP/IPå®¢æˆ·ç«¯
+	// ½¨Á¢TCP/IP¿Í»§¶Ë
 	cmdClient4RightNode->CreateClient();
 	#endif
 
-	// åˆ›å»ºæ¥æ”¶æ¥è‡ªå·¦é‚»èŠ‚ç‚¹çš„ä¸‹è¡Œå‘½ä»¤çš„æœåŠ¡å™¨
+	// ´´½¨½ÓÊÕÀ´×Ô×óÁÚ½ÚµãµÄÏÂĞĞÃüÁîµÄ·şÎñÆ÷
 	cmdServer4LeftNode = new TcpConn(MODE_SERVER, COMMAND_CHAN_CONNECTION, this, cmdAckBuffer, cmdBuffer);
 	cmdServer4LeftNode->SetLocalInfo(localAddr, CMD_RELAY_CONN_PORT);
-	// å»ºç«‹TCP/IPæœåŠ¡å™¨
+	// ½¨Á¢TCP/IP·şÎñÆ÷
 	cmdServer4LeftNode->CreateServer();
 
-	// åˆ›å»ºæœ¬åœ°æ‘„åƒæœºè§†é¢‘æ•°æ®æ¥æ”¶æœåŠ¡å™¨ï¼ˆç”±äºæˆ‘ä»¬ä¸çŸ¥é“æ‰€è¿æ¥çš„æ‘„åƒæœºIPåœ°å€ï¼Œæ‰€ä»¥åªèƒ½é€šè¿‡æœåŠ¡å™¨çš„æ–¹å¼è·å–è§†é¢‘æ•°æ®ï¼Œè®©æ‘„åƒæœºé€šè¿‡pushçš„æ–¹å¼ä¼ è¾“æ•°æ®ï¼‰
+	// ´´½¨±¾µØÉãÏñ»úÊÓÆµÊı¾İ½ÓÊÕ·şÎñÆ÷£¨ÓÉÓÚÎÒÃÇ²»ÖªµÀËùÁ¬½ÓµÄÉãÏñ»úIPµØÖ·£¬ËùÒÔÖ»ÄÜÍ¨¹ı·şÎñÆ÷µÄ·½Ê½»ñÈ¡ÊÓÆµÊı¾İ£¬ÈÃÉãÏñ»úÍ¨¹ıpushµÄ·½Ê½´«ÊäÊı¾İ£©
 	videoServer4LocalCam = new TcpConn(MODE_SERVER, LOCAL_CAMERA_CONNECTION, this, cameraCtrlBuffer, videoDataBuffer);
 	videoServer4LocalCam->SetLocalInfo(localAddr, LOCAL_CAMERA_CONN_PORT);
-	// å»ºç«‹TCP/IPæœåŠ¡å™¨
+	// ½¨Á¢TCP/IP·şÎñÆ÷
 	videoServer4LocalCam->CreateServer4Cam();
 
-	// åˆ›å»ºæœ¬åœ°æ‘„åƒæœºè§†é¢‘å½•åƒæœº
+	// ´´½¨±¾µØÉãÏñ»úÊÓÆµÂ¼Ïñ»ú
 	videoRecorder = new VideoRecorder(videoDataBuffer);
 
-	// åˆ›å»ºæ¥æ”¶æ¥è‡ªå³é‚»èŠ‚ç‚¹è§†é¢‘æµçš„æœåŠ¡å™¨
+	// ´´½¨½ÓÊÕÀ´×ÔÓÒÁÚ½ÚµãÊÓÆµÁ÷µÄ·şÎñÆ÷
 	videoServer4RightNode = new TcpConn(MODE_SERVER, RIGHT_NODE_CONNECTION, this);
 	videoServer4RightNode->SetLocalInfo(localAddr, VIDEO_RELAY_CONN_PORT);
-	// å»ºç«‹TCP/IPæœåŠ¡å™¨
+	// ½¨Á¢TCP/IP·şÎñÆ÷
 	videoServer4RightNode->CreateServer();
 
 	codec = new Codec(this,cmdBuffer);
@@ -94,25 +94,25 @@ void VideoManager::Init()
 
 }
 /**
- * ç›‘æ§ä¸­å¿ƒç³»ç»Ÿé‡å¯å‘½ä»¤æ‰§è¡Œå…¥å£
- * å®Œæˆç³»ç»Ÿé‡å¯ï¼ŒåŒ…æ‹¬æ‰€æœ‰æ¨¡å—çš„é‡å¯ã€‚å…ˆé‡Šæ”¾å†…å­˜ï¼Œç„¶åé‡å»ºç³»ç»Ÿã€‚
+ * ¼à¿ØÖĞĞÄÏµÍ³ÖØÆôÃüÁîÖ´ĞĞÈë¿Ú
+ * Íê³ÉÏµÍ³ÖØÆô£¬°üÀ¨ËùÓĞÄ£¿éµÄÖØÆô¡£ÏÈÊÍ·ÅÄÚ´æ£¬È»ºóÖØ½¨ÏµÍ³¡£
  */
 void VideoManager::SystemRestart()
 {
 	PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
-	Reset();			// çƒ­å¤ä½VideoManager
+	Reset();			// ÈÈ¸´Î»VideoManager
 
 	// TODO
-	// å…¶å®ƒæ¨¡å—çš„çƒ­å¤ä½åœ¨æ­¤å®Œæˆ
+	// ÆäËüÄ£¿éµÄÈÈ¸´Î»ÔÚ´ËÍê³É
 }
 /**
- * ç›‘æ§ä¸­å¿ƒç³»ç»Ÿå®æ—¶è§†é¢‘ç›´æ’­å‘½ä»¤æ‰§è¡Œå…¥å£
+ * ¼à¿ØÖĞĞÄÏµÍ³ÊµÊ±ÊÓÆµÖ±²¥ÃüÁîÖ´ĞĞÈë¿Ú
  */
 void VideoManager::PlayRealTimeVideo()
 {
 	PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
 	// TODO
-	// åˆ›å»ºä¸€ä¸ªä¸å·¦é‚»èŠ‚ç‚¹æœåŠ¡å™¨ç›¸è¿çš„å®¢æˆ·ç«¯è¿æ¥å‘é€æœ¬åœ°å®æ—¶è§†é¢‘
+	// ´´½¨Ò»¸öÓë×óÁÚ½Úµã·şÎñÆ÷ÏàÁ¬µÄ¿Í»§¶ËÁ¬½Ó·¢ËÍ±¾µØÊµÊ±ÊÓÆµ
 
 	char buf[20];
 		strcpy(buf,"123456789");
@@ -121,25 +121,25 @@ void VideoManager::PlayRealTimeVideo()
 
 }
 /**
- * ç›‘æ§ä¸­å¿ƒç‚¹æ’­å†å²è§†é¢‘å‘½ä»¤æ‰§è¡Œå…¥å£
+ * ¼à¿ØÖĞĞÄµã²¥ÀúÊ·ÊÓÆµÃüÁîÖ´ĞĞÈë¿Ú
  */
 void VideoManager::PlayHistoryVideo(DateTime* startTime, DateTime* endTime)
 {
 	PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
 	// TODO
-	// åœ¨HistoryVideoPlayerä¸­åˆ›å»ºä¸€ä¸ªVideoFileReaderå’Œä¸€ä¸ªä¸å·¦é‚»èŠ‚ç‚¹æœåŠ¡å™¨ç›¸è¿çš„å®¢æˆ·ç«¯è¿æ¥
+	// ÔÚHistoryVideoPlayerÖĞ´´½¨Ò»¸öVideoFileReaderºÍÒ»¸öÓë×óÁÚ½Úµã·şÎñÆ÷ÏàÁ¬µÄ¿Í»§¶ËÁ¬½Ó
 }
 /**
- * ç›‘æ§ä¸­å¿ƒè·å–å½•åƒåˆ—è¡¨å‘½ä»¤æ‰§è¡Œå…¥å£
+ * ¼à¿ØÖĞĞÄ»ñÈ¡Â¼ÏñÁĞ±íÃüÁîÖ´ĞĞÈë¿Ú
  */
 void VideoManager::SendHistoyVideoList()
 {
 	PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
 	// TODO
-	// ä»HistoryVideoManagerè·å–å½•åƒåˆ—è¡¨ï¼Œå¹¶å°†æ­¤å½•åƒåˆ—è¡¨å†™å…¥cmdAckBuffer
+	// ´ÓHistoryVideoManager»ñÈ¡Â¼ÏñÁĞ±í£¬²¢½«´ËÂ¼ÏñÁĞ±íĞ´ÈëcmdAckBuffer
 }
 /**
- * é‡Šæ”¾å†…å­˜ã€‚
+ * ÊÍ·ÅÄÚ´æ¡£
  */
 void VideoManager::ReleaseMemory()
 {
@@ -153,7 +153,7 @@ void VideoManager::ReleaseMemory()
 	delete codec;
 }
 /**
- * å®ŒæˆVideoManageråˆå§‹åŒ–ã€‚å…ˆé‡Šæ”¾å†…å­˜ï¼Œç„¶åé‡å»ºã€‚
+ * Íê³ÉVideoManager³õÊ¼»¯¡£ÏÈÊÍ·ÅÄÚ´æ£¬È»ºóÖØ½¨¡£
  */
 void VideoManager::Reset()
 {
@@ -161,13 +161,13 @@ void VideoManager::Reset()
 	//ReleaseMemory();
 	//Init();
 }
-// è·å–å·¦é‚»èŠ‚ç‚¹çš„IPåœ°å€
+// »ñÈ¡×óÁÚ½ÚµãµÄIPµØÖ·
 char* VideoManager::GetLeftNodeIpAddr(char* localIPAddress)
 {
 	PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " LeftNodeIpAddr = %s", LEFTNODE_IP_ADDR);
 	return LEFTNODE_IP_ADDR;
 }
-// è·å–æœ¬æœºçš„IPåœ°å€ï¼ˆæ³¨æ„ï¼šä¸æ˜¯ "127.0.0.1"ï¼‰
+// »ñÈ¡±¾»úµÄIPµØÖ·£¨×¢Òâ£º²»ÊÇ "127.0.0.1"£©
 char* VideoManager::GetLocalIpAddr()
 {
 	PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " LocalIpAddr = %s", LOCAL_IP_ADDR);
@@ -177,7 +177,7 @@ char* VideoManager::GetLocalIpAddr()
 	return localIpAddr;
 #endif
 }
-// è·å–å³é‚»èŠ‚ç‚¹çš„IPåœ°å€
+// »ñÈ¡ÓÒÁÚ½ÚµãµÄIPµØÖ·
 char* VideoManager::GetRightNodeIpAddr(char* localIPAddress)
 {
 	PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " LeftNodeIpAddr = %s", RIGHTNODE_IP_ADDR);

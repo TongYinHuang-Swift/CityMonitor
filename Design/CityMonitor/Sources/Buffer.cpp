@@ -1,17 +1,17 @@
-﻿#include "Buffer.h" 
+#include "Buffer.h" 
 #include "Debugger.h" 
 
-// 双端口读出循环缓冲器：第一端口为主要读出端口，第二端口为次要读出端口。这里维持2个读指针，2个缓冲器状态标志。
-// 2个端口的数据读出互不影响，2个端口在缓冲器空状态也都是正确的，但缓冲器满状态则仅仅是基于第一主要读指针进行判
-// 断的。也就是说，当缓冲器出现满状态时，第二读出端口可能会因为数据被覆盖而丢失数据，也可能是第二端口还没有满。
-// 这一切取决于，2个端口的数据读出速度以及数据的写入速度。
-// 所以当2个端口都以写入速度更快的速度读出数据，那么上述问题可以避免，如用于命令接收缓冲器时就属于这种安全的情况
+// ˫�˿ڶ���ѭ������������һ�˿�Ϊ��Ҫ�����˿ڣ��ڶ��˿�Ϊ��Ҫ�����˿ڡ�����ά��2����ָ�룬2��������״̬��־��
+// 2���˿ڵ����ݶ�������Ӱ�죬2���˿��ڻ�������״̬Ҳ������ȷ�ģ�����������״̬������ǻ��ڵ�һ��Ҫ��ָ�������
+// �ϵġ�Ҳ����˵����������������״̬ʱ���ڶ������˿ڿ��ܻ���Ϊ���ݱ����Ƕ���ʧ���ݣ�Ҳ�����ǵڶ��˿ڻ�û������
+// ��һ��ȡ���ڣ�2���˿ڵ����ݶ����ٶ��Լ����ݵ�д���ٶȡ�
+// ���Ե�2���˿ڶ���д���ٶȸ�����ٶȶ������ݣ���ô����������Ա��⣬������������ջ�����ʱ���������ְ�ȫ�����
 //
-// ！！！当只使用一个读出端口时，必须使用第一读出端口！！！！否则缓冲器状态将不可能正常，即缓冲器永远不会满！！！
+// ��������ֻʹ��һ�������˿�ʱ������ʹ�õ�һ�����˿ڣ����������򻺳���״̬������������������������Զ������������
 
 Buffer::Buffer(uint bufLen, byte bufID)
 {
-	PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " 创建一个 len = %d、ID = %d 的循环缓冲器", bufLen, bufID);
+	PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " ����һ�� len = %d��ID = %d ��ѭ��������", bufLen, bufID);
 	this->bufLen = bufLen;
 	this->bufID = bufID;
 	buffer = new byte[bufLen];
@@ -23,88 +23,88 @@ Buffer::Buffer(uint bufLen, byte bufID)
 }
 Buffer::~Buffer()
 {
-	PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " 删除 ID = %d 的循环缓冲器", bufID);
+	PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " ɾ�� ID = %d ��ѭ��������", bufID);
 	delete [] buffer;
 }
-// 通过第一读出端口读取数据
+// ͨ����һ�����˿ڶ�ȡ����
 uint Buffer::Read(byte* rdBuf, uint len)
 {
-	// 获取操作锁，阻止其它线程对本对象进行操作
+	// ��ȡ����������ֹ�����̶߳Ա�������в���
 	lock = true;	
-	// 检查是否有数据可以读取
+	// ����Ƿ������ݿ��Զ�ȡ
 	if (BUFFER_EMPTY == status) 
 	{ 
-		PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " 错误：缓冲器空，从循环缓冲器 %d 中通过第一读出端口读取 0 个字节", bufID);
+		PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " ���󣺻������գ���ѭ�������� %d ��ͨ����һ�����˿ڶ�ȡ 0 ���ֽ�", bufID);
 		return 0; 
 	}
 	else
 	{
-		PRINT(DEBUG_LEVEL_9, "Buffer", __FUNCTION__, __LINE__, " 从循环缓冲器 %d 中通过第一读出端口读取 %d 个字节", bufID, len);
+		PRINT(DEBUG_LEVEL_9, "Buffer", __FUNCTION__, __LINE__, " ��ѭ�������� %d ��ͨ����һ�����˿ڶ�ȡ %d ���ֽ�", bufID, len);
 	}
 
 	for (uint i = 0; i < len; i++)
 	{
-		// 从缓冲器中读取数据
+		// �ӻ������ж�ȡ����
 		rdBuf[i] = buffer[rdIndex++];
 
-		// 检查读指针是否已经到达缓冲器的底部
+		// ����ָ���Ƿ��Ѿ����ﻺ�����ĵײ�
 		if (rdIndex == bufLen)
 		{
-			// 实现循环缓冲器的循环功能
+			// ʵ��ѭ����������ѭ������
 			rdIndex = 0;
 		}
-		// 检查缓冲器中数据是否已经读完
+		// ��黺�����������Ƿ��Ѿ�����
 		if (rdIndex == wrIndex)
 		{
-			// 缓冲器已空
+			// �������ѿ�
 			status = BUFFER_EMPTY;
 			return i + 1;
 		}
 	}
-	// 设置缓冲器非空非满标志
+	// ���û������ǿշ�����־
 	status = BUFFER_OK;
-	// 释放操作锁，允许其它线程对本对象进行操作
+	// �ͷŲ����������������̶߳Ա�������в���
 	lock = false;	
 
 	return len;
 }
-// 通过第二读出端口读取数据
+// ͨ���ڶ������˿ڶ�ȡ����
 uint Buffer::ReadExt(byte* rdBuf, uint len)
 {
-	// 获取操作锁，阻止其它线程对本对象进行操作
+	// ��ȡ����������ֹ�����̶߳Ա�������в���
 	lock = true;	
-	// 检查是否有数据可以读取
+	// ����Ƿ������ݿ��Զ�ȡ
 	if (BUFFER_EMPTY == statusExt) 
 	{ 
-		PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " 错误:缓冲器空，从循环缓冲器 %d 中通过第二读出端口读取 0 个字节", bufID);
+		PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " ����:�������գ���ѭ�������� %d ��ͨ���ڶ������˿ڶ�ȡ 0 ���ֽ�", bufID);
 		return 0; 
 	}
 	else
 	{
-		PRINT(DEBUG_LEVEL_9, "Buffer", __FUNCTION__, __LINE__, " 从循环缓冲器 %d 中通过第二读出端口读取 %d 个字节", bufID, len);
+		PRINT(DEBUG_LEVEL_9, "Buffer", __FUNCTION__, __LINE__, " ��ѭ�������� %d ��ͨ���ڶ������˿ڶ�ȡ %d ���ֽ�", bufID, len);
 	}
 
 	for (uint i = 0; i < len; i++)
 	{
-		// 从缓冲器中读取数据
+		// �ӻ������ж�ȡ����
 		rdBuf[i] = buffer[rdIndexExt++];
-		// 检查读指针是否已经到达缓冲器的底部
+		// ����ָ���Ƿ��Ѿ����ﻺ�����ĵײ�
 		if (rdIndexExt == bufLen)
 		{
-			// 实现循环缓冲器的循环功能
+			// ʵ��ѭ����������ѭ������
 			rdIndexExt = 0;
 		}
-		// 检查缓冲器中数据是否已经读完
+		// ��黺�����������Ƿ��Ѿ�����
 		if (rdIndexExt == wrIndex)
 		{
-			// 缓冲器已空
+			// �������ѿ�
 			statusExt = BUFFER_EMPTY;
 			return i + 1;
 		}
 	}
-	// 设置缓冲器非空非满标志
+	// ���û������ǿշ�����־
 	statusExt = BUFFER_OK;
-	// 释放操作锁，允许其它线程对本对象进行操作
+	// �ͷŲ����������������̶߳Ա�������в���
 	lock = false;	
 
 	return len;
@@ -112,43 +112,43 @@ uint Buffer::ReadExt(byte* rdBuf, uint len)
 
 uint Buffer::Write(byte* wrBuf, uint len)
 {
-	// 获取操作锁，阻止其它线程对本对象进行操作
+	// ��ȡ����������ֹ�����̶߳Ա�������в���
 	lock = true;
 
-	// 检查缓冲器是否有空间写入新数据
+	// ��黺�����Ƿ��пռ�д��������
 	if (BUFFER_OVERFLOW == status) 
 	{ 
-		PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " 错误:缓冲器 %d 满。向循环缓冲器中写入 0 个字节", bufID);
+		PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " ����:������ %d ������ѭ����������д�� 0 ���ֽ�", bufID);
 		return 0; 
 	}
 	else
 	{
-		PRINT(DEBUG_LEVEL_9, "Buffer", __FUNCTION__, __LINE__, " 向循环缓冲器 %d 中写入 %d 个字节", bufID, len);
+		PRINT(DEBUG_LEVEL_9, "Buffer", __FUNCTION__, __LINE__, " ��ѭ�������� %d ��д�� %d ���ֽ�", bufID, len);
 	}
 
 	for (uint i = 0; i < len; i++)
 	{
-		// 往缓冲器中写入数据
+		// ����������д������
 		buffer[wrIndex++] = wrBuf[i];
-		// 检查写指针是否已经到达缓冲器的顶部
+		// ���дָ���Ƿ��Ѿ����ﻺ�����Ķ���
 		if (wrIndex == bufLen)
 		{
-			// 实现循环缓冲器的循环功能
+			// ʵ��ѭ����������ѭ������
 			wrIndex = 0;
 		}
-		// 检查缓冲器数据是否已经写满
+		// ��黺���������Ƿ��Ѿ�д��
 		if (rdIndex == wrIndex)
 		{
-			// 缓冲器已满
+			// ����������
 			status = BUFFER_OVERFLOW;
 			PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " BUFFER_OVERFLOW");
 			return i + 1;
 		}
 	}
-	// 设置缓冲器非空非满标志
+	// ���û������ǿշ�����־
 	status = BUFFER_OK;
 	statusExt = BUFFER_OK;
-	// 释放操作锁，允许其它线程对本对象进行操作
+	// �ͷŲ����������������̶߳Ա�������в���
 	lock = false;	
 
 	return len;
@@ -167,7 +167,7 @@ uint Buffer::GetUnusedSpace()
 		case BUFFER_OVERFLOW: 
 			return 0;
 	}
-	return 0;	// 不会运行到这里，欺骗Compiler
+	return 0;	// �������е������ƭCompiler
 }
 uint Buffer::GetValidDataLen()
 {
@@ -188,7 +188,7 @@ uint Buffer::GetValidDataLenExt()
 		case BUFFER_OVERFLOW: 
 			return bufLen;
 	}
-	return 0;	// 不会运行到这里，欺骗Compiler
+	return 0;	// �������е������ƭCompiler
 }
 bool Buffer::IsLocked()
 {

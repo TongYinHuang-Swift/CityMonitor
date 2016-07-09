@@ -1,6 +1,6 @@
-ï»¿/**
- * å¤šçº¿ç¨‹æ•°æ®æ¥æ”¶æ¨¡å—
- * è´Ÿè´£äººï¼šè‘£è¶…
+/**
+ * ¶àÏß³ÌÊı¾İ½ÓÊÕÄ£¿é
+ * ¸ºÔğÈË£º¶­³¬
  */
 #pragma once
 #include "Global.h" 
@@ -27,8 +27,8 @@ public:
 
 private:
 	SOCKET		socket;
-	Buffer*		buffer;			// æ•°æ®æ¥æ”¶å¾ªç¯ç¼“å†²å™¨
-	byte		recvBuffer[NUM_BYTES_TO_RECEIVE_EACH_TIME]; // ä¸´æ—¶æ¥æ”¶ç¼“å†²å™¨
+	Buffer*		buffer;			// Êı¾İ½ÓÊÕÑ­»·»º³åÆ÷
+	byte		recvBuffer[NUM_BYTES_TO_RECEIVE_EACH_TIME]; // ÁÙÊ±½ÓÊÕ»º³åÆ÷
 public:
-	virtual void			Start();		// æ‰§è¡Œæ‹Ÿåœ¨çº¿ç¨‹ä¸­è®¡åˆ’çš„ä»»åŠ¡
+	virtual void			Start();		// Ö´ĞĞÄâÔÚÏß³ÌÖĞ¼Æ»®µÄÈÎÎñ
 };

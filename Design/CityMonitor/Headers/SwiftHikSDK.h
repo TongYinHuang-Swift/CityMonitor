@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2015-2016 Swift-tech.Inc. All rights reserved.
  *
  * Swift-tech retains all right, title and interest (including all

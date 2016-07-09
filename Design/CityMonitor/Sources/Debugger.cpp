@@ -1,4 +1,4 @@
-ï»¿#include "Debugger.h"
+#include "Debugger.h"
 #include <iostream>
 #include "stdlib.h"
 #include <cstring>
@@ -11,25 +11,25 @@
 
 Debugger::Debugger()
 {
-	// å®šä¹‰è°ƒè¯•ç­‰çº§
+	// ¶¨Òåµ÷ÊÔµÈ¼¶
 	debugLevel = DEBUG_LEVEL;
-	// å®šä¹‰æ¯è¡Œèƒ½å¤Ÿæ‰“å°çš„æœ€å¤§å­—ç¬¦æ•°é‡
+	// ¶¨ÒåÃ¿ĞĞÄÜ¹»´òÓ¡µÄ×î´ó×Ö·ûÊıÁ¿
 	lineBuffer = new char[MAX_LINE_LENGTH+1];
 
-	// å®šä¹‰æ¯æ¬¡å‘é€çš„æ•°æ®çš„æ€»é•¿åº¦
+	// ¶¨ÒåÃ¿´Î·¢ËÍµÄÊı¾İµÄ×Ü³¤¶È
 	sendlen = BUF_SEND_LEN;
 	SendBuf = new char[sendlen];
 
 	char* info = new char[128];
-	// åˆ›å»ºæ—¥å¿—æ–‡ä»¶
+	// ´´½¨ÈÕÖ¾ÎÄ¼ş
 	strcpy(info, APP_NAME);
 	strcat(info, ".log");
 	logger = fopen(info, "w");
-	// åœ¨æ—¥å¿—æ–‡ä»¶å’Œè°ƒè¯•çª—å£æ‰“å°ç‰ˆæƒå£°æ˜ç­‰ä¿¡æ¯
+	// ÔÚÈÕÖ¾ÎÄ¼şºÍµ÷ÊÔ´°¿Ú´òÓ¡°æÈ¨ÉùÃ÷µÈĞÅÏ¢
 	strcpy(info, COMPANY);
 	strcat(info, "    ");
 	strcat(info, APP_NAME);
-	strcat(info, "  ç‰ˆæœ¬");
+	strcat(info, "  °æ±¾");
 	strcat(info, VER);
 	strcat(info, "    ");
 	strcat(info, __DATE__);
@@ -39,7 +39,7 @@ Debugger::Debugger()
 	printf(info);
 	fputs(info, logger);
 	fflush(logger);
-	// é‡Šæ”¾åŠ¨æ€å†…å­˜
+	// ÊÍ·Å¶¯Ì¬ÄÚ´æ
 	delete [] info;
 /*
 	buffread  = new Buffer(BUF_SEND_LEN,1);
@@ -60,15 +60,15 @@ void Debugger::Print(byte dbgLevel, char* format, ...)
 {
 	if (dbgLevel <= debugLevel) 
 	{ 
-		lineBuffer[0] = 0;  // æ¸…ç©ºå­—ç¬¦ä¸²
-		va_list varList;    // å˜å‚åˆ—è¡¨
-		va_start(varList, format); /* ç”¨å˜å‚ç±»å‹çš„å‚æ•°å»åˆå§‹åŒ–varList */
-		ExtractArgs(lineBuffer, varList, format);	// æå–æ‰€æœ‰å˜å‚çš„å‚æ•°å€¼
-		va_end(varList);  /* å¿…é¡»é‡Šæ”¾varList !!ï¼ å¦åˆ™ä¼šå½±å“åˆ°ä¸‹ä¸€æ¬¡è°ƒç”¨æ­¤å‡½æ•°æˆ–åˆ«çš„åœ°æ–¹ä½¿ç”¨è¿™ç§å˜é‡æå–æ—¶çš„åŠŸèƒ½æ­£ç¡®æ€§ã€‚å‚è§ç›¸å…³æ–‡æ¡£ */
-		// æ‰“å°é€šè¿‡æ ¼å¼è½¬æ¢åçš„å­—ç¬¦ä¸²
-		strcat(lineBuffer, "\n");	// æ·»åŠ æ¢è¡Œç¬¦
+		lineBuffer[0] = 0;  // Çå¿Õ×Ö·û´®
+		va_list varList;    // ±ä²ÎÁĞ±í
+		va_start(varList, format); /* ÓÃ±ä²ÎÀàĞÍµÄ²ÎÊıÈ¥³õÊ¼»¯varList */
+		ExtractArgs(lineBuffer, varList, format);	// ÌáÈ¡ËùÓĞ±ä²ÎµÄ²ÎÊıÖµ
+		va_end(varList);  /* ±ØĞëÊÍ·ÅvarList !!£¡ ·ñÔò»áÓ°Ïìµ½ÏÂÒ»´Îµ÷ÓÃ´Ëº¯Êı»ò±ğµÄµØ·½Ê¹ÓÃÕâÖÖ±äÁ¿ÌáÈ¡Ê±µÄ¹¦ÄÜÕıÈ·ĞÔ¡£²Î¼ûÏà¹ØÎÄµµ */
+		// ´òÓ¡Í¨¹ı¸ñÊ½×ª»»ºóµÄ×Ö·û´®
+		strcat(lineBuffer, "\n");	// Ìí¼Ó»»ĞĞ·û
 		printf(lineBuffer);
-		// å°†å­—ç¬¦ä¸²å†™å…¥logæ–‡ä»¶
+		// ½«×Ö·û´®Ğ´ÈëlogÎÄ¼ş
 		fputs(lineBuffer, logger);
 		fflush(logger);
 	}
@@ -78,17 +78,17 @@ void Debugger::Print(byte dbgLevel, char* fileName, char* format, ...)
 {
 	if (dbgLevel <= debugLevel) 
 	{ 
-		lineBuffer[0] = 0;  // æ¸…ç©ºå­—ç¬¦ä¸²
+		lineBuffer[0] = 0;  // Çå¿Õ×Ö·û´®
 		strcpy(lineBuffer, fileName);
 		strcat(lineBuffer, " - ");
-		va_list varList;    // å˜å‚åˆ—è¡¨
-		va_start(varList, format); /* ç”¨å˜å‚ç±»å‹çš„å‚æ•°å»åˆå§‹åŒ–varList */
-		ExtractArgs(lineBuffer + strlen(lineBuffer), varList, format);	// æå–æ‰€æœ‰å˜å‚çš„å‚æ•°å€¼
-		va_end(varList);  /* å¿…é¡»é‡Šæ”¾varList !!ï¼ å¦åˆ™ä¼šå½±å“åˆ°ä¸‹ä¸€æ¬¡è°ƒç”¨æ­¤å‡½æ•°æˆ–åˆ«çš„åœ°æ–¹ä½¿ç”¨è¿™ç§å˜é‡æå–æ—¶çš„åŠŸèƒ½æ­£ç¡®æ€§ã€‚å‚è§ç›¸å…³æ–‡æ¡£ */
-		// æ‰“å°é€šè¿‡æ ¼å¼è½¬æ¢åçš„å­—ç¬¦ä¸²
-		strcat(lineBuffer, "\n");	// æ·»åŠ æ¢è¡Œç¬¦
+		va_list varList;    // ±ä²ÎÁĞ±í
+		va_start(varList, format); /* ÓÃ±ä²ÎÀàĞÍµÄ²ÎÊıÈ¥³õÊ¼»¯varList */
+		ExtractArgs(lineBuffer + strlen(lineBuffer), varList, format);	// ÌáÈ¡ËùÓĞ±ä²ÎµÄ²ÎÊıÖµ
+		va_end(varList);  /* ±ØĞëÊÍ·ÅvarList !!£¡ ·ñÔò»áÓ°Ïìµ½ÏÂÒ»´Îµ÷ÓÃ´Ëº¯Êı»ò±ğµÄµØ·½Ê¹ÓÃÕâÖÖ±äÁ¿ÌáÈ¡Ê±µÄ¹¦ÄÜÕıÈ·ĞÔ¡£²Î¼ûÏà¹ØÎÄµµ */
+		// ´òÓ¡Í¨¹ı¸ñÊ½×ª»»ºóµÄ×Ö·û´®
+		strcat(lineBuffer, "\n");	// Ìí¼Ó»»ĞĞ·û
 		printf(lineBuffer);
-		// å°†å­—ç¬¦ä¸²å†™å…¥logæ–‡ä»¶
+		// ½«×Ö·û´®Ğ´ÈëlogÎÄ¼ş
 		fputs(lineBuffer, logger);
 		fflush(logger);
 	}
@@ -97,19 +97,19 @@ void Debugger::Print(byte dbgLevel, char* fileName, byte lineNumber, char* forma
 {
 	if (dbgLevel <= debugLevel) 
 	{ 
-		lineBuffer[0] = 0;  // æ¸…ç©ºå­—ç¬¦ä¸²
+		lineBuffer[0] = 0;  // Çå¿Õ×Ö·û´®
 		strcpy(lineBuffer, fileName);
 		strcat(lineBuffer, ":");
 		sprintf(lineBuffer + strlen(lineBuffer), "L%d", lineNumber);
 		strcat(lineBuffer, "-");
-		va_list varList;    // å˜å‚åˆ—è¡¨
-		va_start(varList, format); /* ç”¨å˜å‚ç±»å‹çš„å‚æ•°å»åˆå§‹åŒ–varList */
-		ExtractArgs(lineBuffer + strlen(lineBuffer), varList, format);	// æå–æ‰€æœ‰å˜å‚çš„å‚æ•°å€¼
-		va_end(varList);  /* å¿…é¡»é‡Šæ”¾varList !!ï¼ å¦åˆ™ä¼šå½±å“åˆ°ä¸‹ä¸€æ¬¡è°ƒç”¨æ­¤å‡½æ•°æˆ–åˆ«çš„åœ°æ–¹ä½¿ç”¨è¿™ç§å˜é‡æå–æ—¶çš„åŠŸèƒ½æ­£ç¡®æ€§ã€‚å‚è§ç›¸å…³æ–‡æ¡£ */
-		// æ‰“å°é€šè¿‡æ ¼å¼è½¬æ¢åçš„å­—ç¬¦ä¸²
-		strcat(lineBuffer, "\n");	// æ·»åŠ æ¢è¡Œç¬¦
+		va_list varList;    // ±ä²ÎÁĞ±í
+		va_start(varList, format); /* ÓÃ±ä²ÎÀàĞÍµÄ²ÎÊıÈ¥³õÊ¼»¯varList */
+		ExtractArgs(lineBuffer + strlen(lineBuffer), varList, format);	// ÌáÈ¡ËùÓĞ±ä²ÎµÄ²ÎÊıÖµ
+		va_end(varList);  /* ±ØĞëÊÍ·ÅvarList !!£¡ ·ñÔò»áÓ°Ïìµ½ÏÂÒ»´Îµ÷ÓÃ´Ëº¯Êı»ò±ğµÄµØ·½Ê¹ÓÃÕâÖÖ±äÁ¿ÌáÈ¡Ê±µÄ¹¦ÄÜÕıÈ·ĞÔ¡£²Î¼ûÏà¹ØÎÄµµ */
+		// ´òÓ¡Í¨¹ı¸ñÊ½×ª»»ºóµÄ×Ö·û´®
+		strcat(lineBuffer, "\n");	// Ìí¼Ó»»ĞĞ·û
 		printf(lineBuffer);
-		// å°†å­—ç¬¦ä¸²å†™å…¥logæ–‡ä»¶
+		// ½«×Ö·û´®Ğ´ÈëlogÎÄ¼ş
 		fputs(lineBuffer, logger);
 		fflush(logger);
 	}
@@ -119,24 +119,24 @@ void Debugger::Print(byte dbgLevel, char* className, const char* funcName, byte 
 {
 	if (dbgLevel <= debugLevel) 
 	{ 
-		lineBuffer[0] = 0;  // æ¸…ç©ºå­—ç¬¦ä¸²
+		lineBuffer[0] = 0;  // Çå¿Õ×Ö·û´®
 		strcpy(lineBuffer, className);
 		strcat(lineBuffer, "::");
 		strcat(lineBuffer, funcName);
 		strcat(lineBuffer, ":");
 		sprintf(lineBuffer + strlen(lineBuffer), "L%d", lineNumber);
 		strcat(lineBuffer, "-");
-		va_list varList;    // å˜å‚åˆ—è¡¨
-		va_start(varList, format); /* ç”¨å˜å‚ç±»å‹çš„å‚æ•°å»åˆå§‹åŒ–varList */
-		ExtractArgs(lineBuffer + strlen(lineBuffer), varList, format);	// æå–æ‰€æœ‰å˜å‚çš„å‚æ•°å€¼
-		va_end(varList);  /* å¿…é¡»é‡Šæ”¾varList !!ï¼ å¦åˆ™ä¼šå½±å“åˆ°ä¸‹ä¸€æ¬¡è°ƒç”¨æ­¤å‡½æ•°æˆ–åˆ«çš„åœ°æ–¹ä½¿ç”¨è¿™ç§å˜é‡æå–æ—¶çš„åŠŸèƒ½æ­£ç¡®æ€§ã€‚å‚è§ç›¸å…³æ–‡æ¡£ */
+		va_list varList;    // ±ä²ÎÁĞ±í
+		va_start(varList, format); /* ÓÃ±ä²ÎÀàĞÍµÄ²ÎÊıÈ¥³õÊ¼»¯varList */
+		ExtractArgs(lineBuffer + strlen(lineBuffer), varList, format);	// ÌáÈ¡ËùÓĞ±ä²ÎµÄ²ÎÊıÖµ
+		va_end(varList);  /* ±ØĞëÊÍ·ÅvarList !!£¡ ·ñÔò»áÓ°Ïìµ½ÏÂÒ»´Îµ÷ÓÃ´Ëº¯Êı»ò±ğµÄµØ·½Ê¹ÓÃÕâÖÖ±äÁ¿ÌáÈ¡Ê±µÄ¹¦ÄÜÕıÈ·ĞÔ¡£²Î¼ûÏà¹ØÎÄµµ */
 
-		SendToMonitorServer(lineBuffer, strlen(lineBuffer));  //å‘é€åˆ°è¿œç«¯æœåŠ¡å™¨
+		SendToMonitorServer(lineBuffer, strlen(lineBuffer));  //·¢ËÍµ½Ô¶¶Ë·şÎñÆ÷
 
-		// æ‰“å°é€šè¿‡æ ¼å¼è½¬æ¢åçš„å­—ç¬¦ä¸²
-		strcat(lineBuffer, "\n");	// æ·»åŠ æ¢è¡Œç¬¦
+		// ´òÓ¡Í¨¹ı¸ñÊ½×ª»»ºóµÄ×Ö·û´®
+		strcat(lineBuffer, "\n");	// Ìí¼Ó»»ĞĞ·û
 		printf(lineBuffer);
-		// å°†å­—ç¬¦ä¸²å†™å…¥logæ–‡ä»¶
+		// ½«×Ö·û´®Ğ´ÈëlogÎÄ¼ş
 		fputs(lineBuffer, logger);
 		fflush(logger);
 	}
@@ -146,19 +146,19 @@ void Debugger::Print(byte dbgLevel, char* className, const char* funcName, byte 
 {
 	if (dbgLevel <= debugLevel) 
 	{ 
-		lineBuffer[0] = 0;  // æ¸…ç©ºå­—ç¬¦ä¸²
+		lineBuffer[0] = 0;  // Çå¿Õ×Ö·û´®
 		strcpy(lineBuffer, className);
 		strcat(lineBuffer, "::");
 		strcat(lineBuffer, funcName);
 		strcat(lineBuffer, ":");
 		sprintf(lineBuffer + strlen(lineBuffer), "L%d", lineNumber);
 
-		SendToMonitorServer(lineBuffer, strlen(lineBuffer));  //å‘é€åˆ°è¿œç«¯æœåŠ¡å™¨
+		SendToMonitorServer(lineBuffer, strlen(lineBuffer));  //·¢ËÍµ½Ô¶¶Ë·şÎñÆ÷
 
-		// æ‰“å°é€šè¿‡æ ¼å¼è½¬æ¢åçš„å­—ç¬¦ä¸²
-		strcat(lineBuffer, "\n");	// æ·»åŠ æ¢è¡Œç¬¦
+		// ´òÓ¡Í¨¹ı¸ñÊ½×ª»»ºóµÄ×Ö·û´®
+		strcat(lineBuffer, "\n");	// Ìí¼Ó»»ĞĞ·û
 		printf(lineBuffer);
-		// å°†å­—ç¬¦ä¸²å†™å…¥logæ–‡ä»¶
+		// ½«×Ö·û´®Ğ´ÈëlogÎÄ¼ş
 		fputs(lineBuffer, logger);
 		fflush(logger);
 	}
@@ -176,53 +176,53 @@ void Debugger::ExtractArgs(char* strBuffer, va_list varList, char* format)
 	int index = 0;  
 	char* fmtChar = 0 ;
 				
-	for (; *formatPtr != 0; formatPtr++)  // é‡åˆ°ç»“æŸç¬¦åœæ­¢å¾ªç¯
+	for (; *formatPtr != 0; formatPtr++)  // Óöµ½½áÊø·ûÍ£Ö¹Ñ­»·
 	{
-		/* å¦‚æœä¸æ˜¯æ§åˆ¶å­—ç¬¦ */
+		/* Èç¹û²»ÊÇ¿ØÖÆ×Ö·û */
 		if (*formatPtr != '%')
 		{
 			if (index >= MAX_LINE_LENGTH)
 			{
-				// æ¬²æ‰“å°çš„æ•°æ®é•¿åº¦è¶…è¿‡äº†è¡Œæ‰“å°ç¼“å†²å™¨çš„æœ€å¤§é•¿åº¦ï¼šæŠ›å¼ƒè¯¥è¡Œä¿¡æ¯ã€æå‰ç»ˆæ­¢è§£æï¼Œå¦åˆ™å°†å‘ç”Ÿæ•°ç»„æŒ‡é’ˆå¯»å€è¶Šç•Œçš„ç¨‹åºå¼‚å¸¸
+				// Óû´òÓ¡µÄÊı¾İ³¤¶È³¬¹ıÁËĞĞ´òÓ¡»º³åÆ÷µÄ×î´ó³¤¶È£ºÅ×Æú¸ÃĞĞĞÅÏ¢¡¢ÌáÇ°ÖÕÖ¹½âÎö£¬·ñÔò½«·¢ÉúÊı×éÖ¸ÕëÑ°Ö·Ô½½çµÄ³ÌĞòÒì³£
 				strBuffer[MAX_LINE_LENGTH] = 0;
 				return;
 			}
 			strBuffer[index++] = *formatPtr;
 			continue;
 		}
-		/* å¦‚æœæ˜¯æ§åˆ¶å­—ç¬¦ï¼ŒæŸ¥çœ‹ä¸‹ä¸€å­—ç¬¦ */
+		/* Èç¹ûÊÇ¿ØÖÆ×Ö·û£¬²é¿´ÏÂÒ»×Ö·û */
 		formatPtr++;
-		if ('\0' == *formatPtr) /* å¦‚æœæ˜¯ç»“æŸç¬¦ */
+		if ('\0' == *formatPtr) /* Èç¹ûÊÇ½áÊø·û */
 		{
 			strBuffer[index] = 0;
 			break;
 		}
 		switch (*formatPtr)
 		{
-			case '%': /* è·³è¿‡è¿ç»­çš„'%' */
+			case '%': /* Ìø¹ıÁ¬ĞøµÄ'%' */
 				break;
-			case 'd': /* æå–32ä½æ•´å‹å˜é‡å€¼ */
-				/* ä»å˜å‚åˆ—è¡¨ä¸­æå–ä¸€ä¸ª32ä½æ•´å½¢å˜é‡ */
+			case 'd': /* ÌáÈ¡32Î»ÕûĞÍ±äÁ¿Öµ */
+				/* ´Ó±ä²ÎÁĞ±íÖĞÌáÈ¡Ò»¸ö32Î»ÕûĞÎ±äÁ¿ */
 				i = va_arg(varList, int);							
-				sprintf(formatBuf, "%d", i); // å°†æ•´æ•°iè½¬æ¢ä¸ºå­—ç¬¦ä¸²ï¼Œå®ŒæˆWindowså¹³å°ä¸‹çš„itoa()å‡½æ•°ç›¸åŒçš„åŠŸèƒ½
+				sprintf(formatBuf, "%d", i); // ½«ÕûÊıi×ª»»Îª×Ö·û´®£¬Íê³ÉWindowsÆ½Ì¨ÏÂµÄitoa()º¯ÊıÏàÍ¬µÄ¹¦ÄÜ
 				if ((index + strlen(formatBuf)) >= MAX_LINE_LENGTH)
 				{
-					// æ¬²æ‰“å°çš„æ•°æ®é•¿åº¦è¶…è¿‡äº†è¡Œæ‰“å°ç¼“å†²å™¨çš„æœ€å¤§é•¿åº¦ï¼šæŠ›å¼ƒè¯¥è¡Œä¿¡æ¯ã€æå‰ç»ˆæ­¢è§£æï¼Œå¦åˆ™å°†å‘ç”Ÿæ•°ç»„æŒ‡é’ˆå¯»å€è¶Šç•Œçš„ç¨‹åºå¼‚å¸¸
+					// Óû´òÓ¡µÄÊı¾İ³¤¶È³¬¹ıÁËĞĞ´òÓ¡»º³åÆ÷µÄ×î´ó³¤¶È£ºÅ×Æú¸ÃĞĞĞÅÏ¢¡¢ÌáÇ°ÖÕÖ¹½âÎö£¬·ñÔò½«·¢ÉúÊı×éÖ¸ÕëÑ°Ö·Ô½½çµÄ³ÌĞòÒì³£
 					strBuffer[index-1] = 0;
 					return;
 				}
 				strcpy(strBuffer + index, formatBuf);
-				// å°†indexå€¼è°ƒæ•´åˆ°å­—ç¬¦ä¸²å°¾éƒ¨
+				// ½«indexÖµµ÷Õûµ½×Ö·û´®Î²²¿
 				index = strlen(strBuffer);
 				break;
-			case 's': /* æå–å­—ç¬¦ä¸² */				
+			case 's': /* ÌáÈ¡×Ö·û´® */				
 				fmtChar = va_arg(varList ,char*);
 				strcpy(strBuffer + index, fmtChar);
 				index = strlen(strBuffer);
 				break;
-			case 'c': /* æå–å­—ç¬¦ */
-				/*  æ€ä¹ˆåšï¼Ÿ */
-				/*  å¯ä»¥è¿™æ ·å–å‡ºå—ï¼Ÿ */
+			case 'c': /* ÌáÈ¡×Ö·û */
+				/*  ÔõÃ´×ö£¿ */
+				/*  ¿ÉÒÔÕâÑùÈ¡³öÂğ£¿ */
 				//	char c = va_arg(varList,char);
 				break;
 			default:;
@@ -239,8 +239,8 @@ void Debugger::SendToMonitorServer(char* buf, int len)
 	{
 		SendBuf[0] = DATA_PACKET_HEADER;
 
-		SendBuf[1] = packet_count++;   				// å¸§åŒæ­¥è®¡æ•°ï¼šæµ‹è¯•æ—¶ä½¿ç”¨
-		SendBuf[2] = DATA_TYPE_FREE_TEXT;			// æ•°æ®ç±»å‹ä¸ºè‡ªç”±æ–‡å­—	
+		SendBuf[1] = packet_count++;   				// Ö¡Í¬²½¼ÆÊı£º²âÊÔÊ±Ê¹ÓÃ
+		SendBuf[2] = DATA_TYPE_FREE_TEXT;			// Êı¾İÀàĞÍÎª×ÔÓÉÎÄ×Ö	
 		SendBuf[3] = len;   	
 
 		byte checksum = 0;
@@ -251,7 +251,7 @@ void Debugger::SendToMonitorServer(char* buf, int len)
 			checksum += (byte)SendBuf[i + 4];
 		}	
 
-		SendBuf[i + 4] = checksum;			// è®¾ç½®æ ¡éªŒç ï¼šæ³¨æ„ï¼Œå®ƒå¯èƒ½ä¸ºé›¶ï¼Œæ‰€ä»¥ä¸èƒ½å¯¹å·²ç»è®¡ç®—äº†æ ¡éªŒç çš„packetè¿›è¡Œå­—ç¬¦ä¸²æ“ä½œ		
+		SendBuf[i + 4] = checksum;			// ÉèÖÃĞ£ÑéÂë£º×¢Òâ£¬Ëü¿ÉÄÜÎªÁã£¬ËùÒÔ²»ÄÜ¶ÔÒÑ¾­¼ÆËãÁËĞ£ÑéÂëµÄpacket½øĞĞ×Ö·û´®²Ù×÷		
 
 		//buffwrite->Write((byte*)SendBuf, i + 5);
 	}

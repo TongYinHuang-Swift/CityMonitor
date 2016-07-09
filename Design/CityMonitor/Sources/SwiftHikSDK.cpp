@@ -1,4 +1,4 @@
-ï»¿/*
+/*
  * Copyright (c) 2015-2016 Swift-tech.Inc. All rights reserved.
  *
  * Swift-tech retains all right, title and interest (including all
@@ -43,7 +43,7 @@
 using namespace std;
 
 uint _g_lRealPlayHandle = 0;
-uint _g_lPort = 0;           //å…¨å±€çš„æ’­æ”¾åº“portå·
+uint _g_lPort = 0;           //È«¾ÖµÄ²¥·Å¿âportºÅ
 uint _g_lUserID = 0;
 
 
@@ -58,31 +58,31 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
 #if 1
 	switch (dwDataType)
 	{
-        case NET_DVR_SYSHEAD: //ç³»ç»Ÿå¤´
+        case NET_DVR_SYSHEAD: //ÏµÍ³Í·
         {
-            if ( !PlayM4_GetPort((LONG *)(&_g_lPort)) )  //è·å–æ’­æ”¾åº“æœªä½¿ç”¨çš„é€šé“å·
+            if ( !PlayM4_GetPort((LONG *)(&_g_lPort)) )  //»ñÈ¡²¥·Å¿âÎ´Ê¹ÓÃµÄÍ¨µÀºÅ
     		{
     			break;
     		}
-    		//m_iPort = _g_lPort; //ç¬¬ä¸€æ¬¡å›è°ƒçš„æ˜¯ç³»ç»Ÿå¤´ï¼Œå°†è·å–çš„æ’­æ”¾åº“portå·èµ‹å€¼ç»™å…¨å±€portï¼Œä¸‹æ¬¡å›è°ƒæ•°æ®æ—¶å³ä½¿ç”¨æ­¤portå·æ’­æ”¾
+    		//m_iPort = _g_lPort; //µÚÒ»´Î»Øµ÷µÄÊÇÏµÍ³Í·£¬½«»ñÈ¡µÄ²¥·Å¿âportºÅ¸³Öµ¸øÈ«¾Öport£¬ÏÂ´Î»Øµ÷Êı¾İÊ±¼´Ê¹ÓÃ´ËportºÅ²¥·Å
     		if (dwBufSize > 0)
     		{
-    			if ( !PlayM4_SetStreamOpenMode(_g_lPort, STREAME_REALTIME) )  //è®¾ç½®å®æ—¶æµæ’­æ”¾æ¨¡å¼
+    			if ( !PlayM4_SetStreamOpenMode(_g_lPort, STREAME_REALTIME) )  //ÉèÖÃÊµÊ±Á÷²¥·ÅÄ£Ê½
     			{
     				break;
     			}
                 
-    			if ( !PlayM4_OpenStream((int)_g_lPort, (PBYTE)pBuffer, (ULONG)dwBufSize, (ULONG)(1024 * 1024)) ) //æ‰“å¼€æµæ¥å£
+    			if ( !PlayM4_OpenStream((int)_g_lPort, (PBYTE)pBuffer, (ULONG)dwBufSize, (ULONG)(1024 * 1024)) ) //´ò¿ªÁ÷½Ó¿Ú
     			{
     				break;
     			}
                 #ifdef WIN32
-    			if ( !PlayM4_Play(_g_lPort, hWnd) ) //æ’­æ”¾å¼€å§‹
+    			if ( !PlayM4_Play(_g_lPort, hWnd) ) //²¥·Å¿ªÊ¼
     			{
     				break;
     			}
                 #else
-                if ( !PlayM4_Play(_g_lPort, NULL) ) //æ’­æ”¾å¼€å§‹
+                if ( !PlayM4_Play(_g_lPort, NULL) ) //²¥·Å¿ªÊ¼
     			{
     				break;
     			}
@@ -115,7 +115,7 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
     		}
         }
 		
-        case NET_DVR_STREAMDATA:   //ç æµæ•°æ®
+        case NET_DVR_STREAMDATA:   //ÂëÁ÷Êı¾İ
         {
             if ( dwBufSize > 0 && _g_lPort != -1 )
     		{
@@ -124,7 +124,7 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
     				break;
     			} 
                 #ifdef _SAVE_H264_STREAM
-                FILE*       fpsave;            // å¾…å†™è§†é¢‘æ–‡ä»¶çš„ç´¢å¼•æ–‡ä»¶æŒ‡é’ˆ
+                FILE*       fpsave;            // ´ıĞ´ÊÓÆµÎÄ¼şµÄË÷ÒıÎÄ¼şÖ¸Õë
                 fpsave = fopen("test.record", "ab+");
 
             	if ( fpsave == NULL )
@@ -150,7 +150,7 @@ void PsDataCallBack(LONG lRealHandle, DWORD dwDataType,BYTE *pPacketBuffer,DWORD
 
 	if (dwDataType  == NET_DVR_SYSHEAD)
 	{
-		//å†™å…¥å¤´æ•°æ®
+		//Ğ´ÈëÍ·Êı¾İ
 		g_pFile = fopen("./record/ps.dat", "wb");
 
 		if (g_pFile == NULL)
@@ -159,7 +159,7 @@ void PsDataCallBack(LONG lRealHandle, DWORD dwDataType,BYTE *pPacketBuffer,DWORD
 			return;
 		}
 
-		//å†™å…¥å¤´æ•°æ®
+		//Ğ´ÈëÍ·Êı¾İ
 		fwrite(pPacketBuffer, sizeof(unsigned char), nPacketSize, g_pFile);
 		printf("write head len=%d\n", nPacketSize);
 	}
@@ -180,7 +180,7 @@ void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void
     
     switch(dwType) 
     {
-        case EXCEPTION_RECONNECT:    //é¢„è§ˆæ—¶é‡è¿
+        case EXCEPTION_RECONNECT:    //Ô¤ÀÀÊ±ÖØÁ¬
         //PRINT(ALWAYS_PRINT, "SwiftHikSDK", __FUNCTION__, __LINE__,"Reconnect=%d",time(NULL));
         break;
     	default:
@@ -195,19 +195,19 @@ SwiftHikSDK::SwiftHikSDK(void)
 SwiftHikSDK::~SwiftHikSDK(void)
 {
 	SwHikRealplayStop();
-	    /* æ³¨é”€ç”¨æˆ· */
+	    /* ×¢ÏúÓÃ»§ */
 	NET_DVR_Logout_V30(_g_lUserID);
 	NET_DVR_Cleanup();
 }
 
 int SwiftHikSDK::SwHikSdkInit( void )
 {
-	/* åˆå§‹åŒ–æµ·åº·æ‘„åƒå¤´SDK */
+	/* ³õÊ¼»¯º£¿µÉãÏñÍ·SDK */
 	NET_DVR_Init();
 	NET_DVR_SetLogToFile(3, "./record/");
 
 #ifdef WIN32
-    /* æ³¨å†Œè®¾å¤‡ */
+    /* ×¢²áÉè±¸ */
 	NET_DVR_DEVICEINFO_V30 struDeviceInfo;
     
     _g_lUserID = NET_DVR_Login_V30("192.168.1.65", 8000, "admin", "admin0123", &struDeviceInfo);
@@ -222,7 +222,7 @@ int SwiftHikSDK::SwHikSdkInit( void )
     	PRINT(ALWAYS_PRINT, "SwiftHikSDK", __FUNCTION__, __LINE__,"Login Sucess");
     }
 
-	/* è®¾ç½®å¼‚å¸¸æ¶ˆæ¯å›è°ƒå‡½æ•° */
+	/* ÉèÖÃÒì³£ÏûÏ¢»Øµ÷º¯Êı */
 	NET_DVR_SetExceptionCallBack_V30(0, NULL, g_ExceptionCallBack, NULL);
 
 	SwHikRealplayStart();
@@ -255,7 +255,7 @@ int SwiftHikSDK::SwHikSdkInit( void )
     //system("PAUSE");
     
     //SwHikRealplayStop();
-    /* æ³¨é”€ç”¨æˆ· */
+    /* ×¢ÏúÓÃ»§ */
     //NET_DVR_Logout_V30(_g_lUserID);
     //NET_DVR_Cleanup();
     return 0;
@@ -263,14 +263,14 @@ int SwiftHikSDK::SwHikSdkInit( void )
 
 void SwiftHikSDK::SwHikRealplayStart( void )
 {
-    /* å¯åŠ¨é¢„è§ˆå¹¶è®¾ç½®å›è°ƒæ•°æ®æµ */
+    /* Æô¶¯Ô¤ÀÀ²¢ÉèÖÃ»Øµ÷Êı¾İÁ÷ */
     NET_DVR_CLIENTINFO ClientInfo = {0};
-    ClientInfo.hPlayWnd = NULL;         //éœ€è¦SDKè§£ç æ—¶å¥æŸ„è®¾ä¸ºæœ‰æ•ˆå€¼ï¼Œä»…å–æµä¸è§£ç æ—¶å¯è®¾ä¸ºç©º
-    ClientInfo.lChannel     = 1;       //é¢„è§ˆé€šé“å·
-    ClientInfo.lLinkMode    = 0;       //æœ€é«˜ä½(31)ä¸º0è¡¨ç¤ºä¸»ç æµï¼Œä¸º1è¡¨ç¤ºå­ç æµ0ï½30ä½è¡¨ç¤ºè¿æ¥æ–¹å¼ï¼š0ï¼TCPæ–¹å¼ï¼›1ï¼UDPæ–¹å¼ï¼›2ï¼å¤šæ’­æ–¹å¼ï¼›3ï¼RTPæ–¹å¼;
-    ClientInfo.sMultiCastIP = NULL;   //å¤šæ’­åœ°å€ï¼Œéœ€è¦å¤šæ’­é¢„è§ˆæ—¶é…ç½®
+    ClientInfo.hPlayWnd = NULL;         //ĞèÒªSDK½âÂëÊ±¾ä±úÉèÎªÓĞĞ§Öµ£¬½öÈ¡Á÷²»½âÂëÊ±¿ÉÉèÎª¿Õ
+    ClientInfo.lChannel     = 1;       //Ô¤ÀÀÍ¨µÀºÅ
+    ClientInfo.lLinkMode    = 0;       //×î¸ßÎ»(31)Îª0±íÊ¾Ö÷ÂëÁ÷£¬Îª1±íÊ¾×ÓÂëÁ÷0¡«30Î»±íÊ¾Á¬½Ó·½Ê½£º0£­TCP·½Ê½£»1£­UDP·½Ê½£»2£­¶à²¥·½Ê½£»3£­RTP·½Ê½;
+    ClientInfo.sMultiCastIP = NULL;   //¶à²¥µØÖ·£¬ĞèÒª¶à²¥Ô¤ÀÀÊ±ÅäÖÃ
     
-    BOOL bPreviewBlock = false;       //è¯·æ±‚ç æµè¿‡ç¨‹æ˜¯å¦é˜»å¡ï¼Œ0ï¼šå¦ï¼Œ1ï¼šæ˜¯
+    BOOL bPreviewBlock = false;       //ÇëÇóÂëÁ÷¹ı³ÌÊÇ·ñ×èÈû£¬0£º·ñ£¬1£ºÊÇ
     _g_lRealPlayHandle = NET_DVR_RealPlay_V30(_g_lUserID, &ClientInfo, NULL, NULL, 0);
 
     if (_g_lRealPlayHandle < 0)
@@ -289,7 +289,7 @@ void SwiftHikSDK::SwHikRealplayStart( void )
 
 void SwiftHikSDK::SwHikRealplayStop( void )
 {
-    /* å…³é—­é¢„è§ˆ */
+    /* ¹Ø±ÕÔ¤ÀÀ */
     NET_DVR_StopRealPlay(_g_lRealPlayHandle);
 }
 

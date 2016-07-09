@@ -1,4 +1,4 @@
-ï»¿#include "HistoryVideoManager.h"
+#include "HistoryVideoManager.h"
 #include "DateTime.h"
 #include "Debugger.h" 
 
@@ -10,24 +10,24 @@ HistoryVideoManager::~HistoryVideoManager()
 {
 }
 
-int	HistoryVideoManager::PlayHistoryVideo(DateTime startTime, DateTime endTime)		// è¿ç”¨HistoryVideoPlayeræ’­æ”¾æŒ‡å®šæ—¶é—´æ®µçš„è§†é¢‘ï¼Œæœ¬å‡½æ•°æ¯è¢«è°ƒç”¨ä¸€æ¬¡å°†åˆ›å»ºä¸€ä¸ªçº¿ç¨‹
+int	HistoryVideoManager::PlayHistoryVideo(DateTime startTime, DateTime endTime)		// ÔËÓÃHistoryVideoPlayer²¥·ÅÖ¸¶¨Ê±¼ä¶ÎµÄÊÓÆµ£¬±¾º¯ÊıÃ¿±»µ÷ÓÃÒ»´Î½«´´½¨Ò»¸öÏß³Ì
 {
 	PRINT(ALWAYS_PRINT, "VideoNode", __FUNCTION__, __LINE__);
 	return 0;
 }
 
-void HistoryVideoManager::SetFinishPlayVideo(byte videoID)							// è®¾ç½®è§†é¢‘å·²ç»æ’­æ”¾å®Œæ¯•æ ‡å¿—
+void HistoryVideoManager::SetFinishPlayVideo(byte videoID)							// ÉèÖÃÊÓÆµÒÑ¾­²¥·ÅÍê±Ï±êÖ¾
 {
 	PRINT(ALWAYS_PRINT, "VideoNode", __FUNCTION__, __LINE__);
 }
 
-bool HistoryVideoManager::IsFinishPlayVideo()										// ç”¨äºVideoManageræŸ¥è¯¢è§†é¢‘æ˜¯å¦å·²ç»æ’­æ”¾å®Œæ¯•
+bool HistoryVideoManager::IsFinishPlayVideo()										// ÓÃÓÚVideoManager²éÑ¯ÊÓÆµÊÇ·ñÒÑ¾­²¥·ÅÍê±Ï
 {
 	PRINT(ALWAYS_PRINT, "VideoNode", __FUNCTION__, __LINE__);
 	return true;
 }
 
-void HistoryVideoManager::SetPlaySpeed(byte playSpeed)								// è®¾ç½®è§†é¢‘æ’­æ”¾é€Ÿåº¦
+void HistoryVideoManager::SetPlaySpeed(byte playSpeed)								// ÉèÖÃÊÓÆµ²¥·ÅËÙ¶È
 {
 	PRINT(ALWAYS_PRINT, "VideoNode", __FUNCTION__, __LINE__);
 }

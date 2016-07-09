@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include "Thread.h"
 
 #define	TMP_BUFFER_LEN	102400
@@ -19,7 +19,7 @@ private:
 	uint			videoLength;
 
 public:
-	virtual void Start();	// æ‰§è¡Œæ‹Ÿåœ¨çº¿ç¨‹ä¸­è®¡åˆ’çš„ä»»åŠ¡
+	virtual void Start();	// Ö´ĞĞÄâÔÚÏß³ÌÖĞ¼Æ»®µÄÈÎÎñ
 	bool SaveLiveVideo(byte* data, uint dataLen);
 };
 

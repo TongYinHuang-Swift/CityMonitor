@@ -1,4 +1,4 @@
-﻿#include "HistoryVideoPlayer.h"
+#include "HistoryVideoPlayer.h"
 #include "Debugger.h" 
 
 HistoryVideoPlayer::HistoryVideoPlayer()

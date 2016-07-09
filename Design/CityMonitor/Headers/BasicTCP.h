@@ -1,17 +1,17 @@
-ï»¿/**
+/**
  *=======================================================================================================================
- * Swift Technology é‡åº†æ€å§”å¤«ç‰¹ç§‘æŠ€æœ‰é™å…¬å¸ åŸŽå¸‚è§†é¢‘ç›‘æŽ§ç³»ç»Ÿè½¯ä»¶
+ * Swift Technology ÖØÇìË¼Î¯·òÌØ¿Æ¼¼ÓÐÏÞ¹«Ë¾ ³ÇÊÐÊÓÆµ¼à¿ØÏµÍ³Èí¼þ
  * Name        : BasicTCP.h
- * Author      : å‘¨æž—
+ * Author      : ÖÜÁÖ
  * Version     : V1.0.0
- * Copyright   : æœ¬è½¯ä»¶ç”±é‡åº†æ€å§”å¤«ç‰¹ç§‘æŠ€æœ‰é™å…¬å¸å¼€å‘å¹¶æ‹¥æœ‰æ‰€æœ‰æƒåˆ©ï¼Œåœ¨æ— æ€å§”å¤«ç‰¹ä¹¦é¢æŽˆæƒè®¸å¯çš„æƒ…å†µä¸‹ï¼Œä»»ä½•å…¶ä»–å›¢ä½“æˆ–ä¸ªäºº
- *				 ä¸å¾—å¯¹æœ¬æ–‡ä»¶è¿›è¡Œéƒ¨åˆ†æˆ–å…¨éƒ¨çš„æ‹·è´ï¼Œå¦åˆ™ï¼Œæœ¬å…¬å¸å°†ä¾æ³•è¿½ç©¶ç›¸åº”çš„æ³•å¾‹è´£ä»»ã€‚
- * Description : TCP/IP é€šä¿¡æ¨¡å—
+ * Copyright   : ±¾Èí¼þÓÉÖØÇìË¼Î¯·òÌØ¿Æ¼¼ÓÐÏÞ¹«Ë¾¿ª·¢²¢ÓµÓÐËùÓÐÈ¨Àû£¬ÔÚÎÞË¼Î¯·òÌØÊéÃæÊÚÈ¨Ðí¿ÉµÄÇé¿öÏÂ£¬ÈÎºÎÆäËûÍÅÌå»ò¸öÈË
+ *				 ²»µÃ¶Ô±¾ÎÄ¼þ½øÐÐ²¿·Ö»òÈ«²¿µÄ¿½±´£¬·ñÔò£¬±¾¹«Ë¾½«ÒÀ·¨×·¾¿ÏàÓ¦µÄ·¨ÂÉÔðÈÎ¡£
+ * Description : TCP/IP Í¨ÐÅÄ£¿é
  *=======================================================================================================================
  * Revision History:
- * ä¿®æ”¹æ—¶é—´    ä¿®æ”¹äºº  ä¿®æ”¹å†…å®¹
- * 2016-06-11  è‘£è¶…    æ–°å»º
- * 2016-06-xx  å‘¨æž—    å®Œæˆç‰ˆæœ¬V1.0.0
+ * ÐÞ¸ÄÊ±¼ä    ÐÞ¸ÄÈË  ÐÞ¸ÄÄÚÈÝ
+ * 2016-06-11  ¶­³¬    ÐÂ½¨
+ * 2016-06-xx  ÖÜÁÖ    Íê³É°æ±¾V1.0.0
  *=======================================================================================================================
  */
 #ifndef __BASICTCP_H__
@@ -49,47 +49,47 @@ public:
 	BasicTCP();
 	BasicTCP(byte connectType);
 	virtual ~BasicTCP();
-	virtual int Receive(SOCKET socket);			// ä»Žç½‘ç»œè¿žæŽ¥çš„å¦ä¸€ç«¯æŽ¥æ”¶æ•°æ®
-	virtual int Send(SOCKET socket);			// å‘ç½‘ç»œè¿žæŽ¥çš„å¦ä¸€ç«¯å‘é€æ•°æ®
+	virtual int Receive(SOCKET socket);			// ´ÓÍøÂçÁ¬½ÓµÄÁíÒ»¶Ë½ÓÊÕÊý¾Ý
+	virtual int Send(SOCKET socket);			// ÏòÍøÂçÁ¬½ÓµÄÁíÒ»¶Ë·¢ËÍÊý¾Ý
 private:
-	Acceptor*	acceptor;			// æœåŠ¡å™¨åˆ›å»ºæ—¶éœ€è¦é€šè¿‡Acceptæ¥æŽ¥å—ä¸€ä¸ªå®¢æˆ·ç«¯è¿žæŽ¥ï¼Œè¿™ä¸ªè¿‡ç¨‹åœ¨ä¸€ä¸ªç‹¬ç«‹çš„çº¿ç¨‹ä¸­è¿è¡Œ
+	Acceptor*	acceptor;			// ·þÎñÆ÷´´½¨Ê±ÐèÒªÍ¨¹ýAcceptÀ´½ÓÊÜÒ»¸ö¿Í»§¶ËÁ¬½Ó£¬Õâ¸ö¹ý³ÌÔÚÒ»¸ö¶ÀÁ¢µÄÏß³ÌÖÐÔËÐÐ
 public:
-	Buffer*		readBuffer;			// ä¸€ä¸ªTCP/IPè¿žæŽ¥å‘é€æ•°æ®æ‰€éœ€çš„æ•°æ®è¯»å‡ºç¼“å†²å™¨
-	Buffer*		writeBuffer;		// ä¸€ä¸ªTCP/IPè¿žæŽ¥æŽ¥æ”¶æ•°æ®æ‰€éœ€çš„æ•°æ®å­˜å‚¨ç¼“å†²å™¨
+	Buffer*		readBuffer;			// Ò»¸öTCP/IPÁ¬½Ó·¢ËÍÊý¾ÝËùÐèµÄÊý¾Ý¶Á³ö»º³åÆ÷
+	Buffer*		writeBuffer;		// Ò»¸öTCP/IPÁ¬½Ó½ÓÊÕÊý¾ÝËùÐèµÄÊý¾Ý´æ´¢»º³åÆ÷
 protected:
-	char		connTypeStr[4][10];	// è¿žæŽ¥ç±»åž‹æè¿°å­—ç¬¦ä¸²
-	char		modeStr[2][10];		// å·¥ä½œæ¨¡å¼æè¿°å­—ç¬¦ä¸²
-	//Buffer*		readBuffer;			// ä¸€ä¸ªTCP/IPè¿žæŽ¥å‘é€æ•°æ®æ‰€éœ€çš„æ•°æ®è¯»å‡ºç¼“å†²å™¨
-	//Buffer*		writeBuffer;		// ä¸€ä¸ªTCP/IPè¿žæŽ¥æŽ¥æ”¶æ•°æ®æ‰€éœ€çš„æ•°æ®å­˜å‚¨ç¼“å†²å™¨
-	byte		status;				// æœ¬TCP/IPè¿žæŽ¥çš„å·¥ä½œçŠ¶æ€
-	byte		mode;				// å·¥ä½œæ¨¡å¼ï¼šæœ¬è¿žæŽ¥æ˜¯æœåŠ¡å™¨æˆ–æ˜¯å®¢æˆ·ç«¯
-	byte		connectType;		// è¿žæŽ¥ç±»åž‹ï¼šå‘½ä»¤é€šé“ã€æœ¬åœ°æ‘„åƒæœºã€å·¦é‚»è§†é¢‘å•å…ƒã€å³é‚»è§†é¢‘å•å…ƒ
-	uint		localPort;			// æœ¬TCP/IPé€šä¿¡è¿žæŽ¥çš„æœ¬åœ°ç«¯å£
-	char*		localIpAddr;	    // æœ¬TCP/IPé€šä¿¡è¿žæŽ¥çš„æœ¬åœ°IPåœ°å€
-	uint		remotePort;			// æœ¬TCP/IPé€šä¿¡è¿žæŽ¥çš„è¿œç¨‹ç«¯å£
-	char*		remoteIpAddr;		// æœ¬TCP/IPé€šä¿¡è¿žæŽ¥çš„è¿œç¨‹IPåœ°å€
+	char		connTypeStr[4][10];	// Á¬½ÓÀàÐÍÃèÊö×Ö·û´®
+	char		modeStr[2][10];		// ¹¤×÷Ä£Ê½ÃèÊö×Ö·û´®
+	//Buffer*		readBuffer;			// Ò»¸öTCP/IPÁ¬½Ó·¢ËÍÊý¾ÝËùÐèµÄÊý¾Ý¶Á³ö»º³åÆ÷
+	//Buffer*		writeBuffer;		// Ò»¸öTCP/IPÁ¬½Ó½ÓÊÕÊý¾ÝËùÐèµÄÊý¾Ý´æ´¢»º³åÆ÷
+	byte		status;				// ±¾TCP/IPÁ¬½ÓµÄ¹¤×÷×´Ì¬
+	byte		mode;				// ¹¤×÷Ä£Ê½£º±¾Á¬½ÓÊÇ·þÎñÆ÷»òÊÇ¿Í»§¶Ë
+	byte		connectType;		// Á¬½ÓÀàÐÍ£ºÃüÁîÍ¨µÀ¡¢±¾µØÉãÏñ»ú¡¢×óÁÚÊÓÆµµ¥Ôª¡¢ÓÒÁÚÊÓÆµµ¥Ôª
+	uint		localPort;			// ±¾TCP/IPÍ¨ÐÅÁ¬½ÓµÄ±¾µØ¶Ë¿Ú
+	char*		localIpAddr;	    // ±¾TCP/IPÍ¨ÐÅÁ¬½ÓµÄ±¾µØIPµØÖ·
+	uint		remotePort;			// ±¾TCP/IPÍ¨ÐÅÁ¬½ÓµÄÔ¶³Ì¶Ë¿Ú
+	char*		remoteIpAddr;		// ±¾TCP/IPÍ¨ÐÅÁ¬½ÓµÄÔ¶³ÌIPµØÖ·
 	SOCKET		sockID;
 
 private:
-	void Init();								// å»ºç«‹ä¸€ä¸ªTCP/IPè¿žæŽ¥æ‰€éœ€çš„åˆå§‹åŒ–
-	void Bind();								// åšç½‘ç»œè¿žæŽ¥çš„ç«¯å£åŠIPåœ°å€çš„ç»‘å®š
+	void Init();								// ½¨Á¢Ò»¸öTCP/IPÁ¬½ÓËùÐèµÄ³õÊ¼»¯
+	void Bind();								// ×öÍøÂçÁ¬½ÓµÄ¶Ë¿Ú¼°IPµØÖ·µÄ°ó¶¨
 	void Bind2();
-	bool Connect();								// å·¥ä½œåœ¨å®¢æˆ·ç«¯æ¨¡å¼æ—¶è¿žæŽ¥è¿œç¨‹æœåŠ¡å™¨
-	void Listen();								// å·¥ä½œåœ¨æœåŠ¡å™¨æ¨¡å¼æ—¶å¼€å§‹ç­‰å¾…è¿œç¨‹å®¢æˆ·ç«¯çš„è¿žæŽ¥
-	//virtual int Receive(SOCKET socket);			// ä»Žç½‘ç»œè¿žæŽ¥çš„å¦ä¸€ç«¯æŽ¥æ”¶æ•°æ®
-	//virtual int Send(SOCKET socket);			// å‘ç½‘ç»œè¿žæŽ¥çš„å¦ä¸€ç«¯å‘é€æ•°æ®
-	void Close();								// å…³é—­æœåŠ¡å™¨æˆ–å®¢æˆ·ç«¯è¿žæŽ¥
-	void Elapse(int timeout);					// å®šæ—¶å‡½æ•°
+	bool Connect();								// ¹¤×÷ÔÚ¿Í»§¶ËÄ£Ê½Ê±Á¬½ÓÔ¶³Ì·þÎñÆ÷
+	void Listen();								// ¹¤×÷ÔÚ·þÎñÆ÷Ä£Ê½Ê±¿ªÊ¼µÈ´ýÔ¶³Ì¿Í»§¶ËµÄÁ¬½Ó
+	//virtual int Receive(SOCKET socket);			// ´ÓÍøÂçÁ¬½ÓµÄÁíÒ»¶Ë½ÓÊÕÊý¾Ý
+	//virtual int Send(SOCKET socket);			// ÏòÍøÂçÁ¬½ÓµÄÁíÒ»¶Ë·¢ËÍÊý¾Ý
+	void Close();								// ¹Ø±Õ·þÎñÆ÷»ò¿Í»§¶ËÁ¬½Ó
+	void Elapse(int timeout);					// ¶¨Ê±º¯Êý
 	
 public:
-	void CreateServer4Cam();					// å»ºç«‹è¿žæŽ¥æœ¬åœ°æ‘„åƒæœºçš„æœåŠ¡å™¨
-	void CreateServer();						// å»ºç«‹æœåŠ¡å™¨è¿žæŽ¥
-	void CreateServerOld();						// å»ºç«‹æœåŠ¡å™¨è¿žæŽ¥
-	void CreateClient();						// å»ºç«‹å®¢æˆ·ç«¯è¿žæŽ¥
-	SOCKET Accept();							// å·¥ä½œåœ¨æœåŠ¡å™¨æ¨¡å¼æ—¶æŽ¥å—è¿œç¨‹å®¢æˆ·ç«¯çš„è¿žæŽ¥
-	SOCKET GetSockID();							// èŽ·å–æœ¬æœºå¥—æŽ¥å­—
-	void SetReadBuffer(Buffer* readBuffer);		// è®¾ç½®ä¸€ä¸ªTCP/IPè¿žæŽ¥å‘é€æ•°æ®æ‰€éœ€çš„æ•°æ®è¯»å‡ºç¼“å†²å™¨
-	void SetWriteBuffer(Buffer* writeBuffer);	// è®¾ç½®ä¸€ä¸ªTCP/IPè¿žæŽ¥æŽ¥æ”¶æ•°æ®æ‰€éœ€çš„æ•°æ®å­˜å‚¨ç¼“å†²å™¨
+	void CreateServer4Cam();					// ½¨Á¢Á¬½Ó±¾µØÉãÏñ»úµÄ·þÎñÆ÷
+	void CreateServer();						// ½¨Á¢·þÎñÆ÷Á¬½Ó
+	void CreateServerOld();						// ½¨Á¢·þÎñÆ÷Á¬½Ó
+	void CreateClient();						// ½¨Á¢¿Í»§¶ËÁ¬½Ó
+	SOCKET Accept();							// ¹¤×÷ÔÚ·þÎñÆ÷Ä£Ê½Ê±½ÓÊÜÔ¶³Ì¿Í»§¶ËµÄÁ¬½Ó
+	SOCKET GetSockID();							// »ñÈ¡±¾»úÌ×½Ó×Ö
+	void SetReadBuffer(Buffer* readBuffer);		// ÉèÖÃÒ»¸öTCP/IPÁ¬½Ó·¢ËÍÊý¾ÝËùÐèµÄÊý¾Ý¶Á³ö»º³åÆ÷
+	void SetWriteBuffer(Buffer* writeBuffer);	// ÉèÖÃÒ»¸öTCP/IPÁ¬½Ó½ÓÊÕÊý¾ÝËùÐèµÄÊý¾Ý´æ´¢»º³åÆ÷
 };
 
 #endif	// __BASICTCP_H__

@@ -1,6 +1,6 @@
-ï»¿/**
- * å¤šçº¿ç¨‹æ•°æ®å‘é€æ¨¡å—
- * è´Ÿè´£äººï¼šè‘£è¶…
+/**
+ * ¶àÏß³ÌÊı¾İ·¢ËÍÄ£¿é
+ * ¸ºÔğÈË£º¶­³¬
  */
 #include "Global.h"
 
@@ -64,7 +64,7 @@ void Sender::Start()
 		the return value is zero. If an error occurs, a value of SOCKET_ERROR is returned, and a specific error code can be
 		retrieved by calling WSAGetLastError
 		*/
-		// æ£€æŸ¥å¾ªç¯ç¼“å†²å™¨ä¸­æ˜¯å¦æœ‰æœ‰æ•ˆæ•°æ®åœ¨ç­‰å¾…å‘é€
+		// ¼ì²éÑ­»·»º³åÆ÷ÖĞÊÇ·ñÓĞÓĞĞ§Êı¾İÔÚµÈ´ı·¢ËÍ
 		uint availLen = buffer->GetValidDataLen();
 		if (availLen == 0)
 		{
@@ -80,9 +80,9 @@ void Sender::Start()
 			availLen = MAX_NUM_BYTES_TO_SEND_EACH_TIME;
 		}
 		//PRINT(ALWAYS_PRINT, "Sender", __FUNCTION__, __LINE__, "Send len=%d",   availLen);
-		// åœ¨å¾ªç¯ç¼“å†²å™¨ä¸­è¯»å– availLen ä¸ªå­—èŠ‚æ•°æ®åˆ° sendBuffer ä¸­
+		// ÔÚÑ­»·»º³åÆ÷ÖĞ¶ÁÈ¡ availLen ¸ö×Ö½ÚÊı¾İµ½ sendBuffer ÖĞ
 		buffer->Read(sendBuffer, availLen);
-		// ä» sendBuffer ä¸­å‘é€ availLen ä¸ªå­—èŠ‚æ•°æ®åˆ°å·¦é‚»èŠ‚ç‚¹ 
+		// ´Ó sendBuffer ÖĞ·¢ËÍ availLen ¸ö×Ö½ÚÊı¾İµ½×óÁÚ½Úµã 
 
 		int len = SendAll( socket, (char*)sendBuffer, availLen);
 		if (len <= 0)
@@ -117,7 +117,7 @@ void Sender::Start()
 			case WSAECONNRESET:		// The virtual circuit was reset by the remote side executing a hard or abortive close. The application should close the socket because it is no longer usable
 				break;
 			case 10038:
-				PRINT(ALWAYS_PRINT, "Sender", __FUNCTION__, __LINE__, "Sender: %d %s\n",   lastError,"åœ¨ä¸€ä¸ªéå¥—æ¥å­—ä¸Šå°è¯•äº†ä¸€ä¸ªæ“ä½œ");
+				PRINT(ALWAYS_PRINT, "Sender", __FUNCTION__, __LINE__, "Sender: %d %s\n",   lastError,"ÔÚÒ»¸ö·ÇÌ×½Ó×ÖÉÏ³¢ÊÔÁËÒ»¸ö²Ù×÷");
 				return;
 				break;
 			}

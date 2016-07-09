@@ -1,6 +1,6 @@
-ï»¿/**
- * å¤šçº¿ç¨‹æ¨¡å—
- * è´Ÿè´£äººï¼šå‘¨æ—ã€è‘£è¶…
+/**
+ * ¶àÏß³ÌÄ£¿é
+ * ¸ºÔğÈË£ºÖÜÁÖ¡¢¶­³¬
  */
 #ifndef _THREAD_H_
 #define _THREAD_H_
@@ -18,22 +18,22 @@ public:
 	virtual ~Thread();
 
 private:
-	ulong		threadID;			// çº¿ç¨‹IDï¼Œä»¥åå®Œå–„å®‰å…¨æœºåˆ¶æ—¶ä½¿ç”¨
-	bool		initDone;			// æ˜¯å¦å®Œæˆåˆå§‹åŒ–æ ‡å¿—
+	ulong		threadID;			// Ïß³ÌID£¬ÒÔºóÍêÉÆ°²È«»úÖÆÊ±Ê¹ÓÃ
+	bool		initDone;			// ÊÇ·ñÍê³É³õÊ¼»¯±êÖ¾
 
 protected:
-	BasicTCP*	basicTCP;//TCPå¯¹è±¡
-	bool		isTerminted;		// æ˜¯å¦å·²ç»åœæ­¢æ ‡å¿—
-	ulong		lastError;			// çº¿ç¨‹è¿è¡Œè‡³ä»Šæœ€åä¸€æ¬¡å‡ºç°çš„é”™è¯¯
+	BasicTCP*	basicTCP;//TCP¶ÔÏó
+	bool		isTerminted;		// ÊÇ·ñÒÑ¾­Í£Ö¹±êÖ¾
+	ulong		lastError;			// Ïß³ÌÔËĞĞÖÁ½ñ×îºóÒ»´Î³öÏÖµÄ´íÎó
   
 public:
-	void		Init();				// åˆå§‹åŒ–çº¿ç¨‹
-	void		Stop();				// é€€å‡ºçº¿ç¨‹
-	ulong		GetError();			// è·å–æœ€åä¸€æ¬¡å‡ºç°çš„é”™è¯¯
-	bool		IsInitDone();		// æŸ¥è¯¢çº¿ç¨‹åˆå§‹åŒ–æ˜¯å¦å®Œæˆ
-	bool		IsTerminted();		// æŸ¥è¯¢å½“å‰çº¿ç¨‹æ˜¯å¦åœæ­¢
+	void		Init();				// ³õÊ¼»¯Ïß³Ì
+	void		Stop();				// ÍË³öÏß³Ì
+	ulong		GetError();			// »ñÈ¡×îºóÒ»´Î³öÏÖµÄ´íÎó
+	bool		IsInitDone();		// ²éÑ¯Ïß³Ì³õÊ¼»¯ÊÇ·ñÍê³É
+	bool		IsTerminted();		// ²éÑ¯µ±Ç°Ïß³ÌÊÇ·ñÍ£Ö¹
 
 public:
-	virtual void Start();		// æ‰§è¡Œæ‹Ÿåœ¨çº¿ç¨‹ä¸­è®¡åˆ’çš„ä»»åŠ¡
+	virtual void Start();		// Ö´ĞĞÄâÔÚÏß³ÌÖĞ¼Æ»®µÄÈÎÎñ
 };
 #endif

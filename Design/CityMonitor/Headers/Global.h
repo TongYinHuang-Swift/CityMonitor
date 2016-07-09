@@ -1,4 +1,4 @@
-ï»¿#ifndef __GLOBAL_H__
+#ifndef __GLOBAL_H__
 
 #define __GLOBAL_H__
 
@@ -41,9 +41,9 @@ typedef unsigned char	byte;
 typedef unsigned int	uint;
 typedef unsigned long	ulong;
 
-#define MAX_HISTORY_VIDEO_PLAYERS		5		// æœ€å¤§å†å²è§†é¢‘åŒæ—¶æ’­æ”¾æ•°é‡
-#define FRAME_LENGTH					9000	// å¯¹2Mbpsä¼ è¾“é€Ÿç‡è€Œè¨€ï¼Œæœ€å¤§æ¯ç§’30å¸§çš„æ’­æ”¾é€Ÿåº¦ï¼Œæ¯å¸§æœ‰8333å­—èŠ‚
-#define MAX_NUM_CONN_TIME     5   //è¿æ¥æœ€å¤§é‡è¯•æ¬¡æ•°
+#define MAX_HISTORY_VIDEO_PLAYERS		5		// ×î´óÀúÊ·ÊÓÆµÍ¬Ê±²¥·ÅÊıÁ¿
+#define FRAME_LENGTH					9000	// ¶Ô2Mbps´«ÊäËÙÂÊ¶øÑÔ£¬×î´óÃ¿Ãë30Ö¡µÄ²¥·ÅËÙ¶È£¬Ã¿Ö¡ÓĞ8333×Ö½Ú
+#define MAX_NUM_CONN_TIME     5   //Á¬½Ó×î´óÖØÊÔ´ÎÊı
 #ifdef WIN32
 #else
 typedef int	SOCKET;

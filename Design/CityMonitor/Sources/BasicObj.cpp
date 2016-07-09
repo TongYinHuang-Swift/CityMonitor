@@ -1,4 +1,4 @@
-﻿#include "BasicObj.h" 
+#include "BasicObj.h" 
 #include "Debugger.h" 
 
 Debugger db;

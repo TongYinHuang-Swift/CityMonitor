@@ -1,4 +1,4 @@
-ï»¿
+
 #pragma once
 #include "Global.h" 
 #include "Thread.h"
@@ -15,14 +15,14 @@ public:
 	virtual ~HistoryVideoPlayer();
 
 private:
-	VideoManager*	manager;				// æœ¬è§†é¢‘èŠ‚ç‚¹çš„è§†é¢‘ç®¡ç†æ¨¡å—
-	DateTime		startTime;				// æœ¬æ¬¡è§†é¢‘æ’­æ”¾çš„ç»“æŸæ—¶é—´
-	DateTime		endTime;				// æœ¬æ¬¡è§†é¢‘æ’­æ”¾çš„ç»“æŸæ—¶é—´
-	byte			videoID;				// æ¬²æ’­æ”¾çš„å†å²è§†é¢‘ID
-	HistoryVideo*	historyVideo;			// æŒ‡å‘æ­£åœ¨æ’­æ”¾çš„å†å²è§†é¢‘çš„æŒ‡é’ˆï¼Œè°ƒç”¨HistoryVideoManager::FindHistoryVideo(DateTime startTime)è·å¾—
-	byte			playSpeed;				// æ’­æ”¾é€Ÿåº¦: 1 - 30ï¼Œåˆ†åˆ«å¯¹åº”æ¯ç§’ 1 - 30 å¸§
+	VideoManager*	manager;				// ±¾ÊÓÆµ½ÚµãµÄÊÓÆµ¹ÜÀíÄ£¿é
+	DateTime		startTime;				// ±¾´ÎÊÓÆµ²¥·ÅµÄ½áÊøÊ±¼ä
+	DateTime		endTime;				// ±¾´ÎÊÓÆµ²¥·ÅµÄ½áÊøÊ±¼ä
+	byte			videoID;				// Óû²¥·ÅµÄÀúÊ·ÊÓÆµID
+	HistoryVideo*	historyVideo;			// Ö¸ÏòÕıÔÚ²¥·ÅµÄÀúÊ·ÊÓÆµµÄÖ¸Õë£¬µ÷ÓÃHistoryVideoManager::FindHistoryVideo(DateTime startTime)»ñµÃ
+	byte			playSpeed;				// ²¥·ÅËÙ¶È: 1 - 30£¬·Ö±ğ¶ÔÓ¦Ã¿Ãë 1 - 30 Ö¡
 
 public:
-	void	run();							// åœ¨æ­¤çº¿ç¨‹å†…è°ƒç”¨VideoManager::SetHistoryVideo()æ’­æ”¾è§†é¢‘ã€‚
-	void	SetPlaySpeed(byte playSpeed);	// è®¾ç½®è§†é¢‘æ’­æ”¾é€Ÿåº¦
+	void	run();							// ÔÚ´ËÏß³ÌÄÚµ÷ÓÃVideoManager::SetHistoryVideo()²¥·ÅÊÓÆµ¡£
+	void	SetPlaySpeed(byte playSpeed);	// ÉèÖÃÊÓÆµ²¥·ÅËÙ¶È
 };

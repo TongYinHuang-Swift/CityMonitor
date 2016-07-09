@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include "Global.h" 
 #include "BasicObj.h" 
 #include <errno.h>
@@ -23,11 +23,11 @@
 
 typedef struct SocketNode
 {
-	SOCKET   socketID;       //socketå·
-	Sender   *sender;        //socketå·ä¸‹senderçš„å‘é€çº¿ç¨‹
-	Receiver *receiver;		 //socketå·ä¸‹pReceiverçš„æ¥æ”¶çº¿ç¨‹
-	char	 ip[20];		 //è¯¥SOCKETå·çš„ipåœ°å€
-	int		 port;           //è¯¥SOCKETå·çš„ç«¯å£åœ°å€
+	SOCKET   socketID;       //socketºÅ
+	Sender   *sender;        //socketºÅÏÂsenderµÄ·¢ËÍÏß³Ì
+	Receiver *receiver;		 //socketºÅÏÂpReceiverµÄ½ÓÊÕÏß³Ì
+	char	 ip[20];		 //¸ÃSOCKETºÅµÄipµØÖ·
+	int		 port;           //¸ÃSOCKETºÅµÄ¶Ë¿ÚµØÖ·
 };
 
 class ThreadManager : public BasicObj

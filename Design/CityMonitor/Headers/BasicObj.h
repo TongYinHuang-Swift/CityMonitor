@@ -1,9 +1,9 @@
-ï»¿#ifndef __BASICOBJ_H__
+#ifndef __BASICOBJ_H__
 
 #define __BASICOBJ_H__
 /**
- * åŸºæœ¬å¯¹è±¡ç±»æ¨¡å—ï¼Œç”¨äºåŠŸèƒ½æ‰©å±•
- * è´Ÿè´£äººï¼šè‘£è¶…
+ * »ù±¾¶ÔÏóÀàÄ£¿é£¬ÓÃÓÚ¹¦ÄÜÀ©Õ¹
+ * ¸ºÔğÈË£º¶­³¬
  */
 #include "Global.h" 
 
@@ -16,11 +16,11 @@ public:
 	virtual ~BasicObj();
 
 public:
-	Debugger*	debugger;			// è°ƒè¯•å™¨
+	Debugger*	debugger;			// µ÷ÊÔÆ÷
 
 protected:
-	void		SetDebugger(Debugger* debugger);	// è®¾ç½®è°ƒè¯•å™¨
-	void		VcdDump();	// åˆ›å»ºVCDæ•…éšœè¯Šæ–­ä¿¡æ¯
+	void		SetDebugger(Debugger* debugger);	// ÉèÖÃµ÷ÊÔÆ÷
+	void		VcdDump();	// ´´½¨VCD¹ÊÕÏÕï¶ÏĞÅÏ¢
 
 };
 

@@ -1,6 +1,6 @@
-ï»¿/**
- * å†å²è§†é¢‘è®°å½•æ¨¡å—
- * è´Ÿè´£äººï¼šå‘¨æ—
+/**
+ * ÀúÊ·ÊÓÆµ¼ÇÂ¼Ä£¿é
+ * ¸ºÔğÈË£ºÖÜÁÖ
  */
 #pragma once
 #include "Global.h" 
@@ -16,18 +16,18 @@ public:
 	virtual ~HistoryVideo();
 
 private:
-	DateTime*	startTime;			// æœ¬æ®µè§†é¢‘çš„èµ·å§‹æ—¶é—´
-	DateTime*	endTime;			// æœ¬æ®µè§†é¢‘çš„ç»“æŸæ—¶é—´
-	DateTime*	curPlayTime;		// æœ¬æ®µè§†é¢‘çš„å½“å‰æ’­æ”¾æ—¶é—´
-	std::string	path;				// æœ¬æ®µè§†é¢‘çš„å­˜æ”¾ä½ç½®åŠæ–‡ä»¶å
-	uint		videoLength;		// æœ¬æ®µè§†é¢‘çš„å­—èŠ‚é•¿åº¦  
+	DateTime*	startTime;			// ±¾¶ÎÊÓÆµµÄÆğÊ¼Ê±¼ä
+	DateTime*	endTime;			// ±¾¶ÎÊÓÆµµÄ½áÊøÊ±¼ä
+	DateTime*	curPlayTime;		// ±¾¶ÎÊÓÆµµÄµ±Ç°²¥·ÅÊ±¼ä
+	std::string	path;				// ±¾¶ÎÊÓÆµµÄ´æ·ÅÎ»ÖÃ¼°ÎÄ¼şÃû
+	uint		videoLength;		// ±¾¶ÎÊÓÆµµÄ×Ö½Ú³¤¶È  
 public:
-	void SaveRecord(FILE *findex);             // åœ¨æŒ‡å®šæ–‡ä»¶ä¸‹ä¿å­˜è®°å½•
-	void SetStartTime(DateTime* pDateTime);    // è®¾ç½®å¼€å§‹æ—¶é—´
-	void SetEndTime(DateTime* pDateTime);      // è®¾ç½®ç»“æŸæ—¶é—´  
-	void SetPath(std::string path_);           // è®¾ç½®è·¯å¾„
-	bool IsInTimeRange(DateTime time);         // è¯¥æ—¶é—´ç‚¹æ˜¯å¦åœ¨è®°å½•åŒºé—´ 
-	void SetVideoLen(uint videoLength_);       // è®¾ç½®è§†é¢‘é•¿åº¦ 
-	std::string GetPath();					   // è·å–æ–‡ä»¶è·¯å¾„	
+	void SaveRecord(FILE *findex);             // ÔÚÖ¸¶¨ÎÄ¼şÏÂ±£´æ¼ÇÂ¼
+	void SetStartTime(DateTime* pDateTime);    // ÉèÖÃ¿ªÊ¼Ê±¼ä
+	void SetEndTime(DateTime* pDateTime);      // ÉèÖÃ½áÊøÊ±¼ä  
+	void SetPath(std::string path_);           // ÉèÖÃÂ·¾¶
+	bool IsInTimeRange(DateTime time);         // ¸ÃÊ±¼äµãÊÇ·ñÔÚ¼ÇÂ¼Çø¼ä 
+	void SetVideoLen(uint videoLength_);       // ÉèÖÃÊÓÆµ³¤¶È 
+	std::string GetPath();					   // »ñÈ¡ÎÄ¼şÂ·¾¶	
 
 };

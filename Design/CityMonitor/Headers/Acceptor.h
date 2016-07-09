@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include "Thread.h"
 
 #ifdef WIN32
@@ -17,7 +17,7 @@ private:
 	SOCKET		sockID;
 
 public:
-	virtual void Start();	// æ‰§è¡Œæ‹Ÿåœ¨çº¿ç¨‹ä¸­è®¡åˆ’çš„ä»»åŠ¡
+	virtual void Start();	// Ö´ĞĞÄâÔÚÏß³ÌÖĞ¼Æ»®µÄÈÎÎñ
 	SOCKET	Accept();
 };
 

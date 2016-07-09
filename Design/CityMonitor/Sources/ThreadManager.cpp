@@ -1,4 +1,4 @@
-ï»¿#include "ThreadManager.h"
+#include "ThreadManager.h"
 #include "Debugger.h"
 #include <cstring>
 ThreadManager *ThreadManager::_instance = NULL;  
@@ -43,7 +43,7 @@ bool ThreadManager::AddSocketThread(SOCKET socketID, Sender *sender, Receiver *r
 
 	socketList.push_back(socketnode_);
 
-	PRINT(ALWAYS_PRINT, "ThreadManager", __FUNCTION__, __LINE__, "æ·»åŠ ip = %s, ç«¯å£ = %d è¿›å…¥ç®¡ç†å™¨ , pSender = %d, pReceiver = %d", socketnode_.ip, socketnode_.port, sender, receiver);
+	PRINT(ALWAYS_PRINT, "ThreadManager", __FUNCTION__, __LINE__, "Ìí¼Óip = %s, ¶Ë¿Ú = %d ½øÈë¹ÜÀíÆ÷ , pSender = %d, pReceiver = %d", socketnode_.ip, socketnode_.port, sender, receiver);
 
 	return true;
 }
@@ -57,7 +57,7 @@ bool ThreadManager::AddSocketThread(SOCKET socketID, Receiver *receiver)
 		if (itor->socketID == socketID)
 		{
 			itor->receiver = receiver;
-			PRINT(ALWAYS_PRINT, "ThreadManager", __FUNCTION__, __LINE__, "ä¿®æ”¹ip = %s, ç«¯å£ = %dçš„socketï¼Œ pReceiver = %d", itor->ip, itor->port, receiver);
+			PRINT(ALWAYS_PRINT, "ThreadManager", __FUNCTION__, __LINE__, "ĞŞ¸Äip = %s, ¶Ë¿Ú = %dµÄsocket£¬ pReceiver = %d", itor->ip, itor->port, receiver);
 			return true;
 		}
 	}
@@ -74,7 +74,7 @@ bool ThreadManager::AddSocketThread(SOCKET socketID, Sender *sender)
 		if (itor->socketID == socketID)
 		{
 			itor->sender = sender;
-			PRINT(ALWAYS_PRINT, "ThreadManager", __FUNCTION__, __LINE__, "ä¿®æ”¹ip = %s, ç«¯å£ = %dçš„socketï¼Œ pSender = %d", itor->ip, itor->port, sender);
+			PRINT(ALWAYS_PRINT, "ThreadManager", __FUNCTION__, __LINE__, "ĞŞ¸Äip = %s, ¶Ë¿Ú = %dµÄsocket£¬ pSender = %d", itor->ip, itor->port, sender);
 			return true;
 		}
 	}

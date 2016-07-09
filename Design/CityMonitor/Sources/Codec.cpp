@@ -1,4 +1,4 @@
-ï»¿#include "Codec.h"
+#include "Codec.h"
 #include <assert.h>
 #include <cstring>
 #include <malloc.h>
@@ -44,11 +44,11 @@ void Codec::Start()
 
 	while (true)
 	{
-		// æ£€æŸ¥å¾ªç¯ç¼“å†²å™¨ä¸­æ˜¯å¦æœ‰ä¸‹è¡Œå‘½ä»¤ä¿¡æ¯ã€‚ä½¿ç”¨å¾ªç¯ç¼“å†²å™¨çš„ç¬¬äºŒè¯»å‡ºç«¯å£ã€‚ç¬¬ä¸€ç«¯å£è¢«å‘½ä»¤è½¬å‘å•å…ƒæ‰€ç”¨ã€‚
+		// ¼ì²éÑ­»·»º³åÆ÷ÖĞÊÇ·ñÓĞÏÂĞĞÃüÁîĞÅÏ¢¡£Ê¹ÓÃÑ­»·»º³åÆ÷µÄµÚ¶ş¶Á³ö¶Ë¿Ú¡£µÚÒ»¶Ë¿Ú±»ÃüÁî×ª·¢µ¥ÔªËùÓÃ¡£
 		uint availLen = cmdBuffer->GetValidDataLenExt();
 		if (availLen == 0)
 		{
-			// æ²¡æœ‰å‘½ä»¤å°±ç­‰ä¸€ä¼šå„¿å†æ£€æŸ¥
+			// Ã»ÓĞÃüÁî¾ÍµÈÒ»»á¶ùÔÙ¼ì²é
 #ifdef WIN32
 			Sleep(100);
 #else
@@ -56,22 +56,22 @@ void Codec::Start()
 #endif
 			continue;
 		}
-		// å¦åˆ™å°±ä»å¾ªç¯ç¼“å†²å™¨ä¸­è¯»å–å‘½ä»¤ä¿¡æ¯ã€‚
+		// ·ñÔò¾Í´ÓÑ­»·»º³åÆ÷ÖĞ¶ÁÈ¡ÃüÁîĞÅÏ¢¡£
 		cmdBuffer->ReadExt(tmpBuffer, availLen);
 		PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__, "Read Data=%d",availLen);
 
 #if 1//ndef ONLY_SAVE_VIDEO
-		// å¯¹å‘½ä»¤ä¿¡æ¯è¿›è¡Œè¯‘ç 
+		// ¶ÔÃüÁîĞÅÏ¢½øĞĞÒëÂë
 		for (int i = 0; i < availLen; i++)
 		{
 			switch (state)
 			{
-			case DECODE_STATE_CMD_START:	// å‘½ä»¤å¤´è¯‘ç 
+			case DECODE_STATE_CMD_START:	// ÃüÁîÍ·ÒëÂë
 				if (0 == count)
 				{
 					if (((DOWN_COMMEND >> 8) & 0xFF) == tmpBuffer[i])
 					{
-						// æ¶ˆæ¯æ ‡è¯†ç¬¦çš„é«˜8ä½æ­£ç¡®
+						// ÏûÏ¢±êÊ¶·ûµÄ¸ß8Î»ÕıÈ·
 						count++;
 						checksum = tmpBuffer[i];
 					}
@@ -80,27 +80,27 @@ void Codec::Start()
 				{
 					if ((DOWN_COMMEND & 0xFF) == tmpBuffer[i])
 					{
-						// æ¶ˆæ¯æ ‡è¯†ç¬¦çš„ä½8ä½æ­£ç¡®
+						// ÏûÏ¢±êÊ¶·ûµÄµÍ8Î»ÕıÈ·
 						count = 0;
 						state = DECODE_STATE_CMD_TYPE;
-						// è®¡ç®—æ ¡éªŒå’Œ
+						// ¼ÆËãĞ£ÑéºÍ
 						checksum += tmpBuffer[i];
 					}
 					else
 					{
-						// æ ¡éªŒå’Œæ¸…é›¶
+						// Ğ£ÑéºÍÇåÁã
 						checksum = 0;
 					}
 				}
 				break;
 
-			case DECODE_STATE_CMD_TYPE:	// å‘½ä»¤ç±»å‹è¯‘ç 
+			case DECODE_STATE_CMD_TYPE:	// ÃüÁîÀàĞÍÒëÂë
 				cmd_type = tmpBuffer[i];
 				state = DECODE_STATE_SITE_ID;
 				checksum += tmpBuffer[i];
 				break;
 			case DECODE_STATE_SITE_ID:
-				// å‚ç…§DECODE_STATE_CMD_STARTçŠ¶æ€è¯‘ç 
+				// ²ÎÕÕDECODE_STATE_CMD_START×´Ì¬ÒëÂë
 				// TODO
 				if (0 == count)
 				{
@@ -116,7 +116,7 @@ void Codec::Start()
 				checksum += tmpBuffer[i];
 				break;
 			case DECODE_STATE_CAM_ID:
-				// å‚ç…§DECODE_STATE_CMD_STARTçŠ¶æ€è¯‘ç 
+				// ²ÎÕÕDECODE_STATE_CMD_START×´Ì¬ÒëÂë
 				// TODO
 				if (0 == count)
 				{
@@ -131,7 +131,7 @@ void Codec::Start()
 				}
 				checksum += tmpBuffer[i];
 				break;
-			case DECODE_STATE_CMD_LEN:		// è·å–å‘½ä»¤å‚æ•°é•¿åº¦
+			case DECODE_STATE_CMD_LEN:		// »ñÈ¡ÃüÁî²ÎÊı³¤¶È
 				cmd_len = tmpBuffer[i];
 				if (0 == cmd_len)
 				{
@@ -145,7 +145,7 @@ void Codec::Start()
 				}
 				checksum += tmpBuffer[i];
 				break;
-			case DECODE_STATE_CMD_INFO:		// è·å–å‘½ä»¤å‚æ•°
+			case DECODE_STATE_CMD_INFO:		// »ñÈ¡ÃüÁî²ÎÊı
 				// TODO
 				cmdInfo[count] = tmpBuffer[i];
 				checksum += tmpBuffer[i];
@@ -156,14 +156,14 @@ void Codec::Start()
 					count=0;
 				}
 				break;
-			case DECODE_STATE_CMD_END:		// å‘½ä»¤ç»“æŸç¬¦è¯‘ç 
-				// å‚ç…§DECODE_STATE_CMD_STARTçŠ¶æ€è¯‘ç 
+			case DECODE_STATE_CMD_END:		// ÃüÁî½áÊø·ûÒëÂë
+				// ²ÎÕÕDECODE_STATE_CMD_START×´Ì¬ÒëÂë
 				// TODO
 				if (0 == count)
 				{
 					if (((END_MESSAGE_FLAG >> 8) & 0xFF) == tmpBuffer[i])
 					{
-						// æ¶ˆæ¯æ ‡è¯†ç¬¦çš„é«˜8ä½æ­£ç¡®
+						// ÏûÏ¢±êÊ¶·ûµÄ¸ß8Î»ÕıÈ·
 						count++;
 						checksum += tmpBuffer[i];
 					}
@@ -172,28 +172,28 @@ void Codec::Start()
 				{
 					if ((END_MESSAGE_FLAG & 0xFF) == tmpBuffer[i])
 					{
-						// æ¶ˆæ¯æ ‡è¯†ç¬¦çš„ä½8ä½æ­£ç¡®
+						// ÏûÏ¢±êÊ¶·ûµÄµÍ8Î»ÕıÈ·
 						state = DECODE_STATE_CHECKSUM;
-						// è®¡ç®—æ ¡éªŒå’Œ
+						// ¼ÆËãĞ£ÑéºÍ
 						checksum += tmpBuffer[i];
 					}
 					else
 					{
-						// æ ¡éªŒå’Œæ¸…é›¶
+						// Ğ£ÑéºÍÇåÁã
 						checksum = 0;
 					}
 					count = 0;
 				}
 				break;
-			case DECODE_STATE_CHECKSUM:		// æ£€æŸ¥æ ¡éªŒå’Œ
+			case DECODE_STATE_CHECKSUM:		// ¼ì²éĞ£ÑéºÍ
 				if ( (checksum & 0xff) == tmpBuffer[i])
 				{
-					PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," æ ¡éªŒå’Œæ­£ç¡®");
+					PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," Ğ£ÑéºÍÕıÈ·");
 					//state = DECODE_STATE_EXECUTE;
 				}
 				else
 				{
-					PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," æ ¡éªŒå’Œé”™è¯¯ï¼šè®¡ç®—å€¼ = %dï¼Œä¼ è¾“å€¼ = %d!", checksum, tmpBuffer[i]);
+					PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," Ğ£ÑéºÍ´íÎó£º¼ÆËãÖµ = %d£¬´«ÊäÖµ = %d!", checksum, tmpBuffer[i]);
 					state = DECODE_STATE_CMD_START;
 					break;
 				}
@@ -201,32 +201,32 @@ void Codec::Start()
 				checksum = 0;
 				//break;
 
-			//case DECODE_STATE_EXECUTE:		// æ‰§è¡Œå‘½ä»¤
+			//case DECODE_STATE_EXECUTE:		// Ö´ĞĞÃüÁî
 				PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," cmd_type = %d", cmd_type);
 				switch (cmd_type)
 				{
-				case DOWN_COMMEND_RESTART:					// è¿™æ˜¯ç³»ç»Ÿé‡å¯å‘½ä»¤
+				case DOWN_COMMEND_RESTART:					// ÕâÊÇÏµÍ³ÖØÆôÃüÁî
 					videoManager->SystemRestart();
 					break;
-				case DOWN_COMMEND_REALVIDEO:				// è¿™æ˜¯å®æ—¶è§†é¢‘ç›´æ’­å‘½ä»¤
+				case DOWN_COMMEND_REALVIDEO:				// ÕâÊÇÊµÊ±ÊÓÆµÖ±²¥ÃüÁî
 					videoManager->PlayRealTimeVideo();
 					break;
-				case DOWN_COMMEND_HISTORYVIDEO:				// è¿™æ˜¯å½•åƒç‚¹æ’­å‘½ä»¤
+				case DOWN_COMMEND_HISTORYVIDEO:				// ÕâÊÇÂ¼Ïñµã²¥ÃüÁî
 					videoManager->PlayHistoryVideo(&historyVideoStTime, &historyVideoEndTime);
 					break;
-				case DOWN_COMMEND_HISTORYLIST:				// è¿™æ˜¯è·å–å½•åƒåˆ—è¡¨å‘½ä»¤
+				case DOWN_COMMEND_HISTORYLIST:				// ÕâÊÇ»ñÈ¡Â¼ÏñÁĞ±íÃüÁî
 					videoManager->SendHistoyVideoList();
 					break;
 				default:
-					PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," è¯‘ç é”™è¯¯ï¼šéæ³•å‘½ä»¤ç  - %d!", cmd_type);
-					state = DECODE_STATE_CMD_START;		// é€€å‡ºæœ¬æ¬¡å‘½ä»¤è¯‘ç ï¼ŒçŠ¶æ€å¤ä½ï¼Œä»¥é˜²æ­¢æ­»é”
+					PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," ÒëÂë´íÎó£º·Ç·¨ÃüÁîÂë - %d!", cmd_type);
+					state = DECODE_STATE_CMD_START;		// ÍË³ö±¾´ÎÃüÁîÒëÂë£¬×´Ì¬¸´Î»£¬ÒÔ·ÀÖ¹ËÀËø
 					break;
 				}
 				state = DECODE_STATE_CMD_START;
 				break;
 			default:
-				PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," è¯‘ç é”™è¯¯ï¼šéæ³•çŠ¶æ€ - %d!", state);
-				state = DECODE_STATE_CMD_START;		// çŠ¶æ€å¤ä½ï¼Œä»¥é˜²æ­¢æ­»é”
+				PRINT(ALWAYS_PRINT, "Codec", __FUNCTION__, __LINE__," ÒëÂë´íÎó£º·Ç·¨×´Ì¬ - %d!", state);
+				state = DECODE_STATE_CMD_START;		// ×´Ì¬¸´Î»£¬ÒÔ·ÀÖ¹ËÀËø
 				count = 0;
 				checksum = 0;
 				break;
@@ -236,8 +236,8 @@ void Codec::Start()
 	}
 }
 
-//ç›‘æ§ä¸­å¿ƒä¸‹è¡Œå‘½ä»¤
-//æ¥æ”¶åˆ°äº†æ•°æ®è°ƒç”¨è¯¥å‡½æ•°å»è§£æ
+//¼à¿ØÖĞĞÄÏÂĞĞÃüÁî
+//½ÓÊÕµ½ÁËÊı¾İµ÷ÓÃ¸Ãº¯ÊıÈ¥½âÎö
 void Codec::ParseDataPackage(VideoManager *manger,byte * buffer,int buflen)
 {
 	int message=0;	
@@ -284,8 +284,8 @@ void Codec::ParseDataPackage(VideoManager *manger,byte * buffer,int buflen)
 	site_id = (*(data+3)<<8) | *(data+4);
 	camera_id =( *(data+5)<<8) | *(data+6);
 	
-	//if(message == 0xcc33) //ç›‘æ§ä¸­å¿ƒä¸‹è¡Œå‘½ä»¤
-	if ( message == DOWN_COMMEND ) //ç›‘æ§ä¸­å¿ƒä¸‹è¡Œå‘½ä»¤
+	//if(message == 0xcc33) //¼à¿ØÖĞĞÄÏÂĞĞÃüÁî
+	if ( message == DOWN_COMMEND ) //¼à¿ØÖĞĞÄÏÂĞĞÃüÁî
 	{
 		if ( siteId != site_id )
 		{
@@ -300,22 +300,22 @@ void Codec::ParseDataPackage(VideoManager *manger,byte * buffer,int buflen)
 
 		ParseDownPackage(manger,buffer,buflen);
 	}
-	else if ( message == UP_COMMEND )//ä¸Šè¡Œæ¶ˆæ¯
+	else if ( message == UP_COMMEND )//ÉÏĞĞÏûÏ¢
 	{
-		//åˆ¤æ–­æ˜¯å¦è¿˜éœ€ä¸Šä¼ 
+		//ÅĞ¶ÏÊÇ·ñ»¹ĞèÉÏ´«
 
 		//manger->SendToPrev(buffer,buflen);
 	}
-	else if(message == UP_VIDEO)//ä¸Šè¡Œè§†é¢‘
+	else if(message == UP_VIDEO)//ÉÏĞĞÊÓÆµ
 	{
-		//åˆ¤æ–­æ˜¯å¦è¿˜éœ€ä¸Šä¼ 
+		//ÅĞ¶ÏÊÇ·ñ»¹ĞèÉÏ´«
 
 		//manger->SendToPrev(buffer,buflen);
 	}
 }
 
-//ä¸Šè¡Œæ¶ˆæ¯
-//message 1--å¿ƒè·³   2--è§†é¢‘èŠ‚ç‚¹æŠ¥å  3--è§†é¢‘ç«™ç‚¹æŠ¥å  4--å·¥ä½œå¼‚å¸¸ 5--å†å²è§†é¢‘
+//ÉÏĞĞÏûÏ¢
+//message 1--ĞÄÌø   2--ÊÓÆµ½Úµã±¨Ãû  3--ÊÓÆµÕ¾µã±¨Ãû  4--¹¤×÷Òì³£ 5--ÀúÊ·ÊÓÆµ
 void Codec::SendUpPackage(VideoManager *manger,byte message)
 {
 	switch(message)
@@ -343,7 +343,7 @@ void Codec::SendUpPackage(VideoManager *manger,byte message)
 	}
 }
 
-//ä¸Šè¡Œè§†é¢‘æ•°æ®
+//ÉÏĞĞÊÓÆµÊı¾İ
 void Codec::SendUpVideoPackage(VideoManager *manger,byte *buffer,int len)
 {
 	byte *buf = new byte[len+26];
@@ -431,18 +431,18 @@ void Codec::ParseDownPackage(VideoManager *manger,byte * buffer,int buflen)
 	PRINT(DEBUG_LEVEL_3, "Codec", __FUNCTION__, __LINE__, " get message=%d,cmd=%d,site id=%d,camera id=%d,cmd len=%d", \
 		message,cmd,site_Id,camera_Id,cmdLen);	
 
-	if ( message == DOWN_COMMEND )  //ç›‘æ§ä¸­å¿ƒä¸‹è¡Œå‘½ä»¤
+	if ( message == DOWN_COMMEND )  //¼à¿ØÖĞĞÄÏÂĞĞÃüÁî
 	{
 		switch(cmd)
 		{
-		case DOWN_COMMEND_RESTART://ç³»ç»Ÿé‡å¯
+		case DOWN_COMMEND_RESTART://ÏµÍ³ÖØÆô
 			if(strcmp((char *)cmdbuf,"System Restart") == 0)
 			{
 				//manger->ReBoot();
 				PRINT(DEBUG_LEVEL_3, "Codec", __FUNCTION__, __LINE__,"System Restart Go!");
 			}
 			break;
-		case DOWN_COMMEND_REALVIDEO://å®æ—¶ç‚¹æ’­
+		case DOWN_COMMEND_REALVIDEO://ÊµÊ±µã²¥
 			PRINT(DEBUG_LEVEL_3, "Codec", __FUNCTION__, __LINE__,"Play Real Video!");
 			historyVideoStTime.SetYear(0);
 			historyVideoStTime.SetMouth(0);
@@ -465,7 +465,7 @@ void Codec::ParseDownPackage(VideoManager *manger,byte * buffer,int buflen)
 			//SendUpVideoPackage(buffer, buflen);
 		
 			break;
-		case DOWN_COMMEND_HISTORYVIDEO://å½•åƒç‚¹æ’­
+		case DOWN_COMMEND_HISTORYVIDEO://Â¼Ïñµã²¥
 			PRINT(DEBUG_LEVEL_3, "Codec", __FUNCTION__, __LINE__,"Play History Video go");
 			hvm=new HistoryVideoManager();
 			historyVideoStTime.SetYear(*cmdbuf);
@@ -487,7 +487,7 @@ void Codec::ParseDownPackage(VideoManager *manger,byte * buffer,int buflen)
 			//SendUpVideoPackage(manger,buffer,len);
 
 			break;
-		case DOWN_COMMEND_HISTORYLIST://è·å–å½•åƒåˆ—è¡¨
+		case DOWN_COMMEND_HISTORYLIST://»ñÈ¡Â¼ÏñÁĞ±í
 			PRINT(DEBUG_LEVEL_3, "Codec", __FUNCTION__, __LINE__,"Get History Video");
 			
 			SendHistoryVideoList();
@@ -532,8 +532,8 @@ void Codec::SendCameraPos(VideoManager *manger)
 {
 	byte buf[30];
 	int checksum=0;
-	uint longitude=0; //ç»åº¦
-	uint latitude=0;  //çº¬åº¦
+	uint longitude=0; //¾­¶È
+	uint latitude=0;  //Î³¶È
 	
 	//longitude = manger->GetLong();
 	//latitude = manger->GetLat();
@@ -574,8 +574,8 @@ void Codec::SendSitePos(VideoManager *manger)
 {
 	byte buf[30];
 	int checksum=0;
-	uint longitude=0; //ç»åº¦
-	uint latitude=0;  //çº¬åº¦
+	uint longitude=0; //¾­¶È
+	uint latitude=0;  //Î³¶È
 
 	//longitude = manger->GetLong();
 	//latitude = manger->GetLat();

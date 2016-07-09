@@ -1,4 +1,4 @@
-ï»¿#include "Acceptor.h"
+#include "Acceptor.h"
 #include "BasicTCP.h" 
 #include "Debugger.h" 
 
@@ -31,18 +31,18 @@ void Acceptor::Start()
 		SOCKET acceptSock = Accept();
 		if (acceptSock > 0)
 		{ 
-			PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__, "å®¢æˆ·ç«¯è¿æ¥æˆåŠŸ");
+			PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__, "¿Í»§¶ËÁ¬½Ó³É¹¦");
 			basicTCP->Receive(acceptSock);
 			basicTCP->Send(acceptSock); 
 		}
 		else
 		{      
-			PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__, "å®¢æˆ·ç«¯è¿æ¥å¤±è´¥");
+			PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__, "¿Í»§¶ËÁ¬½ÓÊ§°Ü");
 		}
 	}
 }
 
-// å·¥ä½œåœ¨æœåŠ¡å™¨æ¨¡å¼æ—¶æ¥å—è¿œç¨‹å®¢æˆ·ç«¯çš„è¿æ¥
+// ¹¤×÷ÔÚ·şÎñÆ÷Ä£Ê½Ê±½ÓÊÜÔ¶³Ì¿Í»§¶ËµÄÁ¬½Ó
 SOCKET Acceptor::Accept()
 {
 	PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__);
@@ -52,14 +52,14 @@ SOCKET Acceptor::Accept()
 	SOCKET acceptSock = accept(sockID, (struct sockaddr *)&client_address, (socklen_t*)&client_len);
 
 	if(acceptSock>0)
-	{ //æœ‰é“¾æ¥åˆ°æ¥
-		PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__, "æœåŠ¡å™¨æ–°åˆ°è¿æ¥ï¼šip=%s, port=%d", inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
+	{ //ÓĞÁ´½Óµ½À´
+		PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__, "·şÎñÆ÷ĞÂµ½Á¬½Ó£ºip=%s, port=%d", inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
   		return  acceptSock;
 	}
 	else
 	{
 		int err = errno;
-		PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__, "æœåŠ¡å™¨accept error: %s \n",   strerror(errno));
+		PRINT(ALWAYS_PRINT, "Acceptor", __FUNCTION__, __LINE__, "·şÎñÆ÷accept error: %s \n",   strerror(errno));
 	}
 	return -1;
 }			
