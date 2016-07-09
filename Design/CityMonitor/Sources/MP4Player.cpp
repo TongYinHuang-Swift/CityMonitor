@@ -27,6 +27,8 @@
 #define _SAVE_H264_STREAM
 #endif
 
+static int _g_playOnWinEn = 0;
+
 MP4Player::MP4Player()
 {
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
@@ -227,9 +229,14 @@ void MP4Player::RealPlayStop(void)
     NET_DVR_StopRealPlay(lRealPlayHandle);
 }
 
-void MP4Player::SetPlayOnWindow(PLAY_ON_WINDOW_EN_T playOnWin)
+void MP4Player::SetPlayOnWindow(int playOnWin)
 {
-    playOnWinEn = playOnWin;
+    _g_playOnWinEn = playOnWin;
+}
+
+int MP4Player::GetPlayOnWindow(void)
+{
+    return _g_playOnWinEn;
 }
 
 
@@ -242,7 +249,7 @@ LONG MP4Player::PlayLocalFile( LPSTR sFileName )
 {
     HWND hWnd = NULL;
 #ifdef WIN32
-    if ( this->playOnWinEn == DISPLAY_ENABLE )
+    if ( this->GetPlayOnWindow() == DISPLAY_ENABLE )
     {
          hWnd = GetConsoleWindow();
     }

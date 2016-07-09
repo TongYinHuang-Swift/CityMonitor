@@ -116,7 +116,7 @@ void VideoManager::Init()
     
     MP4Player *MP4PlayTest = new MP4Player();
     MP4PlayTest->Init();
-    MP4PlayTest->SetPlayOnWindow(DISPLAY_DISABLE);
+    MP4PlayTest->SetPlayOnWindow(DISPLAY_ENABLE);
     if ( lUserID != -1 )
     {
         MP4PlayTest->RealPlayStart(lUserID);
@@ -131,6 +131,7 @@ void VideoManager::Init()
 #ifdef TEST_PLAY_LOCAL_FILE
     MP4Player *MP4PlayTest = new MP4Player();
     MP4PlayTest->Init();
+    MP4PlayTest->SetPlayOnWindow(DISPLAY_DISABLE);
     MP4PlayTest->PlayLocalFile("test.record");
     MP4PlayTest->PlayLocalFileCtrl();
     delete MP4PlayTest;

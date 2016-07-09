@@ -84,14 +84,14 @@ private:
     LONG lRealPlayHandle;
     LPSTR sHistoryFileName;
     int speedChangeVal;
-    PLAY_ON_WINDOW_EN_T playOnWinEn;
 protected:
   
 public:
     void    Init(void);                                 // 播放器初始化
     void    RealPlayStart(LONG lUserID);           //开始实时预览
     void    RealPlayStop(void);                    //停止预览
-    void    SetPlayOnWindow(PLAY_ON_WINDOW_EN_T playOnWin);                  
+    void    SetPlayOnWindow(int playOnWin);
+    int     GetPlayOnWindow(void);
     LONG    PlayLocalFile( LPSTR sFileName );      //播放本地文件
     void    PlayLocalFileExit(void);             //退出播放本地文件
     void    PlayLocalFileCtrl(void);            // 本地播放控制

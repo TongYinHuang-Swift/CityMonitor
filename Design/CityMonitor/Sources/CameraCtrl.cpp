@@ -57,10 +57,13 @@ void CameraCtrl::Init(void)
 void CALLBACK CameraCtrl::RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
 {
     HWND hWnd = NULL;
-#ifdef WIN32 
-    hWnd = GetConsoleWindow();
-#else
-    hWnd = NULL;
+#ifdef WIN32
+    MP4Player *pMP4Player = new MP4Player();
+    if ( pMP4Player->GetPlayOnWindow()== DISPLAY_ENABLE )
+    {
+         hWnd = GetConsoleWindow();
+    }
+    delete pMP4Player;
 #endif
 
     LONG lPort = 0;
@@ -155,14 +158,16 @@ void CALLBACK CameraCtrl::ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHa
 
 extern "C" void CALLBACK CCallExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser )
 {
-    CameraCtrl* pFunc;
-    return pFunc->ExceptionCallBack(dwType, lUserID, lHandle, pUser);
+    CameraCtrl* pFunc = new CameraCtrl();
+    pFunc->ExceptionCallBack(dwType, lUserID, lHandle, pUser);
+	delete pFunc;
 }
 
 extern "C" void CALLBACK CCallRealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser )
 {
-    CameraCtrl* pFunc;
-    return pFunc->RealDataCallBack_V30( lRealHandle, dwDataType, pBuffer, dwBufSize, dwUser);
+    CameraCtrl* pFunc = new CameraCtrl();
+    pFunc->RealDataCallBack_V30( lRealHandle, dwDataType, pBuffer, dwBufSize, dwUser);
+	delete pFunc;
 }
 
 /***
