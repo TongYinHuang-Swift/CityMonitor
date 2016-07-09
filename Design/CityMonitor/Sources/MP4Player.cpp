@@ -49,7 +49,7 @@ void MP4Player::Init(void)
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#if 0
 /***
  * desc:            实时流回调函数
  * lRealHandle:     
@@ -165,7 +165,7 @@ void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void
         break;
     }
 }
-
+#endif
 #ifdef __cplusplus
     }
 #endif /* ENDIF __cplusplus */
@@ -201,10 +201,17 @@ void MP4Player::RealPlayStart(LONG lUserID)
         return;
     }
 
+#if 0
     if ( !NET_DVR_SetRealDataCallBack( lRealPlayHandle, g_RealDataCallBack_V30, 0 ) )
     {
         printf("NET_DVR_SetRealDataCallBack error\n");
     }
+#else
+    if ( !NET_DVR_SetRealDataCallBack( lRealPlayHandle, CCallRealDataCallBack_V30, 0 ) )
+    {
+        printf("NET_DVR_SetRealDataCallBack error\n");
+    }
+#endif
 }
 
 

@@ -14,6 +14,7 @@
  * 2016-07-xx  董超    完成版本V1.0.0
  *=======================================================================================================================
  */
+#include <time.h>
 #include "CameraCtrl.h"
 #include "Debugger.h" 
 #include "HCNetSDK.h"
@@ -55,14 +56,114 @@ void CameraCtrl::Init(void)
  */
 void CALLBACK CameraCtrl::RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
 {
-    
+    HWND hWnd = NULL;
+#ifdef WIN32 
+    hWnd = GetConsoleWindow();
+#else
+    hWnd = NULL;
+#endif
+
+    LONG lPort = 0;
+
+    switch (dwDataType)
+    {
+        case NET_DVR_SYSHEAD:               /* 系统头 */
+        {
+            if ( !PlayM4_GetPort(&lPort) )  /* 获取播放库未使用的通道号 */
+            {
+                break;
+            }
+            
+            /* 第一次回调的是系统头，将获取的播放库port号赋值给全局port，下次回调数据时即使用此port号播放 */
+            
+            if (dwBufSize > 0)
+            {
+                if ( !PlayM4_SetStreamOpenMode(lPort, STREAME_REALTIME) )  /* 设置实时流播放模式 */
+                {
+                    break;
+                }
+                
+                if ( !PlayM4_OpenStream(lPort, pBuffer, dwBufSize, 1024 * 1024) ) /* 打开流接口 */
+                {
+                    break;
+                }
+                
+                if ( !PlayM4_Play(lPort, hWnd) ) /* 播放开始 */
+                {
+                    break;
+                }
+                
+#ifdef _SAVE_H264_STREAM
+                FILE*       fpsave = fopen("test.record", "ab+");
+
+                if ( fpsave == NULL )
+                {
+                    printf("err:open file failed\n");
+                    return;
+                }
+                fwrite(pBuffer, dwBufSize, 1, fpsave);
+                fclose(fpsave);
+#endif /* ENDIF _SAVE_H264_STREAM */
+            }
+        }
+        /* No break */
+        
+        case NET_DVR_STREAMDATA:   /* 码流数据 */
+        {
+            if ( dwBufSize > 0 && lPort != -1 )
+            {
+                if ( !PlayM4_InputData(lPort, pBuffer, dwBufSize) )
+                {
+                    break;
+                } 
+                
+#ifdef _SAVE_H264_STREAM
+                FILE*       fpsave = fopen("test.record", "ab+");
+                if ( fpsave == NULL )
+                {
+                    printf("err:open file failed\n");
+                    return;
+                }
+                fwrite(pBuffer, dwBufSize, 1, fpsave);
+                fclose(fpsave);
+#endif /* ENDIF _SAVE_H264_STREAM */
+            }
+        }
+        /* No break */
+        
+        default:
+        break;
+    }
 }
 
 void CALLBACK CameraCtrl::ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
+    printf("%s\n", __FUNCTION__ );
     
+    switch (dwType) 
+    {
+        case EXCEPTION_RECONNECT:    /* 预览时重连 */
+        {
+            printf("----------reconnect--------%d\n", time(NULL));
+        }
+        break;
+        
+        default:
+        break;
+    }
 }
 
+extern "C" void CALLBACK CCallExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser )
+{
+    CameraCtrl* pFunc;
+    return pFunc->ExceptionCallBack(dwType, lUserID, lHandle, pUser);
+}
+
+extern "C" void CALLBACK CCallRealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser )
+{
+    CameraCtrl* pFunc;
+    return pFunc->RealDataCallBack_V30( lRealHandle, dwDataType, pBuffer, dwBufSize, dwUser);
+}
 
 /***
  * desc:            登录具有指定IP地址的摄像机
@@ -89,9 +190,9 @@ LONG CameraCtrl::Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPass
     }
     
     /* 设置异常消息回调函数 */
-    NET_DVR_SetExceptionCallBack_V30(0, NULL, g_ExceptionCallBack, NULL);
-    //this->camCallBack.fExceptionCallBack = this->RealDataCallBack_V30;
-    //NET_DVR_SetExceptionCallBack_V30(0, NULL, this->camCallBack.fExceptionCallBack, NULL);
+    //NET_DVR_SetExceptionCallBack_V30(0, NULL, g_ExceptionCallBack, NULL);
+    
+    NET_DVR_SetExceptionCallBack_V30(0, NULL, CCallExceptionCallBack, NULL);
     return lUserID;
 }
 

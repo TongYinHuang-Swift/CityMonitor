@@ -1,10 +1,29 @@
-﻿生成启动时间为 2016/7/9 19:26:02。
+﻿生成启动时间为 2016/7/9 20:00:20。
      1>项目“D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\CityMonitor.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在对“Debug\tmp\CityMonitor.unsuccessfulbuild”执行 Touch 任务。
        ClCompile:
-         d:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _WIN32 /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\tmp\\" /Fd"Debug\tmp\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Design\CityMonitor\Sources\CameraCtrl.cpp
-         CameraCtrl.cpp
+         d:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _WIN32 /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\tmp\\" /Fd"Debug\tmp\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Design\CityMonitor\Sources\MP4Player.cpp
+         MP4Player.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(32): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(36): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(46): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(181): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(225): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(336): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304) : 参见“scanf”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(475): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(487): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(498): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(508): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(519): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(530): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(541): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(552): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(562): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(572): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(582): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(592): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
        ManifestResourceCompile:
          所有输出均为最新。
        Link:
@@ -46,4 +65,4 @@
 
 生成成功。
 
-已用时间 00:00:01.06
+已用时间 00:00:01.14
