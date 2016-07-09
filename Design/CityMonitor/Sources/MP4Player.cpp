@@ -16,6 +16,7 @@
  */
 #include "MP4Player.h"
 #include "Debugger.h" 
+#include "CameraCtrl.h"
 
 #ifdef WIN32
 #else
@@ -40,6 +41,137 @@ void MP4Player::Init(void)
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
 }
 
+extern "C" {
+
+void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
+{
+    HWND hWnd = GetConsoleWindow();
+
+    //CameraCtrl CamCtrl;
+    LONG lPort = 0;
+
+    if ( dwBufSize != 5120 )
+    {
+        printf("lRealHandle=%d, dwDataType=%d, dwBufSize=%d, dwUser=%d\n", lRealHandle, dwDataType, dwBufSize, dwUser);
+        if ( pBuffer[1] == 0 )
+        {
+            int i = 0;
+            for ( i = 0; i < 5; i++ )
+            {
+                
+                printf("%2X ", pBuffer[i]);
+            }
+            system("PAUSE");
+        }
+    }
+
+    switch (dwDataType)
+    {
+        case NET_DVR_SYSHEAD: //系统头
+        {
+            if ( !PlayM4_GetPort(&lPort) )  //获取播放库未使用的通道号
+            {
+                break;
+            }
+            //m_iPort = lPort; //第一次回调的是系统头，将获取的播放库port号赋值给全局port，下次回调数据时即使用此port号播放
+            if (dwBufSize > 0)
+            {
+                if ( !PlayM4_SetStreamOpenMode(lPort, STREAME_REALTIME) )  //设置实时流播放模式
+                {
+                    break;
+                }
+                
+                if ( !PlayM4_OpenStream(lPort, pBuffer, dwBufSize, 1024 * 1024) ) //打开流接口
+                {
+                    break;
+                }
+                #ifdef _PLAY_ON_WINDOW
+                if ( !PlayM4_Play(lPort, hWnd) ) //播放开始
+                {
+                    break;
+                }
+                #else
+                if ( !PlayM4_Play(lPort, NULL) ) //播放开始
+                {
+                    break;
+                }
+                #endif
+                
+                #ifdef _PRINT_HEXDATA
+                int i = 0;
+                for ( i = 0; i < 32; i++ )
+                {
+                    if ( dwBufSize < 32 || pBuffer == NULL )
+                    {
+                        break;
+                    }
+                    printf("%d", pBuffer[i]);
+                }
+                #endif /* ENDIF _PRINT_HEXDATA */
+
+                #ifdef _SAVE_H264_STREAM
+                FILE*       fpsave;
+                fpsave = fopen("test.record", "ab+");
+
+                if ( fpsave == NULL )
+                {
+                    printf("err:open file failed\n");
+                    return;
+                }
+                fwrite(pBuffer, dwBufSize, 1, fpsave);
+                fclose(fpsave);
+                #endif /* ENDIF _SAVE_H264_STREAM */
+            }
+        }
+        
+        case NET_DVR_STREAMDATA:   //码流数据
+        {
+            if ( dwBufSize > 0 && lPort != -1 )
+            {
+                if ( !PlayM4_InputData(lPort, pBuffer, dwBufSize) )
+                {
+                    break;
+                } 
+                #ifdef _SAVE_H264_STREAM
+                FILE*       fpsave;            // 待写视频文件的索引文件指针
+                fpsave = fopen("test.record", "ab+");
+
+                if ( fpsave == NULL )
+                {
+                    printf("err:open file failed\n");
+                    return;
+                }
+                fwrite(pBuffer, dwBufSize, 1, fpsave);
+                fclose(fpsave);
+                #endif
+            }
+        }
+        
+        default:
+        break;
+    }
+    
+}
+
+void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
+{
+    char tempbuf[256] = {0};
+
+    printf("%s\n", __FUNCTION__ );
+    
+    switch(dwType) 
+    {
+        case EXCEPTION_RECONNECT:    //预览时重连
+        //printf("----------reconnect--------%d\n", time(NULL));
+        printf("----------reconnect--------\n");
+        break;
+        default:
+        break;
+    }
+}
+
+}
+
 /***
  * desc:            启动实时预览
  * para:            None
@@ -60,21 +192,20 @@ void MP4Player::RealPlayStart(void)
     BOOL bPreviewBlock = false;             /* 请求码流过程是否阻塞，0：否，1：是 */
 
     CameraCtrl CamCtrl;
-    
     lUserID = CamCtrl.GetUsrID();
     
     lRealPlayHandle = NET_DVR_RealPlay_V30( lUserID, &ClientInfo, NULL, NULL, 0 );
 
     if (lRealPlayHandle < 0)
     {
-        PRINT("NET_DVR_RealPlay_V30 error\n");
+        printf("NET_DVR_RealPlay_V30 error\n");
         CamCtrl.Exit();
         return;
     }
 
     if ( !NET_DVR_SetRealDataCallBack( lRealPlayHandle, g_RealDataCallBack_V30, 0 ) )
     {
-        PRINT("NET_DVR_SetRealDataCallBack error\n");
+        printf("NET_DVR_SetRealDataCallBack error\n");
     }
 }
 
@@ -88,7 +219,7 @@ void MP4Player::RealPlayStop(void)
 {
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
     /* 关闭预览 */
-    NET_DVR_StopRealPlay(_g_lRealPlayHandle);
+    NET_DVR_StopRealPlay(lRealPlayHandle);
 }
 
 
@@ -107,28 +238,28 @@ int MP4Player::PlayLocalFile( LPSTR sFileName )
 
     if ( !sFileName )
     {
-        PRINT("File name error!\n");
+        printf("File name error!\n");
         ErrorCode = -1;
         goto ERR_EXIT;
     }
     
     if ( !PlayM4_GetPort(&lPort) )
     {
-        PRINT("获取通道号失败!");
+        printf("获取通道号失败!");
         ErrorCode = -2;
         goto ERR_EXIT;
     }
     
     if ( !PlayM4_SetStreamOpenMode( lPort, STREAME_FILE) )  //设置实时流播放模式
     {
-        PRINT("Set stream mode failed!\n");
+        printf("Set stream mode failed!\n");
         ErrorCode = -3;
         goto ERR_EXIT;
     }
     
     if ( !PlayM4_OpenFile(lPort, sFileName ) )
     {
-        PRINT("Open stream file failed!\n");
+        printf("Open stream file failed!\n");
         ErrorCode = -4;
         goto ERR_EXIT;
     }
@@ -136,24 +267,27 @@ int MP4Player::PlayLocalFile( LPSTR sFileName )
 #ifdef WIN32
     if ( !PlayM4_Play(lPort, hWnd) ) //播放开始
     {
-        PRINT("Start play failed!\n");
+        printf("Start play failed!\n");
         ErrorCode = -5;
         goto ERR_EXIT;
     }
 #else
     if ( !PlayM4_Play(lPort, NULL) ) //播放开始
     {
-        PRINT("Start play failed!\n");
+        printf("Start play failed!\n");
         ErrorCode = -6;
         goto ERR_EXIT;
     }
+#endif
 
 ERR_EXIT:
 #ifdef WIN32
-        system("PAUSE");
+        if (ErrorCode)
+        {
+            system("PAUSE");
+        }
 #endif
         return ErrorCode;
-#endif
 }
 
 

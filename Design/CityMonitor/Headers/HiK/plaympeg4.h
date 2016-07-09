@@ -1,6 +1,8 @@
 #ifndef _PLAYM4_H_ 
 #define _PLAYM4_H_
 
+#include "HCNetSDK.h"
+
 #if defined( _WINDLL)
     #define PLAYM4_API  extern "C"__declspec(dllexport) 
 #else 

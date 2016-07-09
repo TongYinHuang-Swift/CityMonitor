@@ -28,7 +28,7 @@ typedef struct SocketNode
     Receiver *receiver;      //socket号下pReceiver的接收线程
     char     ip[20];         //该SOCKET号的ip地址
     int      port;           //该SOCKET号的端口地址
-};
+} SocketNode_T;
 
 class ThreadManager : public BasicObj
 {

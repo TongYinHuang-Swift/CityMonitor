@@ -90,6 +90,8 @@
     <ClInclude Include="Design\CityMonitor\Headers\BasicObj.h" />
     <ClInclude Include="Design\CityMonitor\Headers\BasicTCP.h" />
     <ClInclude Include="Design\CityMonitor\Headers\Buffer.h" />
+    <ClInclude Include="Design\CityMonitor\Headers\Camera.h" />
+    <ClInclude Include="Design\CityMonitor\Headers\CameraCtrl.h" />
     <ClInclude Include="Design\CityMonitor\Headers\Codec.h" />
     <ClInclude Include="Design\CityMonitor\Headers\DateTime.h" />
     <ClInclude Include="Design\CityMonitor\Headers\Debugger.h" />
@@ -100,6 +102,7 @@
     <ClInclude Include="Design\CityMonitor\Headers\HistoryVideo.h" />
     <ClInclude Include="Design\CityMonitor\Headers\HistoryVideoManager.h" />
     <ClInclude Include="Design\CityMonitor\Headers\HistoryVideoPlayer.h" />
+    <ClInclude Include="Design\CityMonitor\Headers\MP4Player.h" />
     <ClInclude Include="Design\CityMonitor\Headers\ObjBuffer.h" />
     <ClInclude Include="Design\CityMonitor\Headers\Receiver.h" />
     <ClInclude Include="Design\CityMonitor\Headers\Recorder.h" />
@@ -109,6 +112,7 @@
     <ClInclude Include="Design\CityMonitor\Headers\Thread.h" />
     <ClInclude Include="Design\CityMonitor\Headers\ThreadManager.h" />
     <ClInclude Include="Design\CityMonitor\Headers\VideoManager.h" />
+    <ClInclude Include="Design\CityMonitor\Headers\VideoPlayer.h" />
     <ClInclude Include="Design\CityMonitor\Headers\VideoRecorder.h" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +120,8 @@
     <ClCompile Include="Design\CityMonitor\Sources\BasicObj.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\BasicTCP.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\Buffer.cpp" />
+    <ClCompile Include="Design\CityMonitor\Sources\Camera.cpp" />
+    <ClCompile Include="Design\CityMonitor\Sources\CameraCtrl.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\CityMonitor.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\Codec.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\DateTime.cpp" />
@@ -123,6 +129,7 @@
     <ClCompile Include="Design\CityMonitor\Sources\HistoryVideo.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\HistoryVideoManager.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\HistoryVideoPlayer.cpp" />
+    <ClCompile Include="Design\CityMonitor\Sources\MP4Player.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\ObjBuffer.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\Receiver.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\Recorder.cpp" />
@@ -132,6 +139,7 @@
     <ClCompile Include="Design\CityMonitor\Sources\Thread.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\ThreadManager.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\VideoManager.cpp" />
+    <ClCompile Include="Design\CityMonitor\Sources\VideoPlayer.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\VideoRecorder.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

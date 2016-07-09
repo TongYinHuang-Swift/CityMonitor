@@ -39,7 +39,9 @@ void Camera::Init()
 void Camera::Login(char* ipAddr)
 {
     this->ipAddr = ipAddr;
-    cameraCtrl->Login(ipAddr);
+    LPNET_DVR_DEVICEINFO_V30 DeviceInfo;
+    memset( &DeviceInfo, 0, sizeof(LPNET_DVR_DEVICEINFO_V30) );
+    cameraCtrl->Login( ipAddr, 8000, "admin", "admin0123", DeviceInfo );
 }
 void Camera::SetPlaySpeed(int speed)
 {

@@ -1,10 +1,10 @@
-[2016-07-08 16:29:50.234][INF] The COM:Core ver is 5.2.1.3, 2016_05_13. Async:1.
-[2016-07-08 16:29:50.234][INF] This hcnetsdk ver is 5.2.1.3 Ver 2016_05_13.
-[2016-07-08 16:29:50.234][INF] login dev 192.168.1.65:8000.
-[2016-07-08 16:29:50.248][INF] Private connect 192.168.1.65:8000 sock=468 this=0x4d3004c cmd=0x10000 port=53702
-[2016-07-08 16:29:50.248][INF] LogonDev1 in[192.168.1.65:8000]
-[2016-07-08 16:29:50.657][INF] ID-IP-CHAN[0-192.168.1.65-1] [CPreviewSession::AdjustProtoType] StreamMode[0], StreamProtocol[0xffff]
-[2016-07-08 16:29:50.679][DBG] ID-IP-CHAN[0-192.168.1.65-1] [CPreviewSession::Start] SUCC
-[2016-07-08 16:29:50.692][INF] Private connect 192.168.1.65:8000 sock=516 this=0x4d3004c cmd=0x30000 port=53703
-[2016-07-08 16:29:50.703][INF] GlobalCtrl load [F:\CityMonitor\Debug\bin\HCNetSDKCom/SystemTransform.dll] with sdk path success and get handle[0x64a0000]
-[2016-07-08 16:29:50.703][INF] CStreamConvert::LoadConvertLib Load Succ, m_iInitCount = 1
+[2016-07-09 15:23:58.552][INF] The COM:Core ver is 5.2.1.3, 2016_05_13. Async:1.
+[2016-07-09 15:23:58.552][INF] This hcnetsdk ver is 5.2.1.3 Ver 2016_05_13.
+[2016-07-09 15:23:58.552][INF] login dev 192.168.1.65:8000.
+[2016-07-09 15:23:58.565][INF] Private connect 192.168.1.65:8000 sock=492 this=0x6bd004c cmd=0x10000 port=57046
+[2016-07-09 15:23:58.565][INF] LogonDev1 in[192.168.1.65:8000]
+[2016-07-09 15:23:59.050][INF] ID-IP-CHAN[0-192.168.1.65-1] [CPreviewSession::AdjustProtoType] StreamMode[0], StreamProtocol[0xffff]
+[2016-07-09 15:23:59.062][DBG] ID-IP-CHAN[0-192.168.1.65-1] [CPreviewSession::Start] SUCC
+[2016-07-09 15:23:59.064][INF] Private connect 192.168.1.65:8000 sock=532 this=0x6bd004c cmd=0x30000 port=57047
+[2016-07-09 15:23:59.081][INF] GlobalCtrl load [D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Debug\bin\HCNetSDKCom/SystemTransform.dll] with sdk path success and get handle[0x4360000]
+[2016-07-09 15:23:59.081][INF] CStreamConvert::LoadConvertLib Load Succ, m_iInitCount = 1

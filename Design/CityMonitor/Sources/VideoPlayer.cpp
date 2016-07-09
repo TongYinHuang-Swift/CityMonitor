@@ -57,10 +57,10 @@ void VideoPlayer::Resume()
 
 
 // 停止播放
-//void VideoPlayer::Stop()
-//{
-//    PRINT(DEBUG_LEVEL_9, "VideoPlayer", __FUNCTION__, __LINE__);
-//}                     
+void VideoPlayer::Stop()
+{
+    PRINT(DEBUG_LEVEL_9, "VideoPlayer", __FUNCTION__, __LINE__);
+}                     
 // 按指定速度快速播放
 void VideoPlayer::PlayFast()
 {

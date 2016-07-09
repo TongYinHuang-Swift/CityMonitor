@@ -101,6 +101,18 @@
     <ClInclude Include="Design\CityMonitor\Headers\SwiftHikSDK.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\CameraCtrl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\MP4Player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Design\CityMonitor\Headers\VideoPlayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Design\CityMonitor\Sources\SwiftHikSDK.cpp">
@@ -164,6 +176,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Design\CityMonitor\Sources\VideoRecorder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\Camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\CameraCtrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\MP4Player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Design\CityMonitor\Sources\VideoPlayer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

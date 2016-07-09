@@ -1,0 +1,411 @@
+﻿生成启动时间为 2016/7/9 15:23:43。
+     1>项目“D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\CityMonitor.vcxproj”在节点 2 上(rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“Debug\tmp\CityMonitor.lastbuildstate”。
+       InitializeBuildStatus:
+         正在创建“Debug\tmp\CityMonitor.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         d:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _WIN32 /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\tmp\\" /Fd"Debug\tmp\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Design\CityMonitor\Sources\Acceptor.cpp Design\CityMonitor\Sources\BasicObj.cpp Design\CityMonitor\Sources\BasicTCP.cpp Design\CityMonitor\Sources\Buffer.cpp Design\CityMonitor\Sources\Camera.cpp Design\CityMonitor\Sources\CameraCtrl.cpp Design\CityMonitor\Sources\CityMonitor.cpp Design\CityMonitor\Sources\Codec.cpp Design\CityMonitor\Sources\DateTime.cpp Design\CityMonitor\Sources\Debugger.cpp Design\CityMonitor\Sources\HistoryVideo.cpp Design\CityMonitor\Sources\HistoryVideoManager.cpp Design\CityMonitor\Sources\HistoryVideoPlayer.cpp Design\CityMonitor\Sources\MP4Player.cpp Design\CityMonitor\Sources\ObjBuffer.cpp Design\CityMonitor\Sources\Receiver.cpp Design\CityMonitor\Sources\Recorder.cpp Design\CityMonitor\Sources\Sender.cpp Design\CityMonitor\Sources\SwiftHikSDK.cpp Design\CityMonitor\Sources\TcpConn.cpp Design\CityMonitor\Sources\Thread.cpp Design\CityMonitor\Sources\ThreadManager.cpp Design\CityMonitor\Sources\VideoManager.cpp Design\CityMonitor\Sources\VideoPlayer.cpp Design\CityMonitor\Sources\VideoRecorder.cpp
+         VideoRecorder.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(43): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(45): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(72): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(112): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(118): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(124): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(130): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(137): warning C4018: “<”: 有符号/无符号不匹配
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(154): warning C4996: 'getcwd': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getcwd. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\direct.h(117) : 参见“getcwd”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(156): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(157): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(159): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(167): warning C4018: “<”: 有符号/无符号不匹配
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(185): warning C4996: 'getcwd': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getcwd. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\direct.h(117) : 参见“getcwd”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(187): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(188): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(190): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(335): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(336): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(407): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(408): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(409): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(410): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(415): warning C4996: 'mkdir': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _mkdir. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\direct.h(124) : 参见“mkdir”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(420): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(425): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(431): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videorecorder.cpp(440): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+         VideoPlayer.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(26): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(31): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(36): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(41): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(46): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(51): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(62): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(67): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(72): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(77): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(82): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(87): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(92): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(97): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(102): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videoplayer.cpp(107): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         VideoManager.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(58): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(102): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(113): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(118): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(128): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(137): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(146): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(160): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(167): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(173): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(183): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(189): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\videomanager.cpp(220): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         ThreadManager.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\threadmanager.cpp(42): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\threadmanager.cpp(46): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\threadmanager.cpp(60): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\threadmanager.cpp(77): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         Thread.cpp
+         TcpConn.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\tcpconn.cpp(26): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\tcpconn.cpp(36): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\tcpconn.cpp(50): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         SwiftHikSDK.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\swifthiksdk.cpp(105): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\swifthiksdk.cpp(128): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\swifthiksdk.cpp(154): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\swifthiksdk.cpp(216): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\swifthiksdk.cpp(222): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\swifthiksdk.cpp(278): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\swifthiksdk.cpp(286): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         Sender.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\sender.cpp(120): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\sender.cpp(125): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         Recorder.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\recorder.cpp(14): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\recorder.cpp(28): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\recorder.cpp(35): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\recorder.cpp(54): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\recorder.cpp(62): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         Receiver.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\receiver.cpp(54): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\receiver.cpp(60): warning C4018: “<”: 有符号/无符号不匹配
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\receiver.cpp(73): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\receiver.cpp(120): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\receiver.cpp(126): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         ObjBuffer.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\objbuffer.cpp(32): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\objbuffer.cpp(45): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\objbuffer.cpp(56): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\objbuffer.cpp(75): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\objbuffer.cpp(98): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\objbuffer.cpp(121): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         MP4Player.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(27): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(31): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(41): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(182): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(220): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(312): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(324): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(335): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(345): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(356): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(367): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(378): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(389): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(399): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(409): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(419): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\mp4player.cpp(429): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         HistoryVideoPlayer.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\historyvideoplayer.cpp(18): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\historyvideoplayer.cpp(23): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         HistoryVideoManager.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\historyvideomanager.cpp(15): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\historyvideomanager.cpp(21): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\historyvideomanager.cpp(26): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\historyvideomanager.cpp(32): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         HistoryVideo.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\historyvideo.cpp(45): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+         Debugger.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(26): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(27): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(29): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(30): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(31): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(32): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(33): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(34): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(36): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(37): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(38): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(69): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(82): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(83): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(89): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(101): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(102): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(103): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(104): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(110): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(123): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(124): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(125): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(126): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(127): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(128): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(137): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(150): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(151): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(152): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(153): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(154): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(159): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110) : 参见“strcat”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(207): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(214): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\debugger.cpp(220): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+         DateTime.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\datetime.cpp(10): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\time.inl(112) : 参见“localtime”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\datetime.cpp(26): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\datetime.cpp(46): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\datetime.cpp(107): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\datetime.cpp(125): warning C4244: “return”: 从“time_t”转换到“int”，可能丢失数据
+         Codec.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(37): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(61): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(65): warning C4018: “<”: 有符号/无符号不匹配
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(191): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(196): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(205): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(221): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(228): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(255): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(259): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(279): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(426): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(432): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(442): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(446): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(469): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\codec.cpp(491): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         CityMonitor.cpp
+         CameraCtrl.cpp
+         正在生成代码...
+         正在编译...
+         Camera.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(53): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(59): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(65): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(71): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(77): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(83): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(89): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(95): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(101): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(107): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(113): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\camera.cpp(119): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         Buffer.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(14): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(26): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(37): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(42): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(79): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(84): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(121): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(126): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\buffer.cpp(144): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         BasicTCP.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(62): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(63): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(64): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(65): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(66): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(67): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(70): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(80): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(85): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(119): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(124): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(143): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(149): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(172): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(180): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(199): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(214): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(220): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(227): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(227): warning C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(157) : 参见“strerror”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(249): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(249): warning C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(157) : 参见“strerror”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(256): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(272): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(283): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(283): warning C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(157) : 参见“strerror”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(292): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(299): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(299): warning C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(157) : 参见“strerror”的声明
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(308): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(321): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\basictcp.cpp(331): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+         BasicObj.cpp
+         Acceptor.cpp
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\acceptor.cpp(16): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\acceptor.cpp(27): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\acceptor.cpp(34): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\acceptor.cpp(40): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\acceptor.cpp(48): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\acceptor.cpp(56): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\acceptor.cpp(62): warning C4244: “参数”: 从“long”转换到“byte”，可能丢失数据
+     1>d:\tonyhuangworkingspace\projects\git_proj\github\citymonitor\design\citymonitor\sources\acceptor.cpp(62): warning C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(157) : 参见“strerror”的声明
+         正在生成代码...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\tmp\CityMonitor.exe.embed.manifest.res" Debug\tmp\CityMonitor_manifest.rc 
+       Link:
+         d:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Debug\bin\CityMonitor.exe" /INCREMENTAL /NOLOGO /LIBPATH:D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Design\CityMonitor\Libs\Win32 /LIBPATH:D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Design\CityMonitor\Libs\Win32\HCNetSDKCom PlayCtrl.lib HCCore.lib HCNetSDK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\tmp\CityMonitor.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Debug\bin\CityMonitor.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Debug\bin\CityMonitor.lib" /MACHINE:X86 Debug\tmp\CityMonitor.exe.embed.manifest.res
+         Debug\tmp\Acceptor.obj
+         Debug\tmp\BasicObj.obj
+         Debug\tmp\BasicTCP.obj
+         Debug\tmp\Buffer.obj
+         Debug\tmp\Camera.obj
+         Debug\tmp\CameraCtrl.obj
+         Debug\tmp\CityMonitor.obj
+         Debug\tmp\Codec.obj
+         Debug\tmp\DateTime.obj
+         Debug\tmp\Debugger.obj
+         Debug\tmp\HistoryVideo.obj
+         Debug\tmp\HistoryVideoManager.obj
+         Debug\tmp\HistoryVideoPlayer.obj
+         Debug\tmp\MP4Player.obj
+         Debug\tmp\ObjBuffer.obj
+         Debug\tmp\Receiver.obj
+         Debug\tmp\Recorder.obj
+         Debug\tmp\Sender.obj
+         Debug\tmp\SwiftHikSDK.obj
+         Debug\tmp\TcpConn.obj
+         Debug\tmp\Thread.obj
+         Debug\tmp\ThreadManager.obj
+         Debug\tmp\VideoManager.obj
+         Debug\tmp\VideoPlayer.obj
+         Debug\tmp\VideoRecorder.obj
+       Manifest:
+         正在删除文件“Debug\tmp\CityMonitor.exe.embed.manifest”。
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\tmp\CityMonitor.exe.embed.manifest" /manifest Debug\tmp\CityMonitor.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\tmp\CityMonitor.exe.embed.manifest.res" Debug\tmp\CityMonitor_manifest.rc 
+       LinkEmbedManifest:
+         d:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Debug\bin\CityMonitor.exe" /INCREMENTAL /NOLOGO /LIBPATH:D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Design\CityMonitor\Libs\Win32 /LIBPATH:D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Design\CityMonitor\Libs\Win32\HCNetSDKCom PlayCtrl.lib HCCore.lib HCNetSDK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\tmp\CityMonitor.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Debug\bin\CityMonitor.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Debug\bin\CityMonitor.lib" /MACHINE:X86 Debug\tmp\CityMonitor.exe.embed.manifest.res
+         Debug\tmp\Acceptor.obj
+         Debug\tmp\BasicObj.obj
+         Debug\tmp\BasicTCP.obj
+         Debug\tmp\Buffer.obj
+         Debug\tmp\Camera.obj
+         Debug\tmp\CameraCtrl.obj
+         Debug\tmp\CityMonitor.obj
+         Debug\tmp\Codec.obj
+         Debug\tmp\DateTime.obj
+         Debug\tmp\Debugger.obj
+         Debug\tmp\HistoryVideo.obj
+         Debug\tmp\HistoryVideoManager.obj
+         Debug\tmp\HistoryVideoPlayer.obj
+         Debug\tmp\MP4Player.obj
+         Debug\tmp\ObjBuffer.obj
+         Debug\tmp\Receiver.obj
+         Debug\tmp\Recorder.obj
+         Debug\tmp\Sender.obj
+         Debug\tmp\SwiftHikSDK.obj
+         Debug\tmp\TcpConn.obj
+         Debug\tmp\Thread.obj
+         Debug\tmp\ThreadManager.obj
+         Debug\tmp\VideoManager.obj
+         Debug\tmp\VideoPlayer.obj
+         Debug\tmp\VideoRecorder.obj
+         CityMonitor.vcxproj -> D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\Debug\bin\CityMonitor.exe
+       FinalizeBuildStatus:
+         正在删除文件“Debug\tmp\CityMonitor.unsuccessfulbuild”。
+         正在对“Debug\tmp\CityMonitor.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“D:\TonyHuangWorkingSpace\Projects\git_proj\github\CityMonitor\CityMonitor.vcxproj”(rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:11.17
