@@ -18,12 +18,12 @@
 #include "Debugger.h" 
 #include "HCNetSDK.h"
 #include "plaympeg4.h"
+#include "CameraCtrl.h"
+#include "MP4Player.h"
 
 #ifdef WIN32
 #else
 #endif
-
-extern void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser);
 
 CameraCtrl::CameraCtrl()
 {
@@ -55,113 +55,13 @@ void CameraCtrl::Init(void)
  */
 void CALLBACK CameraCtrl::RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
 {
-    HWND hWnd = GetConsoleWindow();
-
-    if ( dwBufSize != 5120 )
-    {
-        printf("lRealHandle=%d, dwDataType=%d, dwBufSize=%d, dwUser=%d\n", lRealHandle, dwDataType, dwBufSize, dwUser);
-        if ( pBuffer[1] == 0 )
-        {
-            int i = 0;
-            for ( i = 0; i < 5; i++ )
-            {
-                
-                printf("%2X ", pBuffer[i]);
-            }
-            system("PAUSE");
-        }
-    }
-
-    switch (dwDataType)
-    {
-        case NET_DVR_SYSHEAD: //系统头
-        {
-            if ( !PlayM4_GetPort(&lPort) )  //获取播放库未使用的通道号
-            {
-                break;
-            }
-            //m_iPort = lPort; //第一次回调的是系统头，将获取的播放库port号赋值给全局port，下次回调数据时即使用此port号播放
-            if (dwBufSize > 0)
-            {
-                if ( !PlayM4_SetStreamOpenMode(lPort, STREAME_REALTIME) )  //设置实时流播放模式
-                {
-                    break;
-                }
-                
-                if ( !PlayM4_OpenStream(lPort, pBuffer, dwBufSize, 1024 * 1024) ) //打开流接口
-                {
-                    break;
-                }
-            #ifdef _PLAY_ON_WINDOW
-                if ( !PlayM4_Play(lPort, hWnd) ) //播放开始
-                {
-                    break;
-                }
-            #else
-                if ( !PlayM4_Play(lPort, NULL) ) //播放开始
-                {
-                    break;
-                }
-            #endif
-
-            #ifdef _SAVE_H264_STREAM
-                FILE*       fpsave;
-                fpsave = fopen("test.record", "ab+");
-
-                if ( fpsave == NULL )
-                {
-                    printf("err:open file failed\n");
-                    return;
-                }
-                fwrite(pBuffer, dwBufSize, 1, fpsave);
-                fclose(fpsave);
-            #endif /* ENDIF _SAVE_H264_STREAM */
-            }
-        }
-        
-        case NET_DVR_STREAMDATA:   //码流数据
-        {
-            if ( dwBufSize > 0 && lPort != -1 )
-            {
-                if ( !PlayM4_InputData(lPort, pBuffer, dwBufSize) )
-                {
-                    break;
-                } 
-            #ifdef _SAVE_H264_STREAM
-                FILE*       fpsave;            // 待写视频文件的索引文件指针
-                fpsave = fopen("test.record", "ab+");
-
-                if ( fpsave == NULL )
-                {
-                    printf("err:open file failed\n");
-                    return;
-                }
-                fwrite(pBuffer, dwBufSize, 1, fpsave);
-                fclose(fpsave);
-            #endif
-            }
-        }
-        
-        default:
-        break;
-    }
-}
-
-#if 0
-void *CALLBACK CameraCtrl::ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
-{
-    char tempbuf[256] = {0};
     
-    switch(dwType) 
-    {
-        case EXCEPTION_RECONNECT:    //预览时重连
-        //PRINT(ALWAYS_PRINT, "SwiftHikSDK", __FUNCTION__, __LINE__,"Reconnect=%d",time(NULL));
-        break;
-        default:
-        break;
-    }
 }
-#endif
+
+void CALLBACK CameraCtrl::ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
+{
+    
+}
 
 
 /***
@@ -190,8 +90,11 @@ LONG CameraCtrl::Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPass
     
     /* 设置异常消息回调函数 */
     NET_DVR_SetExceptionCallBack_V30(0, NULL, g_ExceptionCallBack, NULL);
+    //this->camCallBack.fExceptionCallBack = this->RealDataCallBack_V30;
+    //NET_DVR_SetExceptionCallBack_V30(0, NULL, this->camCallBack.fExceptionCallBack, NULL);
     return lUserID;
 }
+
 
 /***
  * desc:            获取摄像头用户ID

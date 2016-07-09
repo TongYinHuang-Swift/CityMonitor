@@ -1,4 +1,4 @@
-Swift Technology    CityMonitor  版本V1.0.0    Jul  9 2016  15:23:49      All Rights Reserved
+Swift Technology    CityMonitor  版本V1.0.0    Jul  9 2016  16:12:42      All Rights Reserved
 
 Buffer::Buffer::Buffer:L14- 创建一个 len = 256、ID = 1 的循环缓冲器
 Buffer::Buffer::Buffer:L14- 创建一个 len = 256、ID = 2 的循环缓冲器
@@ -13,10 +13,10 @@ Acceptor::Acceptor::Acceptor:L16
 BasicTCP::BasicTCP::Init:L70- :
 Acceptor::Acceptor::Start:L27
 BasicTCP::BasicTCP::CreateServer4Cam:L80- :服务器:192.168.1.138
-Acceptor::Acceptor::Accept:L48
-BasicTCP::BasicTCP::Bind:L0- :服务器:192.168.1.138
 BasicTCP::BasicTCP::Bind:L0- :服务器:192.168.1.138
 BasicTCP::BasicTCP::Listen:L36- :服务器:192.168.1.138
+Acceptor::Acceptor::Accept:L48
+Acceptor::Acceptor::Acceptor:L16
 Acceptor::Acceptor::Acceptor:L16
 Acceptor::Acceptor::Start:L27
 Recorder::Recorder::Recorder:L14
@@ -33,4 +33,5 @@ Acceptor::Acceptor::Acceptor:L16
 Acceptor::Acceptor::Start:L27
 Codec::Codec::Start:L37-Codec Start!
 Codec::Codec::Start:L37-Codec Start!
-SwiftHikSDK::SwiftHikSDK::SwHikSdkInit:L222-Login Sucess
+Codec::Codec::Start:L37-Codec Start!
+MP4Player::MP4Player::Init:L46

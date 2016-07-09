@@ -89,7 +89,7 @@ Bit7=1      ‘›Œﬁ∂®“Â
 #include "BasicObj.h" 
 #include "HistoryVideoManager.h"
 #include "VideoRecorder.h"
-#include "SwiftHikSDK.h"
+//#include "SwiftHikSDK.h"
 
 #define     CMD_BUFFER_LEN          256
 #define     VIDEO_BUFFER_LEN        409600

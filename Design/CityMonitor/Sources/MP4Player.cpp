@@ -14,12 +14,17 @@
  * 2016-07-xx  董超    完成版本V1.0.0
  *=======================================================================================================================
  */
+#include <time.h>
 #include "MP4Player.h"
 #include "Debugger.h" 
 #include "CameraCtrl.h"
 
 #ifdef WIN32
 #else
+#endif
+
+#ifndef _SAVE_H264_STREAM
+#define _SAVE_H264_STREAM
 #endif
 
 MP4Player::MP4Player()
@@ -41,77 +46,60 @@ void MP4Player::Init(void)
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
 }
 
+#ifdef __cplusplus
 extern "C" {
+#endif
 
+/***
+ * desc:            实时流回调函数
+ * lRealHandle:     
+ * dwDataType: 
+ * pBuffer:         流数据缓存
+ * dwBufSize:       缓存大小
+ * dwUser:          用户
+ * retc:            None
+ */
 void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
 {
-    HWND hWnd = GetConsoleWindow();
+    HWND hWnd = NULL;
+#ifdef WIN32 
+    hWnd = GetConsoleWindow();
+#else
+    hWnd = NULL;
+#endif
 
-    //CameraCtrl CamCtrl;
     LONG lPort = 0;
-
-    if ( dwBufSize != 5120 )
-    {
-        printf("lRealHandle=%d, dwDataType=%d, dwBufSize=%d, dwUser=%d\n", lRealHandle, dwDataType, dwBufSize, dwUser);
-        if ( pBuffer[1] == 0 )
-        {
-            int i = 0;
-            for ( i = 0; i < 5; i++ )
-            {
-                
-                printf("%2X ", pBuffer[i]);
-            }
-            system("PAUSE");
-        }
-    }
 
     switch (dwDataType)
     {
-        case NET_DVR_SYSHEAD: //系统头
+        case NET_DVR_SYSHEAD:               /* 系统头 */
         {
-            if ( !PlayM4_GetPort(&lPort) )  //获取播放库未使用的通道号
+            if ( !PlayM4_GetPort(&lPort) )  /* 获取播放库未使用的通道号 */
             {
                 break;
             }
-            //m_iPort = lPort; //第一次回调的是系统头，将获取的播放库port号赋值给全局port，下次回调数据时即使用此port号播放
+            
+            /* 第一次回调的是系统头，将获取的播放库port号赋值给全局port，下次回调数据时即使用此port号播放 */
+            
             if (dwBufSize > 0)
             {
-                if ( !PlayM4_SetStreamOpenMode(lPort, STREAME_REALTIME) )  //设置实时流播放模式
+                if ( !PlayM4_SetStreamOpenMode(lPort, STREAME_REALTIME) )  /* 设置实时流播放模式 */
                 {
                     break;
                 }
                 
-                if ( !PlayM4_OpenStream(lPort, pBuffer, dwBufSize, 1024 * 1024) ) //打开流接口
+                if ( !PlayM4_OpenStream(lPort, pBuffer, dwBufSize, 1024 * 1024) ) /* 打开流接口 */
                 {
                     break;
                 }
-                #ifdef _PLAY_ON_WINDOW
-                if ( !PlayM4_Play(lPort, hWnd) ) //播放开始
-                {
-                    break;
-                }
-                #else
-                if ( !PlayM4_Play(lPort, NULL) ) //播放开始
-                {
-                    break;
-                }
-                #endif
                 
-                #ifdef _PRINT_HEXDATA
-                int i = 0;
-                for ( i = 0; i < 32; i++ )
+                if ( !PlayM4_Play(lPort, hWnd) ) /* 播放开始 */
                 {
-                    if ( dwBufSize < 32 || pBuffer == NULL )
-                    {
-                        break;
-                    }
-                    printf("%d", pBuffer[i]);
+                    break;
                 }
-                #endif /* ENDIF _PRINT_HEXDATA */
-
-                #ifdef _SAVE_H264_STREAM
-                FILE*       fpsave;
-                fpsave = fopen("test.record", "ab+");
+                
+#ifdef _SAVE_H264_STREAM
+                FILE*       fpsave = fopen("test.record", "ab+");
 
                 if ( fpsave == NULL )
                 {
@@ -120,11 +108,12 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
                 }
                 fwrite(pBuffer, dwBufSize, 1, fpsave);
                 fclose(fpsave);
-                #endif /* ENDIF _SAVE_H264_STREAM */
+#endif /* ENDIF _SAVE_H264_STREAM */
             }
         }
+        /* No break */
         
-        case NET_DVR_STREAMDATA:   //码流数据
+        case NET_DVR_STREAMDATA:   /* 码流数据 */
         {
             if ( dwBufSize > 0 && lPort != -1 )
             {
@@ -132,10 +121,9 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
                 {
                     break;
                 } 
-                #ifdef _SAVE_H264_STREAM
-                FILE*       fpsave;            // 待写视频文件的索引文件指针
-                fpsave = fopen("test.record", "ab+");
-
+                
+#ifdef _SAVE_H264_STREAM
+                FILE*       fpsave = fopen("test.record", "ab+");
                 if ( fpsave == NULL )
                 {
                     printf("err:open file failed\n");
@@ -143,41 +131,52 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
                 }
                 fwrite(pBuffer, dwBufSize, 1, fpsave);
                 fclose(fpsave);
-                #endif
+#endif /* ENDIF _SAVE_H264_STREAM */
             }
         }
+        /* No break */
         
         default:
         break;
     }
-    
 }
 
+/***
+ * desc:            异常消息回调函数
+ * dwType:
+ * lUserID:         
+ * lHandle:
+ * pUser:           
+ * retc:            None
+ */
 void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
-    char tempbuf[256] = {0};
-
     printf("%s\n", __FUNCTION__ );
     
-    switch(dwType) 
+    switch (dwType) 
     {
-        case EXCEPTION_RECONNECT:    //预览时重连
-        //printf("----------reconnect--------%d\n", time(NULL));
-        printf("----------reconnect--------\n");
+        case EXCEPTION_RECONNECT:    /* 预览时重连 */
+        {
+            printf("----------reconnect--------%d\n", time(NULL));
+        }
         break;
+        
         default:
         break;
     }
 }
 
-}
+#ifdef __cplusplus
+    }
+#endif /* ENDIF __cplusplus */
+
 
 /***
  * desc:            启动实时预览
  * para:            None
  * retc:            None
  */
-void MP4Player::RealPlayStart(void)
+void MP4Player::RealPlayStart(LONG lUserID)
 {
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
     
@@ -190,16 +189,15 @@ void MP4Player::RealPlayStart(void)
     ClientInfo.sMultiCastIP = NULL;         /* 多播地址，需要多播预览时配置 */
     
     BOOL bPreviewBlock = false;             /* 请求码流过程是否阻塞，0：否，1：是 */
-
-    CameraCtrl CamCtrl;
-    lUserID = CamCtrl.GetUsrID();
     
     lRealPlayHandle = NET_DVR_RealPlay_V30( lUserID, &ClientInfo, NULL, NULL, 0 );
 
     if (lRealPlayHandle < 0)
     {
         printf("NET_DVR_RealPlay_V30 error\n");
-        CamCtrl.Exit();
+        CameraCtrl *CamCtrl = new CameraCtrl();
+        CamCtrl->Exit();
+        delete CamCtrl;
         return;
     }
 
@@ -222,16 +220,25 @@ void MP4Player::RealPlayStop(void)
     NET_DVR_StopRealPlay(lRealPlayHandle);
 }
 
+void MP4Player::SetPlayOnWindow(PLAY_ON_WINDOW_EN_T playOnWin)
+{
+    playOnWinEn = playOnWin;
+}
+
 
 /***
- * desc:            //播放本地文件
+ * desc:            播放本地文件
  * para:            None
- * retc:            None
+ * retc:            成功--返回端口号；失败--返回错误码
  */
-int MP4Player::PlayLocalFile( LPSTR sFileName )
+LONG MP4Player::PlayLocalFile( LPSTR sFileName )
 {
+    HWND hWnd = NULL;
 #ifdef WIN32
-    HWND hWnd = GetConsoleWindow();
+    if ( this->playOnWinEn == DISPLAY_ENABLE )
+    {
+         hWnd = GetConsoleWindow();
+    }
 #endif
 
     int ErrorCode = 0;
@@ -239,55 +246,60 @@ int MP4Player::PlayLocalFile( LPSTR sFileName )
     if ( !sFileName )
     {
         printf("File name error!\n");
-        ErrorCode = -1;
+        ErrorCode = ERR_FILE_NAME_INVALID;
         goto ERR_EXIT;
     }
+    this->sHistoryFileName = sFileName;
     
     if ( !PlayM4_GetPort(&lPort) )
     {
         printf("获取通道号失败!");
-        ErrorCode = -2;
+        ErrorCode = ERR_GET_PLAY_PORT_FAIL;
         goto ERR_EXIT;
     }
     
     if ( !PlayM4_SetStreamOpenMode( lPort, STREAME_FILE) )  //设置实时流播放模式
     {
         printf("Set stream mode failed!\n");
-        ErrorCode = -3;
+        ErrorCode = ERR_SET_STREAM_OPEN_MODE_FAIL;
         goto ERR_EXIT;
     }
     
     if ( !PlayM4_OpenFile(lPort, sFileName ) )
     {
         printf("Open stream file failed!\n");
-        ErrorCode = -4;
+        ErrorCode = ERR_OPEN_FILE_FAIL;
         goto ERR_EXIT;
     }
-       
-#ifdef WIN32
+    
     if ( !PlayM4_Play(lPort, hWnd) ) //播放开始
     {
         printf("Start play failed!\n");
-        ErrorCode = -5;
+        ErrorCode = ERR_START_PLAY_FAIL;
         goto ERR_EXIT;
     }
-#else
-    if ( !PlayM4_Play(lPort, NULL) ) //播放开始
-    {
-        printf("Start play failed!\n");
-        ErrorCode = -6;
-        goto ERR_EXIT;
-    }
-#endif
 
 ERR_EXIT:
 #ifdef WIN32
         if (ErrorCode)
         {
             system("PAUSE");
+            return ErrorCode;
+        }
+        else
+        {
+            return lPort;
+        }
+#else
+        if (ErrorCode)
+        {
+            pause();
+        }
+        {
+            return lPort;
         }
 #endif
-        return ErrorCode;
+        
 }
 
 
@@ -299,6 +311,150 @@ ERR_EXIT:
 void MP4Player::PlayLocalFileExit(void)
 {
     PlayM4_CloseFile(lPort);
+}
+
+/***
+ * desc:            本地播放控制功能测试
+ * para:            None
+ * retc:            None
+ */
+void MP4Player::PlayLocalFileCtrl(void)
+{
+    int ctrl_type = 0;
+    this->speedChangeVal = 0;
+
+    while (1)
+    {
+        printf("Input play ctrl type:\n");
+        scanf("%d", &ctrl_type);
+        
+        switch (ctrl_type)
+        {
+            case SW_HIK_PLAY_START:
+            {
+                printf("Play start!\n");
+                PlayM4_Pause( this->lPort, PLAY_MODE_START );
+            }
+            break;
+
+            case SW_HIK_PLAY_PAUSE:
+            {
+                printf("Play pause!\n");
+                PlayM4_Pause( this->lPort, PLAY_MODE_PAUSE );
+            }
+            break;
+
+            case SW_HIK_PLAY_STOP:
+            {
+                printf("Play stop!\n");
+                PlayM4_Stop( this->lPort );
+            }
+            break;
+
+            case SW_HIK_PLAY_RESUME:
+            {
+                printf("Play resume!\n");
+                this->speedChangeVal = 0;
+                this->PlayLocalFileExit();
+                this->PlayLocalFile(this->sHistoryFileName);
+            }
+            break;
+
+            case SW_HIK_PLAY_SLOW_FWD:
+            {
+                printf("Play slow fwd!\n");
+                PlayM4_Slow(this->lPort);
+                this->speedChangeVal--;
+            }
+            break;
+
+            case SW_HIK_PLAY_FAST_FWD:
+            {
+                printf("Play fast fwd!\n");
+                PlayM4_Fast(this->lPort);
+                this->speedChangeVal++;
+            }
+            break;
+
+            case SW_HIK_PLAY_ONE_BY_ONE:
+            {
+                printf("Play one by one!\n");
+                this->speedChangeVal = 0;
+                PlayM4_OneByOne(this->lPort);
+            }
+            break;
+
+            case SW_HIK_PLAY_SLOW_2X:
+            {
+                printf("Play slow! 2X\n");
+                PlayM4_Slow(this->lPort);
+                Sleep(10);
+                PlayM4_Slow(this->lPort);
+                this->speedChangeVal -= 2;
+            }
+            break;
+
+            case SW_HIK_PLAY_SLOW_4X:
+            {
+                printf("Play slow! 4X\n");
+                PlayM4_Slow(this->lPort);
+                Sleep(10);
+                PlayM4_Slow(this->lPort);
+                Sleep(10);
+                PlayM4_Slow(this->lPort);
+                Sleep(10);
+                PlayM4_Slow(this->lPort);
+                this->speedChangeVal -= 4;
+            }
+            break;
+
+            case SW_HIK_PLAY_FAST_2X:
+            {
+                printf("Play fast! 2X\n");
+                PlayM4_Fast(this->lPort);
+                Sleep(10);
+                PlayM4_Fast(this->lPort);
+                this->speedChangeVal += 2;
+            }
+            break;
+
+            case SW_HIK_PLAY_FAST_4X:
+            {
+                printf("Play fast! 4X\n");
+                PlayM4_Fast(this->lPort);
+                Sleep(10);
+                PlayM4_Fast(this->lPort);
+                Sleep(10);
+                PlayM4_Fast(this->lPort);
+                Sleep(10);
+                PlayM4_Fast(this->lPort);
+                this->speedChangeVal += 4;
+            }
+            break;
+ 
+            default:
+            {
+                if ( this->speedChangeVal >= 0 )
+                {
+                    while (this->speedChangeVal--)
+                    {
+                        PlayM4_Slow(this->lPort);
+                        Sleep(2);
+                    }
+                }
+                else
+                {
+                    while (this->speedChangeVal++)
+                    {
+                        PlayM4_Fast(this->lPort);
+                        Sleep(2);
+                    }
+                }
+            }
+            break;
+        }
+        Sleep(10);
+    }
 }
 
 

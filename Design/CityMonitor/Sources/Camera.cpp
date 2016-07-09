@@ -36,12 +36,9 @@ void Camera::Init()
     cameraCtrl->Init();
     videoPlayer->Init();
 }
-void Camera::Login(char* ipAddr)
+LONG Camera::Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPassword, LPNET_DVR_DEVICEINFO_V30 DeviceInfo)
 {
-    this->ipAddr = ipAddr;
-    LPNET_DVR_DEVICEINFO_V30 DeviceInfo;
-    memset( &DeviceInfo, 0, sizeof(LPNET_DVR_DEVICEINFO_V30) );
-    cameraCtrl->Login( ipAddr, 8000, "admin", "admin0123", DeviceInfo );
+    return cameraCtrl->Login( pDVRIP, wDVRPort, pUserName, pPassword, DeviceInfo );
 }
 void Camera::SetPlaySpeed(int speed)
 {

@@ -7,7 +7,10 @@
 #include "DateTime.h" 
 #include "Debugger.h" 
 #include <cstring>
-#include "SwiftHikSDK.h"
+//#include "SwiftHikSDK.h"
+#include "Camera.h"
+#include "CameraCtrl.h"
+#include "MP4Player.h"
 
 #ifndef WIN32
 #include <unistd.h>
@@ -90,9 +93,50 @@ void VideoManager::Init()
     codec = new Codec(this,cmdBuffer);
     codec->Init();
 
-    SwiftHikSDK *hikSdk = new SwiftHikSDK();
+#ifdef TEST_REAL_PLAY_0
+    //SwiftHikSDK *hikSdk = new SwiftHikSDK();
+    CameraCtrl *CamTest = new CameraCtrl();
 
+    CamTest->Init();
+    
+    LPNET_DVR_DEVICEINFO_V30 DeviceInfo;
+    memset( &DeviceInfo, 0, sizeof(LPNET_DVR_DEVICEINFO_V30) );
+    LONG lUserID = CamTest->Login( "192.168.1.65", 8000, "admin", "admin0123", DeviceInfo );
+#endif
+
+#ifdef TEST_REAL_PLAY_1
+    CameraCtrl* cameraCtrl = new CameraCtrl();
+    VideoPlayer* videoPlayer = new VideoPlayer();  
+    Camera *Cam = new Camera(cameraCtrl, videoPlayer);
+    
+    Cam->Init();
+    LPNET_DVR_DEVICEINFO_V30 DeviceInfo;
+    memset( &DeviceInfo, 0, sizeof(LPNET_DVR_DEVICEINFO_V30) );
+    LONG lUserID = Cam->Login("192.168.1.65", 8000, "admin", "admin0123", DeviceInfo);
+    
+    MP4Player *MP4PlayTest = new MP4Player();
+    MP4PlayTest->Init();
+    MP4PlayTest->SetPlayOnWindow(DISPLAY_DISABLE);
+    if ( lUserID != -1 )
+    {
+        MP4PlayTest->RealPlayStart(lUserID);
+    }
+
+    delete MP4PlayTest;
+    delete videoPlayer;
+    delete cameraCtrl;
+#endif
+
+    #define TEST_PLAY_LOCAL_FILE
+#ifdef TEST_PLAY_LOCAL_FILE
+    MP4Player *MP4PlayTest = new MP4Player();
+    MP4PlayTest->Init();
+    MP4PlayTest->PlayLocalFile("test.record");
+    MP4PlayTest->PlayLocalFileCtrl();
+    delete MP4PlayTest;
+#endif
 }
+
 /**
  * 监控中心系统重启命令执行入口
  * 完成系统重启，包括所有模块的重启。先释放内存，然后重建系统。

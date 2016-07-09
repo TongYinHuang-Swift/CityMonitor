@@ -1,75 +1,8 @@
-Swift Technology    CityMonitor  版本V1.0.0    Jun 23 2016  17:55:18      All Rights Reserved
+Swift Technology    CityMonitor  版本V1.0.0    Jul  9 2016  16:05:04      All Rights Reserved
 
-ObjBuffer::ObjBuffer:L32- 创建一个长度为 6 的对象指针循环缓冲器
-VideoRecorder - VideoRecorder::AddRecodedVideo
-ObjBuffer::AddObject:L98- 将指定对象指针存入ObjBuffer单元 0 中
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::AddObject:L98- 将指定对象指针存入ObjBuffer单元 1 中
-VideoRecorder - VideoRecorder::GetHistoryVideos
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 2 的ObjBuffer对象指针
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 2 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 3 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 4 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 5 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 0 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 1 的ObjBuffer对象指针
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::AddObject:L98- 将指定对象指针存入ObjBuffer单元 2 中
-VideoRecorder - VideoRecorder::GetHistoryVideos
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 3 的ObjBuffer对象指针
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 3 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 4 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 5 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 0 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 1 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 2 的ObjBuffer对象指针
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::AddObject:L98- 将指定对象指针存入ObjBuffer单元 3 中
-VideoRecorder - VideoRecorder::GetHistoryVideos
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 4 的ObjBuffer对象指针
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 4 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 5 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 0 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 1 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 2 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 3 的ObjBuffer对象指针
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::AddObject:L98- 将指定对象指针存入ObjBuffer单元 4 中
-VideoRecorder - VideoRecorder::GetHistoryVideos
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 5 的ObjBuffer对象指针
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 5 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 0 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 1 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 2 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 3 的ObjBuffer对象指针
-ObjBuffer::GetObjectAt:L56- 获取位于单元 4 的ObjBuffer对象指针
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder::SaveLiveVideo:L58- dataLen = 1024
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::AddObject:L98- 将指定对象指针存入ObjBuffer单元 5 中
-VideoRecorder - VideoRecorder::GetHistoryVideos
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 0 的ObjBuffer对象指针
-VideoRecorder - VideoRecorder::GetHistoryVideos
-ObjBuffer::GetObjectAt:L56- 获取位于单元 0 的ObjBuffer对象指针
+Buffer::Buffer::Buffer:L14- 创建一个 len = 256、ID = 1 的循环缓冲器
+Buffer::Buffer::Buffer:L14- 创建一个 len = 256、ID = 2 的循环缓冲器
+Buffer::Buffer::Buffer:L14- 创建一个 len = 128、ID = 3 的循环缓冲器
+Buffer::Buffer::Buffer:L14- 创建一个 len = 409600、ID = 4 的循环缓冲器
+.168.1.138
+VideoManager::VideoManager::Init:L59-local ip=192.168.1.138

@@ -19,6 +19,7 @@
 #pragma once
 #include "Global.h" 
 #include "BasicObj.h" 
+#include "HCNetSDK.h"
 
 class CameraCtrl;
 class VideoPlayer;
@@ -39,7 +40,7 @@ protected:
   
 public:
     void    Init();                 // 摄像机初始化
-    void    Login(char* ipAddr);    // 登录具有指定IP地址的摄像机
+    LONG    Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPassword, LPNET_DVR_DEVICEINFO_V30 DeviceInfo);    // 登录具有指定IP地址的摄像机
     void    Play();                 // 正常速度播放
     void    PausePlay();            // 暂停播放
     void    ResumePlay();           // 恢复正常速度播放

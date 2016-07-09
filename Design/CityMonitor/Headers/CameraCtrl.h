@@ -21,6 +21,11 @@
 #include "BasicObj.h" 
 #include "HCNetSDK.h"
 
+typedef struct
+{
+    void (CALLBACK* fExceptionCallBack)(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser);
+} HIK_CALLBACK_T;
+
 class CameraCtrl : public BasicObj
 {
 public:
@@ -30,6 +35,7 @@ public:
 private:
     LONG lUserID;
     LONG lPort;
+    HIK_CALLBACK_T camCallBack;
 protected:
   
 public:

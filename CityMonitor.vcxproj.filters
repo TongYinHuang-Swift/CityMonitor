@@ -98,9 +98,6 @@
     <ClInclude Include="Design\CityMonitor\Headers\HiK\Win32\HCNetSDK.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Design\CityMonitor\Headers\SwiftHikSDK.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Design\CityMonitor\Headers\Camera.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -115,9 +112,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Design\CityMonitor\Sources\SwiftHikSDK.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Design\CityMonitor\Sources\Acceptor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

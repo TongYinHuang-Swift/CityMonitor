@@ -22,6 +22,18 @@
 #include "plaympeg4.h"
 #include "HCNetSDK.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser);
+void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser);
+
+#ifdef __cplusplus
+    }
+#endif /* ENDIF __cplusplus */
+
+
 typedef enum 
 {
     SW_HIK_PLAY_START              = 0,
@@ -31,9 +43,10 @@ typedef enum
     SW_HIK_PLAY_SLOW_FWD           = 4,
     SW_HIK_PLAY_FAST_FWD           = 5,
     SW_HIK_PLAY_ONE_BY_ONE         = 6,
-    SW_HIK_PLAY_SLOW_BACK          = 7,
-    SW_HIK_PLAY_FAST_BACK          = 8,
-    SW_HIK_PLAY_ONE_BY_ONE_BACK    = 9,
+    SW_HIK_PLAY_SLOW_2X            = 7,
+    SW_HIK_PLAY_SLOW_4X            = 8,
+    SW_HIK_PLAY_FAST_2X            = 9,
+    SW_HIK_PLAY_FAST_4X            = 10,
 } SW_HIK_PLAY_CTRL_T;
 
 typedef enum
@@ -41,6 +54,23 @@ typedef enum
     PLAY_MODE_START = 0,
     PLAY_MODE_PAUSE = 1,
 } PLAY_MODE_T;
+
+typedef enum
+{
+    ERR_FILE_NAME_INVALID         = -1,
+    ERR_GET_PLAY_PORT_FAIL        = -2,   
+    ERR_SET_STREAM_OPEN_MODE_FAIL = -3,
+    ERR_OPEN_FILE_FAIL            = -4,
+    ERR_START_PLAY_FAIL           = -5,
+    
+} PLAY_LOCAL_FILE_ERR_T;
+
+
+typedef enum
+{
+    DISPLAY_ENABLE  = 0,
+    DISPLAY_DISABLE = 1,
+} PLAY_ON_WINDOW_EN_T;
 
 class MP4Player : public VideoPlayer
 {
@@ -52,16 +82,21 @@ private:
     LONG lPort;
     LONG lUserID;
     LONG lRealPlayHandle;
+    LPSTR sHistoryFileName;
+    int speedChangeVal;
+    PLAY_ON_WINDOW_EN_T playOnWinEn;
 protected:
   
 public:
-    void    Init(void);                     // 播放器初始化
-    void    RealPlayStart(void);       //开始实时预览
-    void    RealPlayStop(void);         //停止预览
-    int     PlayLocalFile( LPSTR sFileName ); //播放本地文件
-    void    PlayLocalFileExit(void); //退出播放本地文件
-    void    Play(void);                     // 正常速度播放
-    void    Pause(void);                    // 暂停播放
+    void    Init(void);                                 // 播放器初始化
+    void    RealPlayStart(LONG lUserID);           //开始实时预览
+    void    RealPlayStop(void);                    //停止预览
+    void    SetPlayOnWindow(PLAY_ON_WINDOW_EN_T playOnWin);                  
+    LONG    PlayLocalFile( LPSTR sFileName );      //播放本地文件
+    void    PlayLocalFileExit(void);             //退出播放本地文件
+    void    PlayLocalFileCtrl(void);            // 本地播放控制
+    void    Play(void);                                // 正常速度播放
+    void    Pause(void);                               // 暂停播放
     void    Resume(void);                   // 恢复正常速度播放
     void    Stop(void);                     // 停止播放
     void    PlayFast(void);                 // 按指定速度快速播放

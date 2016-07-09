@@ -5,9 +5,17 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -107,7 +115,6 @@
     <ClInclude Include="Design\CityMonitor\Headers\Receiver.h" />
     <ClInclude Include="Design\CityMonitor\Headers\Recorder.h" />
     <ClInclude Include="Design\CityMonitor\Headers\Sender.h" />
-    <ClInclude Include="Design\CityMonitor\Headers\SwiftHikSDK.h" />
     <ClInclude Include="Design\CityMonitor\Headers\TcpConn.h" />
     <ClInclude Include="Design\CityMonitor\Headers\Thread.h" />
     <ClInclude Include="Design\CityMonitor\Headers\ThreadManager.h" />
@@ -134,7 +141,6 @@
     <ClCompile Include="Design\CityMonitor\Sources\Receiver.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\Recorder.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\Sender.cpp" />
-    <ClCompile Include="Design\CityMonitor\Sources\SwiftHikSDK.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\TcpConn.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\Thread.cpp" />
     <ClCompile Include="Design\CityMonitor\Sources\ThreadManager.cpp" />
