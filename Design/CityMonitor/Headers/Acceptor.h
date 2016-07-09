@@ -10,14 +10,14 @@
 class Acceptor : public Thread
 {
 public:
-	Acceptor(BasicTCP* basicTCP);
-	virtual ~Acceptor();
+    Acceptor(BasicTCP* basicTCP);
+    virtual ~Acceptor();
 
 private:
-	SOCKET		sockID;
+    SOCKET      sockID;
 
 public:
-	virtual void Start();	// 执行拟在线程中计划的任务
-	SOCKET	Accept();
+    virtual void Start();   // 执行拟在线程中计划的任务
+    SOCKET  Accept();
 };
 

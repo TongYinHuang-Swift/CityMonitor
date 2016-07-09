@@ -50,42 +50,42 @@ uint _g_lUserID = 0;
 void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer,DWORD dwBufSize,DWORD dwUser)
 {
 
-//	printf("HIKSDK buffer size=%d,%d,%d\n",dwDataType,dwBufSize,dwUser);
+//  printf("HIKSDK buffer size=%d,%d,%d\n",dwDataType,dwBufSize,dwUser);
 
 #ifdef WIN32
     HWND hWnd = GetConsoleWindow();
 #endif
 #if 1
-	switch (dwDataType)
-	{
+    switch (dwDataType)
+    {
         case NET_DVR_SYSHEAD: //系统头
         {
             if ( !PlayM4_GetPort((LONG *)(&_g_lPort)) )  //获取播放库未使用的通道号
-    		{
-    			break;
-    		}
-    		//m_iPort = _g_lPort; //第一次回调的是系统头，将获取的播放库port号赋值给全局port，下次回调数据时即使用此port号播放
-    		if (dwBufSize > 0)
-    		{
-    			if ( !PlayM4_SetStreamOpenMode(_g_lPort, STREAME_REALTIME) )  //设置实时流播放模式
-    			{
-    				break;
-    			}
+            {
+                break;
+            }
+            //m_iPort = _g_lPort; //第一次回调的是系统头，将获取的播放库port号赋值给全局port，下次回调数据时即使用此port号播放
+            if (dwBufSize > 0)
+            {
+                if ( !PlayM4_SetStreamOpenMode(_g_lPort, STREAME_REALTIME) )  //设置实时流播放模式
+                {
+                    break;
+                }
                 
-    			if ( !PlayM4_OpenStream((int)_g_lPort, (PBYTE)pBuffer, (ULONG)dwBufSize, (ULONG)(1024 * 1024)) ) //打开流接口
-    			{
-    				break;
-    			}
+                if ( !PlayM4_OpenStream((int)_g_lPort, (PBYTE)pBuffer, (ULONG)dwBufSize, (ULONG)(1024 * 1024)) ) //打开流接口
+                {
+                    break;
+                }
                 #ifdef WIN32
-    			if ( !PlayM4_Play(_g_lPort, hWnd) ) //播放开始
-    			{
-    				break;
-    			}
+                if ( !PlayM4_Play(_g_lPort, hWnd) ) //播放开始
+                {
+                    break;
+                }
                 #else
                 if ( !PlayM4_Play(_g_lPort, NULL) ) //播放开始
-    			{
-    				break;
-    			}
+                {
+                    break;
+                }
                 #endif
                 
                 #ifdef _PRINT_HEXDATA
@@ -104,43 +104,43 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
                 FILE*       fpsave;
                 fpsave = fopen("test.record", "ab+");
 
-            	if ( fpsave == NULL )
-            	{
-        			printf("err:open file failed\n");
-            		return;
-            	}
+                if ( fpsave == NULL )
+                {
+                    printf("err:open file failed\n");
+                    return;
+                }
                 fwrite(pBuffer, dwBufSize, 1, fpsave);
                 fclose(fpsave);
                 #endif /* ENDIF _SAVE_H264_STREAM */
-    		}
+            }
         }
-		
+        
         case NET_DVR_STREAMDATA:   //码流数据
         {
             if ( dwBufSize > 0 && _g_lPort != -1 )
-    		{
-    			if ( !PlayM4_InputData(_g_lPort, pBuffer, dwBufSize) )
-    			{
-    				break;
-    			} 
+            {
+                if ( !PlayM4_InputData(_g_lPort, pBuffer, dwBufSize) )
+                {
+                    break;
+                } 
                 #ifdef _SAVE_H264_STREAM
                 FILE*       fpsave;            // 待写视频文件的索引文件指针
                 fpsave = fopen("test.record", "ab+");
 
-            	if ( fpsave == NULL )
-            	{
-    				printf("err:open file failed\n");
-            		return;
-            	}
+                if ( fpsave == NULL )
+                {
+                    printf("err:open file failed\n");
+                    return;
+                }
                 fwrite(pBuffer, dwBufSize, 1, fpsave);
                 fclose(fpsave);
                 #endif
-    		}
+            }
         }
         
         default:
         break;
-	}
+    }
 #endif
 }
 FILE *g_pFile = NULL;
@@ -148,29 +148,29 @@ FILE *g_pFile = NULL;
 void PsDataCallBack(LONG lRealHandle, DWORD dwDataType,BYTE *pPacketBuffer,DWORD nPacketSize, void* pUser)
 {
 
-	if (dwDataType  == NET_DVR_SYSHEAD)
-	{
-		//写入头数据
-		g_pFile = fopen("./record/ps.dat", "wb");
+    if (dwDataType  == NET_DVR_SYSHEAD)
+    {
+        //写入头数据
+        g_pFile = fopen("./record/ps.dat", "wb");
 
-		if (g_pFile == NULL)
-		{
-			printf("CreateFileHead fail\n");
-			return;
-		}
+        if (g_pFile == NULL)
+        {
+            printf("CreateFileHead fail\n");
+            return;
+        }
 
-		//写入头数据
-		fwrite(pPacketBuffer, sizeof(unsigned char), nPacketSize, g_pFile);
-		printf("write head len=%d\n", nPacketSize);
-	}
-	else
-	{
-		if(g_pFile != NULL)
-		{
-			fwrite(pPacketBuffer, sizeof(unsigned char), nPacketSize, g_pFile);
-			printf("write data len=%d\n", nPacketSize);
-		}
-	}
+        //写入头数据
+        fwrite(pPacketBuffer, sizeof(unsigned char), nPacketSize, g_pFile);
+        printf("write head len=%d\n", nPacketSize);
+    }
+    else
+    {
+        if(g_pFile != NULL)
+        {
+            fwrite(pPacketBuffer, sizeof(unsigned char), nPacketSize, g_pFile);
+            printf("write data len=%d\n", nPacketSize);
+        }
+    }
 
 }
 
@@ -183,74 +183,74 @@ void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void
         case EXCEPTION_RECONNECT:    //预览时重连
         //PRINT(ALWAYS_PRINT, "SwiftHikSDK", __FUNCTION__, __LINE__,"Reconnect=%d",time(NULL));
         break;
-    	default:
+        default:
         break;
     }
 }
 
 SwiftHikSDK::SwiftHikSDK(void)
 {
-	SwHikSdkInit();
+    SwHikSdkInit();
 }
 SwiftHikSDK::~SwiftHikSDK(void)
 {
-	SwHikRealplayStop();
-	    /* 注销用户 */
-	NET_DVR_Logout_V30(_g_lUserID);
-	NET_DVR_Cleanup();
+    SwHikRealplayStop();
+        /* 注销用户 */
+    NET_DVR_Logout_V30(_g_lUserID);
+    NET_DVR_Cleanup();
 }
 
 int SwiftHikSDK::SwHikSdkInit( void )
 {
-	/* 初始化海康摄像头SDK */
-	NET_DVR_Init();
-	NET_DVR_SetLogToFile(3, "./record/");
+    /* 初始化海康摄像头SDK */
+    NET_DVR_Init();
+    NET_DVR_SetLogToFile(3, "./record/");
 
 #ifdef WIN32
     /* 注册设备 */
-	NET_DVR_DEVICEINFO_V30 struDeviceInfo;
+    NET_DVR_DEVICEINFO_V30 struDeviceInfo;
     
     _g_lUserID = NET_DVR_Login_V30("192.168.1.65", 8000, "admin", "admin0123", &struDeviceInfo);
     if (_g_lUserID < 0)
     {
-    	PRINT(ALWAYS_PRINT, "SwiftHikSDK", __FUNCTION__, __LINE__,"Login Error=%d",NET_DVR_GetLastError());
-    	NET_DVR_Cleanup();
-    	return -1;
+        PRINT(ALWAYS_PRINT, "SwiftHikSDK", __FUNCTION__, __LINE__,"Login Error=%d",NET_DVR_GetLastError());
+        NET_DVR_Cleanup();
+        return -1;
     }
     else
     {
-    	PRINT(ALWAYS_PRINT, "SwiftHikSDK", __FUNCTION__, __LINE__,"Login Sucess");
+        PRINT(ALWAYS_PRINT, "SwiftHikSDK", __FUNCTION__, __LINE__,"Login Sucess");
     }
 
-	/* 设置异常消息回调函数 */
-	NET_DVR_SetExceptionCallBack_V30(0, NULL, g_ExceptionCallBack, NULL);
+    /* 设置异常消息回调函数 */
+    NET_DVR_SetExceptionCallBack_V30(0, NULL, g_ExceptionCallBack, NULL);
 
-	SwHikRealplayStart();
+    SwHikRealplayStart();
 #else
-	NET_DVR_DEVICEINFO_V30 struDeviceInfo;
-	int iUserID = NET_DVR_Login_V30("192.168.1.65", 8000, "admin", "admin0123", &struDeviceInfo);
-	if(iUserID >= 0)
-	{
-		NET_DVR_PREVIEWINFO struPreviewInfo = {0};
-		struPreviewInfo.lChannel = 1;
-		struPreviewInfo.dwStreamType = 0;
-		struPreviewInfo.dwLinkMode = 0;
-		struPreviewInfo.bBlocked = 1;
-		struPreviewInfo.bPassbackRecord  = 1;
-		int iRealPlayHandle = NET_DVR_RealPlay_V40(iUserID, &struPreviewInfo, PsDataCallBack, NULL);
-		if(iRealPlayHandle >= 0)
-		{
-			printf("[SwiftHikSDK]---RealPlay %d success, \n", NET_DVR_GetLastError());
-		}
-		else
-		{
-			printf("[SwiftHikSDK]---RealPlay failed, error = %d\n", NET_DVR_GetLastError());
-		}
-	}
-	else
-	{
-		printf("[SwiftHikSDK]---Login failed, error = %d\n", NET_DVR_GetLastError());
-	}
+    NET_DVR_DEVICEINFO_V30 struDeviceInfo;
+    int iUserID = NET_DVR_Login_V30("192.168.1.65", 8000, "admin", "admin0123", &struDeviceInfo);
+    if(iUserID >= 0)
+    {
+        NET_DVR_PREVIEWINFO struPreviewInfo = {0};
+        struPreviewInfo.lChannel = 1;
+        struPreviewInfo.dwStreamType = 0;
+        struPreviewInfo.dwLinkMode = 0;
+        struPreviewInfo.bBlocked = 1;
+        struPreviewInfo.bPassbackRecord  = 1;
+        int iRealPlayHandle = NET_DVR_RealPlay_V40(iUserID, &struPreviewInfo, PsDataCallBack, NULL);
+        if(iRealPlayHandle >= 0)
+        {
+            printf("[SwiftHikSDK]---RealPlay %d success, \n", NET_DVR_GetLastError());
+        }
+        else
+        {
+            printf("[SwiftHikSDK]---RealPlay failed, error = %d\n", NET_DVR_GetLastError());
+        }
+    }
+    else
+    {
+        printf("[SwiftHikSDK]---Login failed, error = %d\n", NET_DVR_GetLastError());
+    }
 #endif
     //system("PAUSE");
     

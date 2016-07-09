@@ -44,13 +44,13 @@
 class SwiftHikSDK :public BasicObj
 {
 public:
-	SwiftHikSDK(void);
-	virtual ~SwiftHikSDK(void);
+    SwiftHikSDK(void);
+    virtual ~SwiftHikSDK(void);
 
 public:
-	int SwHikSdkInit( void );
-	void SwHikRealplayStart( void );
-	void SwHikRealplayStop( void );
+    int SwHikSdkInit( void );
+    void SwHikRealplayStart( void );
+    void SwHikRealplayStop( void );
 
 };
 
