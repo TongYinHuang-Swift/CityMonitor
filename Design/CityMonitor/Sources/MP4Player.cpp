@@ -27,6 +27,7 @@
 #endif
 
 static int _g_playOnWinEn = 0;
+static LONG _g_lPort = 0;           //全局的播放库port号
 
 MP4Player::MP4Player()
 {
@@ -208,11 +209,13 @@ extern "C" void CALLBACK CCallRealDataCallBack_V30(LONG lRealHandle, DWORD dwDat
 void CALLBACK MP4Player::RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
 {
     /* 实时流处理 */
-    this->RealDataPlay(dwDataType, pBuffer, dwBufSize);     /* 实时预览 */
+    this->PlayRealData(dwDataType, pBuffer, dwBufSize);     /* 实时预览 */
+    return ;
+
     this->SaveRealVideoData(pBuffer, dwBufSize);            /* 保存 */
 }
 
-void MP4Player::RealDataPlay(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
+void MP4Player::PlayRealData(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
 {
     HWND hWnd = NULL;
 #ifdef WIN32
@@ -226,7 +229,7 @@ void MP4Player::RealDataPlay(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
     {
         case NET_DVR_SYSHEAD:               /* 系统头 */
         {
-            if ( !PlayM4_GetPort(&this->lPort) )  /* 获取播放库未使用的通道号 */
+            if ( !PlayM4_GetPort(&_g_lPort) )  /* 获取播放库未使用的通道号 */
             {
                 break;
             }
@@ -235,17 +238,17 @@ void MP4Player::RealDataPlay(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
             
             if (dwBufSize > 0)
             {
-                if ( !PlayM4_SetStreamOpenMode(this->lPort, STREAME_REALTIME) )  /* 设置实时流播放模式 */
+                if ( !PlayM4_SetStreamOpenMode(_g_lPort, STREAME_REALTIME) )  /* 设置实时流播放模式 */
                 {
                     break;
                 }
                 
-                if ( !PlayM4_OpenStream(this->lPort, pBuffer, dwBufSize, 1024 * 1024) ) /* 打开流接口 */
+                if ( !PlayM4_OpenStream(_g_lPort, pBuffer, dwBufSize, 1024 * 1024) ) /* 打开流接口 */
                 {
                     break;
                 }
                 
-                if ( !PlayM4_Play(this->lPort, hWnd) ) /* 播放开始 */
+                if ( !PlayM4_Play(_g_lPort, hWnd) ) /* 播放开始 */
                 {
                     break;
                 }
@@ -255,9 +258,9 @@ void MP4Player::RealDataPlay(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
         
         case NET_DVR_STREAMDATA:   /* 码流数据 */
         {
-            if ( dwBufSize > 0 && this->lPort != -1 )
+            if ( dwBufSize > 0 && _g_lPort != -1 )
             {
-                if ( !PlayM4_InputData(this->lPort, pBuffer, dwBufSize) )
+                if ( !PlayM4_InputData(_g_lPort, pBuffer, dwBufSize) )
                 {
                     break;
                 }
@@ -269,6 +272,7 @@ void MP4Player::RealDataPlay(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
         break;
     }
 }
+
 
 /***
  * desc:            启动实时预览
@@ -297,7 +301,7 @@ void MP4Player::RealPlayInit(LONG lUserID)
         pSelectedCamera->Exit();
         return;
     }
-
+    
     if ( !NET_DVR_SetRealDataCallBack( lRealPlayHandle, CCallRealDataCallBack_V30, 0 ) )
     {
         printf("NET_DVR_SetRealDataCallBack error\n");

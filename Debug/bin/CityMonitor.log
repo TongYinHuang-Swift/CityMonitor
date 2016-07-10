@@ -1,4 +1,4 @@
-Swift Technology    CityMonitor  版本V1.0.0    Jul 10 2016  15:07:44      All Rights Reserved
+Swift Technology    CityMonitor  版本V1.0.0    Jul 10 2016  16:38:10      All Rights Reserved
 
 Buffer::Buffer::Buffer:L14- 创建一个 len = 256、ID = 1 的循环缓冲器
 Buffer::Buffer::Buffer:L14- 创建一个 len = 256、ID = 2 的循环缓冲器
@@ -18,13 +18,13 @@ BasicTCP::BasicTCP::Bind:L0- :服务器:192.168.1.138
 BasicTCP::BasicTCP::Bind:L0- :服务器:192.168.1.138
 BasicTCP::BasicTCP::Listen:L36- :服务器:192.168.1.138
 Acceptor::Acceptor::Acceptor:L16
-VideoRecorder::VideoRecorder::VideoRecorder:L43
 Acceptor::Acceptor::Start:L27
+Recorder::Recorder::Recorder:L14
+Acceptor::Acceptor::Accept:L48
+ObjBuffer::ObjBuffer::ObjBuffer:L32- 创建一个长度为 6 的对象指针循环缓冲器
 ObjBuffer::ObjBuffer::ObjBuffer:L32- 创建一个长度为 6 的对象指针循环缓冲器
 BasicTCP::BasicTCP::Init:L70- :
-Acceptor::Acceptor::Accept:L48
-Recorder::Recorder::Start:L28
-Recorder::Recorder::Start:L28
+TcpConn::TcpConn::TcpConn:L36
 TcpConn::TcpConn::TcpConn:L36
 BasicTCP::BasicTCP::CreateServer:L119-:服务器:192.168.1.138
 BasicTCP::BasicTCP::Bind:L0- :服务器:192.168.1.138
@@ -33,5 +33,5 @@ Acceptor::Acceptor::Acceptor:L16
 Acceptor::Acceptor::Start:L27
 Codec::Codec::Start:L37-Codec Start!
 Codec::Codec::Start:L37-Codec Start!
-MP4Player::MP4Player::Init:L47
-MP4Player::MP4Player::RealPlayInit:L24
+MP4Player::MP4Player::Init:L48
+MP4Player::MP4Player::RealPlayInit:L28

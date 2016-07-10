@@ -93,6 +93,7 @@ void VideoManager::Init()
     codec = new Codec(this,cmdBuffer);
     codec->Init();
 
+#define TEST_REAL_PLAY_0
 #ifdef TEST_REAL_PLAY_0
     //SwiftHikSDK *hikSdk = new SwiftHikSDK();
     CameraCtrl *CamTest = new CameraCtrl();
@@ -102,9 +103,17 @@ void VideoManager::Init()
     LPNET_DVR_DEVICEINFO_V30 DeviceInfo;
     memset( &DeviceInfo, 0, sizeof(LPNET_DVR_DEVICEINFO_V30) );
     LONG lUserID = CamTest->Login( "192.168.1.65", 8000, "admin", "admin0123", DeviceInfo );
+    MP4Player *MP4PlayTest = new MP4Player();
+    MP4PlayTest->SetCameraCtrl(CamTest);
+    MP4PlayTest->Init();
+    MP4PlayTest->SetPlayOnWindow(DISPLAY_ENABLE);
+    if ( lUserID != -1 )
+    {
+        MP4PlayTest->RealPlayInit(lUserID);
+    }
 #endif
 
-#define TEST_REAL_PLAY_1
+//#define TEST_REAL_PLAY_1
 
 #ifdef TEST_REAL_PLAY_1
     CameraCtrl* cameraCtrl = new CameraCtrl();
@@ -117,14 +126,14 @@ void VideoManager::Init()
     LONG lUserID = Cam->Login("192.168.1.65", 8000, "admin", "admin0123", DeviceInfo);
     
     MP4Player *MP4PlayTest = new MP4Player();
-    MP4PlayTest->Init(); 
+    MP4PlayTest->SetCameraCtrl(cameraCtrl);
+    MP4PlayTest->Init();
     MP4PlayTest->SetPlayOnWindow(DISPLAY_ENABLE);
     
     if ( lUserID != -1 )
     {
         MP4PlayTest->RealPlayInit(lUserID);
     }
-
     delete MP4PlayTest;
     delete videoPlayer;
     delete cameraCtrl;

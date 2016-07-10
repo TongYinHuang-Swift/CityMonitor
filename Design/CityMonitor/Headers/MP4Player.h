@@ -90,7 +90,7 @@ public:
     void        SaveRealVideoData(BYTE *pRcvData, int dataLen);   
     void        SaveToFile(BYTE *pBuffer, DWORD dwBufSize);
     void        CALLBACK RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser);
-    void        RealDataPlay(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize);
+    void        PlayRealData(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize);
     void        RealPlayInit(LONG lUserID);           //开始实时预览
     void        RealPlayExit(void);                    //停止预览
     void        SetPlayOnWindow(int playOnWin);
