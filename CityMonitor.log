@@ -1,8 +1,8 @@
-Swift Technology    CityMonitor  版本V1.0.0    Jul  9 2016  16:05:04      All Rights Reserved
+Swift Technology    CityMonitor  版本V1.0.0    Jul 10 2016  15:07:44      All Rights Reserved
 
 Buffer::Buffer::Buffer:L14- 创建一个 len = 256、ID = 1 的循环缓冲器
 Buffer::Buffer::Buffer:L14- 创建一个 len = 256、ID = 2 的循环缓冲器
 Buffer::Buffer::Buffer:L14- 创建一个 len = 128、ID = 3 的循环缓冲器
 Buffer::Buffer::Buffer:L14- 创建一个 len = 409600、ID = 4 的循环缓冲器
 .168.1.138
-VideoManager::VideoManager::Init:L59-local ip=192.168.1.138
+VideoManager::VideoManager::Init:L61-local ip=192.168.1.138

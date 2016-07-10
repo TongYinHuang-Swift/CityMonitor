@@ -108,3 +108,9 @@ void VideoPlayer::SetPlaySpeed(int speed)
     this->speed = speed;
 }       
 
+void VideoPlayer::PlayRealData(void)
+{
+    
+}
+
+

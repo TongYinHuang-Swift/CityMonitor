@@ -35,22 +35,20 @@ class CameraCtrl : public BasicObj
 {
 public:
     CameraCtrl(void);
-    virtual ~CameraCtrl(void);
+    virtual         ~CameraCtrl(void);
 
 private:
-    LONG lUserID;
-    LONG lPort;
+    LONG            lUserID;
+    //VideoPlayer*    pSelectedVideoPlayer;
+    
 protected:
   
 public:
-    void    Init(void);                 // 摄像机控制器初始化
-    LONG    Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPassword, LPNET_DVR_DEVICEINFO_V30 DeviceInfo);    // 登录具有指定IP地址的摄像机
-    LONG    GetUsrID(void);
-    void    SetPlayPort(LONG SetPort);
-	void    CALLBACK RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser);
-
-    void    CALLBACK ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser);
-	
-    void    Exit(void);
+    void            Init(void);                 /* 摄像机控制器初始化 */
+    LONG            Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPassword, LPNET_DVR_DEVICEINFO_V30 DeviceInfo);    /* 登录具有指定IP地址的摄像机 */
+    LONG            GetUsrID(void);
+    void            CALLBACK ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser);
+    void            Exit(void);
 };
 #endif
+

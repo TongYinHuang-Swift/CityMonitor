@@ -104,6 +104,8 @@ void VideoManager::Init()
     LONG lUserID = CamTest->Login( "192.168.1.65", 8000, "admin", "admin0123", DeviceInfo );
 #endif
 
+#define TEST_REAL_PLAY_1
+
 #ifdef TEST_REAL_PLAY_1
     CameraCtrl* cameraCtrl = new CameraCtrl();
     VideoPlayer* videoPlayer = new VideoPlayer();  
@@ -115,11 +117,12 @@ void VideoManager::Init()
     LONG lUserID = Cam->Login("192.168.1.65", 8000, "admin", "admin0123", DeviceInfo);
     
     MP4Player *MP4PlayTest = new MP4Player();
-    MP4PlayTest->Init();
+    MP4PlayTest->Init(); 
     MP4PlayTest->SetPlayOnWindow(DISPLAY_ENABLE);
+    
     if ( lUserID != -1 )
     {
-        MP4PlayTest->RealPlayStart(lUserID);
+        MP4PlayTest->RealPlayInit(lUserID);
     }
 
     delete MP4PlayTest;
@@ -127,7 +130,7 @@ void VideoManager::Init()
     delete cameraCtrl;
 #endif
 
-    #define TEST_PLAY_LOCAL_FILE
+    //#define TEST_PLAY_LOCAL_FILE
 #ifdef TEST_PLAY_LOCAL_FILE
     MP4Player *MP4PlayTest = new MP4Player();
     MP4PlayTest->Init();

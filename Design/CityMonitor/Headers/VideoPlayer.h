@@ -47,5 +47,6 @@ public:
     virtual void    PlayOneFrameBack();         // 倒退一帧
     virtual void    PlayOneByOneBack();         // 每秒倒退一帧，连续播放
     void            SetPlaySpeed(int speed);    // 设置播放速度
+    void            PlayRealData();
 };
 #endif

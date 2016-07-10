@@ -21,18 +21,8 @@
 #include "VideoPlayer.h" 
 #include "plaympeg4.h"
 #include "HCNetSDK.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser);
-void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser);
-
-#ifdef __cplusplus
-    }
-#endif /* ENDIF __cplusplus */
-
+#include "CameraCtrl.h"
+#include "Buffer.h"
 
 typedef enum 
 {
@@ -68,8 +58,8 @@ typedef enum
 
 typedef enum
 {
-    DISPLAY_ENABLE  = 0,
-    DISPLAY_DISABLE = 1,
+    DISPLAY_DISABLE = 0,
+    DISPLAY_ENABLE  = 1,
 } PLAY_ON_WINDOW_EN_T;
 
 class MP4Player : public VideoPlayer
@@ -79,33 +69,46 @@ public:
     virtual ~MP4Player();
 
 private:
-    LONG lPort;
-    LONG lUserID;
-    LONG lRealPlayHandle;
-    LPSTR sHistoryFileName;
-    int speedChangeVal;
+    CameraCtrl  *pSelectedCamera;
+    Buffer      *pSelectedRealVideoBuffer;
+    LONG        lPort;
+    LONG        lUserID;
+    LONG        lRealPlayHandle;
+    LPSTR       sHistoryFileName;
+    int         speedChangeVal;
+    bool        isTerminted;        // 是否已经停止标志
+    ulong       lastError;          // 线程运行至今最后一次出现的错误
 protected:
   
 public:
-    void    Init(void);                                 // 播放器初始化
-    void    RealPlayStart(LONG lUserID);           //开始实时预览
-    void    RealPlayStop(void);                    //停止预览
-    void    SetPlayOnWindow(int playOnWin);
-    int     GetPlayOnWindow(void);
-    LONG    PlayLocalFile( LPSTR sFileName );      //播放本地文件
-    void    PlayLocalFileExit(void);             //退出播放本地文件
-    void    PlayLocalFileCtrl(void);            // 本地播放控制
-    void    Play(void);                                // 正常速度播放
-    void    Pause(void);                               // 暂停播放
-    void    Resume(void);                   // 恢复正常速度播放
-    void    Stop(void);                     // 停止播放
-    void    PlayFast(void);                 // 按指定速度快速播放
-    void    PlaySlow(void);                 // 按指定速度慢速播放
-    void    PlayOneFrame(void);             // 播放一帧
-    void    PlayOneByOne(void);             // 每秒播放一帧，连续播放
-    void    PlayFastBack(void);             // 按指定速度快速倒退
-    void    PlaySlowBack(void);             // 按指定速度慢速倒退
-    void    PlayOneFrameBack(void);         // 倒退一帧
-    void    PlayOneByOneBack(void);         // 每秒倒退一帧，连续播放
+    void        Init(void);                                 // 播放器初始化
+    void        SetCameraCtrl(CameraCtrl *pCameraCtrl);
+    void        SetRealVideoBuffer(Buffer* realVideoBuffer);
+    void        SaveData(Buffer *pBuffer, BYTE *pRcvData, int dataLen);
+    void        SaveDataInit(void);
+    void        SaveDataExit(void);
+    void        SaveRealVideoData(BYTE *pRcvData, int dataLen);   
+    void        SaveToFile(BYTE *pBuffer, DWORD dwBufSize);
+    void        CALLBACK RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser);
+    void        RealDataPlay(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize);
+    void        RealPlayInit(LONG lUserID);           //开始实时预览
+    void        RealPlayExit(void);                    //停止预览
+    void        SetPlayOnWindow(int playOnWin);
+    int         GetPlayOnWindow(void);
+    LONG        PlayLocalFile( LPSTR sFileName );      //播放本地文件
+    void        PlayLocalFileExit(void);             //退出播放本地文件
+    void        PlayLocalFileCtrl(void);            // 本地播放控制
+    void        Play(void);                                // 正常速度播放
+    void        Pause(void);                               // 暂停播放
+    void        Resume(void);                   // 恢复正常速度播放
+    void        Stop(void);                     // 停止播放
+    void        PlayFast(void);                 // 按指定速度快速播放
+    void        PlaySlow(void);                 // 按指定速度慢速播放
+    void        PlayOneFrame(void);             // 播放一帧
+    void        PlayOneByOne(void);             // 每秒播放一帧，连续播放
+    void        PlayFastBack(void);             // 按指定速度快速倒退
+    void        PlaySlowBack(void);             // 按指定速度慢速倒退
+    void        PlayOneFrameBack(void);         // 倒退一帧
+    void        PlayOneByOneBack(void);         // 每秒倒退一帧，连续播放
 };
 #endif

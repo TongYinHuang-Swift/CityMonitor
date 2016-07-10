@@ -18,18 +18,17 @@
 #include "CameraCtrl.h"
 #include "Debugger.h" 
 #include "HCNetSDK.h"
-#include "plaympeg4.h"
 #include "CameraCtrl.h"
-#include "MP4Player.h"
 
 #ifdef WIN32
 #else
 #endif
 
-CameraCtrl::CameraCtrl()
+CameraCtrl::CameraCtrl(void)
 {
 
 }
+
 CameraCtrl::~CameraCtrl(void)
 {
 }
@@ -43,100 +42,27 @@ void CameraCtrl::Init(void)
 {
     /* 初始化海康摄像头SDK */
     NET_DVR_Init();
+    //pSelectedVideoPlayer = NULL;
 }
 
+#if 0
 /***
- * desc:            摄像头视频流回调函数
- * lRealHandle:
- * dwDataType:
- * pBuffer: 
- * dwBufSize:
- * dwUser: 
+ * desc:            选择播放器
+ * pVideoPlayer:    播放器类型
  * retc:            None
  */
-void CALLBACK CameraCtrl::RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
+void CameraCtrl::SetVideoPlayer(VideoPlayer* pVideoPlayer)
 {
-    HWND hWnd = NULL;
-#ifdef WIN32
-    MP4Player *pMP4Player = new MP4Player();
-    if ( pMP4Player->GetPlayOnWindow()== DISPLAY_ENABLE )
-    {
-         hWnd = GetConsoleWindow();
-    }
-    delete pMP4Player;
+    /* 设置播放器 */
+    this->pSelectedVideoPlayer = pVideoPlayer;
+}
 #endif
 
-    LONG lPort = 0;
-
-    switch (dwDataType)
-    {
-        case NET_DVR_SYSHEAD:               /* 系统头 */
-        {
-            if ( !PlayM4_GetPort(&lPort) )  /* 获取播放库未使用的通道号 */
-            {
-                break;
-            }
-            
-            /* 第一次回调的是系统头，将获取的播放库port号赋值给全局port，下次回调数据时即使用此port号播放 */
-            
-            if (dwBufSize > 0)
-            {
-                if ( !PlayM4_SetStreamOpenMode(lPort, STREAME_REALTIME) )  /* 设置实时流播放模式 */
-                {
-                    break;
-                }
-                
-                if ( !PlayM4_OpenStream(lPort, pBuffer, dwBufSize, 1024 * 1024) ) /* 打开流接口 */
-                {
-                    break;
-                }
-                
-                if ( !PlayM4_Play(lPort, hWnd) ) /* 播放开始 */
-                {
-                    break;
-                }
-                
-#ifdef _SAVE_H264_STREAM
-                FILE*       fpsave = fopen("test.record", "ab+");
-
-                if ( fpsave == NULL )
-                {
-                    printf("err:open file failed\n");
-                    return;
-                }
-                fwrite(pBuffer, dwBufSize, 1, fpsave);
-                fclose(fpsave);
-#endif /* ENDIF _SAVE_H264_STREAM */
-            }
-        }
-        /* No break */
-        
-        case NET_DVR_STREAMDATA:   /* 码流数据 */
-        {
-            if ( dwBufSize > 0 && lPort != -1 )
-            {
-                if ( !PlayM4_InputData(lPort, pBuffer, dwBufSize) )
-                {
-                    break;
-                } 
-                
-#ifdef _SAVE_H264_STREAM
-                FILE*       fpsave = fopen("test.record", "ab+");
-                if ( fpsave == NULL )
-                {
-                    printf("err:open file failed\n");
-                    return;
-                }
-                fwrite(pBuffer, dwBufSize, 1, fpsave);
-                fclose(fpsave);
-#endif /* ENDIF _SAVE_H264_STREAM */
-            }
-        }
-        /* No break */
-        
-        default:
-        break;
-    }
+extern "C" void CALLBACK CCallExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
+{
+    CameraCtrl* pFunc = new CameraCtrl();
+    pFunc->ExceptionCallBack(dwType, lUserID, lHandle, pUser);
+    delete pFunc;
 }
 
 void CALLBACK CameraCtrl::ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
@@ -154,20 +80,6 @@ void CALLBACK CameraCtrl::ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHa
         default:
         break;
     }
-}
-
-extern "C" void CALLBACK CCallExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser )
-{
-    CameraCtrl* pFunc = new CameraCtrl();
-    pFunc->ExceptionCallBack(dwType, lUserID, lHandle, pUser);
-	delete pFunc;
-}
-
-extern "C" void CALLBACK CCallRealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser )
-{
-    CameraCtrl* pFunc = new CameraCtrl();
-    pFunc->RealDataCallBack_V30( lRealHandle, dwDataType, pBuffer, dwBufSize, dwUser);
-	delete pFunc;
 }
 
 /***
@@ -195,12 +107,9 @@ LONG CameraCtrl::Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPass
     }
     
     /* 设置异常消息回调函数 */
-    //NET_DVR_SetExceptionCallBack_V30(0, NULL, g_ExceptionCallBack, NULL);
-    
     NET_DVR_SetExceptionCallBack_V30(0, NULL, CCallExceptionCallBack, NULL);
     return lUserID;
 }
-
 
 /***
  * desc:            获取摄像头用户ID
@@ -209,12 +118,7 @@ LONG CameraCtrl::Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPass
  */
 LONG CameraCtrl::GetUsrID(void)
 {
-    return lUserID;
-}
-
-void CameraCtrl::SetPlayPort( LONG SetPort )
-{
-    lPort = SetPort;
+    return this->lUserID;
 }
 
 /***

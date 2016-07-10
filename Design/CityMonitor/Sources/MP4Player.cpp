@@ -17,7 +17,6 @@
 #include <time.h>
 #include "MP4Player.h"
 #include "Debugger.h" 
-#include "CameraCtrl.h"
 
 #ifdef WIN32
 #else
@@ -31,11 +30,11 @@ static int _g_playOnWinEn = 0;
 
 MP4Player::MP4Player()
 {
-    PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
+    //PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
 }
 MP4Player::~MP4Player()
 {
-    PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
+    //PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
 }
 
 /***
@@ -46,37 +45,188 @@ MP4Player::~MP4Player()
 void MP4Player::Init(void)
 {
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
+    this->pSelectedCamera = NULL;
+    this->pSelectedRealVideoBuffer = NULL;
+    this->SaveDataInit();
 }
 
-#ifdef __cplusplus
-extern "C" {
+void MP4Player::SetCameraCtrl(CameraCtrl *pCameraCtrl)
+{
+    this->pSelectedCamera = pCameraCtrl;
+}
+
+void MP4Player::SetRealVideoBuffer(Buffer *realVideoBuffer)
+{
+    this->pSelectedRealVideoBuffer = realVideoBuffer;
+}
+
+void MP4Player::SaveData(Buffer *pBuffer, BYTE *pRcvData, int dataLen )
+{
+    while (0 != isTerminted)
+    {
+        int len = dataLen;
+        if (len > 0)
+        {
+            unsigned int i = 0;
+            int result = 0;
+            
+            PRINT(ALWAYS_PRINT, "Receiver", __FUNCTION__, __LINE__, "Received Data=%d", len);
+            
+            while ( len > 0 )
+            {
+                // 查询循环缓冲器剩余空间
+                uint writelen = 0;
+                uint availLen = pBuffer->GetUnusedSpace();
+                if (availLen < len)
+                {
+                    writelen = availLen;
+                }
+                else
+                {
+                    writelen = len;
+                }
+
+                if (writelen > 0)
+                {
+                    // 循环缓冲器本次可写入availLen个字节
+                    result = pBuffer->Write(pRcvData + i, writelen); // 写入数据
+                    
+                    PRINT(ALWAYS_PRINT, "Receiver", __FUNCTION__, __LINE__, "write len=%d,%d",writelen,result);
+
+                    len -= writelen;                            // 计算下次可写入的字节数
+                    i += writelen;                         // 调整数据源地址指针
+                }
+                else
+                {
+#ifdef WIN32
+                    Sleep(100);
+#else
+                    usleep(100000);
 #endif
-#if 0
+                }
+            }
+        }
+        else
+        {
+#ifdef WIN32
+            lastError = WSAGetLastError();
+
+            switch (lastError)
+            {
+            case 0:                 // The connection has been gracefully closed
+                break;
+            case WSAENETDOWN:       // The network subsystem has failed
+                break;
+            case WSAEFAULT:         // The buffer parameter is not completely contained in a valid part of the user address space
+                break;
+            case WSAENOTCONN:       // The socket is not connected
+                break;
+            case WSAEINTR:          // The socket was closed
+                break;
+            case WSAENETRESET:      // The connection has been broken due to the keep-alive activity detecting a failure while the operation was in progress
+                break;
+            case WSAESHUTDOWN:      // The socket has been shut down; it is not possible to receive on a socket after shutdown has been invoked with how set to SD_RECEIVE or SD_BOTH
+                break;
+            case WSAEWOULDBLOCK:    // The socket is marked as nonblocking and the receive operation would block
+                break;
+            case WSAEMSGSIZE:       // The message was too large to fit into the specified buffer and was truncated
+                break;
+            case WSAECONNABORTED:   // The virtual circuit was terminated due to a time-out or other failure. The application should close the socket as it is no longer usable
+                break;
+            case WSAETIMEDOUT:      // The connection has been dropped because of a network failure or because the peer system failed to respond
+                break;
+            case WSAECONNRESET:     // The virtual circuit was reset by the remote side executing a hard or abortive close. The application should close the socket because it is no longer usable
+                break;
+            case 10038:
+                PRINT(ALWAYS_PRINT, "Receiver", __FUNCTION__, __LINE__, "receiveerror: %d %s\n",   lastError,"在一个非套接字上尝试了一个操作");
+                break;
+            }
+
+            if (0 != lastError)
+            {
+                PRINT(ALWAYS_PRINT, "Receiver", __FUNCTION__, __LINE__, "receiveerror: %d \n",   lastError);
+            }
+#else
+            lastError = errno;
+            if (0 != lastError)
+            {
+                PRINT(ALWAYS_PRINT, "BasicTCP", __FUNCTION__, __LINE__, "receiveerror: %s \n",   strerror(errno));
+            }
+#endif
+        }
+    }
+}
+
+void MP4Player::SaveDataInit(void)
+{
+    this->isTerminted = 0;
+    this->lastError = 0;
+}
+
+void MP4Player::SaveDataExit(void)
+{
+    this->isTerminted = 1;
+    this->lastError = 0;
+}
+
+void MP4Player::SaveRealVideoData(BYTE *pRcvData, int dataLen)
+{
+    if (!this->pSelectedRealVideoBuffer)
+    this->SaveData(this->pSelectedRealVideoBuffer, pRcvData, dataLen);
+}
+
+void MP4Player::SaveToFile(BYTE *pBuffer, DWORD dwBufSize)
+{
+    FILE* fpsave = fopen("test.record", "ab+");
+
+    if ( fpsave == NULL )
+    {
+        printf("err:open file failed\n");
+        return;
+    }
+    fwrite(pBuffer, dwBufSize, 1, fpsave);
+    
+    fclose(fpsave);
+}
+
+extern "C" void CALLBACK CCallRealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser )
+{
+    MP4Player* pFunc = new MP4Player();
+    pFunc->RealDataCallBack_V30( lRealHandle, dwDataType, pBuffer, dwBufSize, dwUser);
+    delete pFunc;
+}
+
 /***
- * desc:            实时流回调函数
- * lRealHandle:     
- * dwDataType: 
- * pBuffer:         流数据缓存
- * dwBufSize:       缓存大小
- * dwUser:          用户
+ * desc:            摄像头视频流回调函数
+ * lRealHandle:
+ * dwDataType:
+ * pBuffer: 
+ * dwBufSize:
+ * dwUser: 
  * retc:            None
  */
-void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
+void CALLBACK MP4Player::RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser)
+{
+    /* 实时流处理 */
+    this->RealDataPlay(dwDataType, pBuffer, dwBufSize);     /* 实时预览 */
+    this->SaveRealVideoData(pBuffer, dwBufSize);            /* 保存 */
+}
+
+void MP4Player::RealDataPlay(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
 {
     HWND hWnd = NULL;
-#ifdef WIN32 
-    hWnd = GetConsoleWindow();
-#else
-    hWnd = NULL;
+#ifdef WIN32
+    if ( this->GetPlayOnWindow() == DISPLAY_ENABLE )
+    {
+         hWnd = GetConsoleWindow();
+    }
 #endif
-
-    LONG lPort = 0;
 
     switch (dwDataType)
     {
         case NET_DVR_SYSHEAD:               /* 系统头 */
         {
-            if ( !PlayM4_GetPort(&lPort) )  /* 获取播放库未使用的通道号 */
+            if ( !PlayM4_GetPort(&this->lPort) )  /* 获取播放库未使用的通道号 */
             {
                 break;
             }
@@ -85,55 +235,32 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
             
             if (dwBufSize > 0)
             {
-                if ( !PlayM4_SetStreamOpenMode(lPort, STREAME_REALTIME) )  /* 设置实时流播放模式 */
+                if ( !PlayM4_SetStreamOpenMode(this->lPort, STREAME_REALTIME) )  /* 设置实时流播放模式 */
                 {
                     break;
                 }
                 
-                if ( !PlayM4_OpenStream(lPort, pBuffer, dwBufSize, 1024 * 1024) ) /* 打开流接口 */
+                if ( !PlayM4_OpenStream(this->lPort, pBuffer, dwBufSize, 1024 * 1024) ) /* 打开流接口 */
                 {
                     break;
                 }
                 
-                if ( !PlayM4_Play(lPort, hWnd) ) /* 播放开始 */
+                if ( !PlayM4_Play(this->lPort, hWnd) ) /* 播放开始 */
                 {
                     break;
                 }
-                
-#ifdef _SAVE_H264_STREAM
-                FILE*       fpsave = fopen("test.record", "ab+");
-
-                if ( fpsave == NULL )
-                {
-                    printf("err:open file failed\n");
-                    return;
-                }
-                fwrite(pBuffer, dwBufSize, 1, fpsave);
-                fclose(fpsave);
-#endif /* ENDIF _SAVE_H264_STREAM */
             }
         }
         /* No break */
         
         case NET_DVR_STREAMDATA:   /* 码流数据 */
         {
-            if ( dwBufSize > 0 && lPort != -1 )
+            if ( dwBufSize > 0 && this->lPort != -1 )
             {
-                if ( !PlayM4_InputData(lPort, pBuffer, dwBufSize) )
+                if ( !PlayM4_InputData(this->lPort, pBuffer, dwBufSize) )
                 {
                     break;
-                } 
-                
-#ifdef _SAVE_H264_STREAM
-                FILE*       fpsave = fopen("test.record", "ab+");
-                if ( fpsave == NULL )
-                {
-                    printf("err:open file failed\n");
-                    return;
                 }
-                fwrite(pBuffer, dwBufSize, 1, fpsave);
-                fclose(fpsave);
-#endif /* ENDIF _SAVE_H264_STREAM */
             }
         }
         /* No break */
@@ -144,41 +271,11 @@ void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *p
 }
 
 /***
- * desc:            异常消息回调函数
- * dwType:
- * lUserID:         
- * lHandle:
- * pUser:           
- * retc:            None
- */
-void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
-{
-    printf("%s\n", __FUNCTION__ );
-    
-    switch (dwType) 
-    {
-        case EXCEPTION_RECONNECT:    /* 预览时重连 */
-        {
-            printf("----------reconnect--------%d\n", time(NULL));
-        }
-        break;
-        
-        default:
-        break;
-    }
-}
-#endif
-#ifdef __cplusplus
-    }
-#endif /* ENDIF __cplusplus */
-
-
-/***
  * desc:            启动实时预览
  * para:            None
  * retc:            None
  */
-void MP4Player::RealPlayStart(LONG lUserID)
+void MP4Player::RealPlayInit(LONG lUserID)
 {
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
     
@@ -197,23 +294,14 @@ void MP4Player::RealPlayStart(LONG lUserID)
     if (lRealPlayHandle < 0)
     {
         printf("NET_DVR_RealPlay_V30 error\n");
-        CameraCtrl *CamCtrl = new CameraCtrl();
-        CamCtrl->Exit();
-        delete CamCtrl;
+        pSelectedCamera->Exit();
         return;
     }
 
-#if 0
-    if ( !NET_DVR_SetRealDataCallBack( lRealPlayHandle, g_RealDataCallBack_V30, 0 ) )
-    {
-        printf("NET_DVR_SetRealDataCallBack error\n");
-    }
-#else
     if ( !NET_DVR_SetRealDataCallBack( lRealPlayHandle, CCallRealDataCallBack_V30, 0 ) )
     {
         printf("NET_DVR_SetRealDataCallBack error\n");
     }
-#endif
 }
 
 
@@ -222,7 +310,7 @@ void MP4Player::RealPlayStart(LONG lUserID)
  * para:            None
  * retc:            None
  */
-void MP4Player::RealPlayStop(void)
+void MP4Player::RealPlayExit(void)
 {
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
     /* 关闭预览 */

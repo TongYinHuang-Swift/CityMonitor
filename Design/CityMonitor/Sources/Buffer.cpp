@@ -12,7 +12,7 @@
 Buffer::Buffer(uint bufLen, byte bufID)
 {
     PRINT(ALWAYS_PRINT, "Buffer", __FUNCTION__, __LINE__, " 创建一个 len = %d、ID = %d 的循环缓冲器", bufLen, bufID);
- this->bufLen = bufLen;
+    this->bufLen = bufLen;
     this->bufID = bufID;
     buffer = new byte[bufLen];
     rdIndex = 0;
