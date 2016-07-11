@@ -62,6 +62,21 @@ typedef enum
     DISPLAY_ENABLE  = 1,
 } PLAY_ON_WINDOW_EN_T;
 
+typedef enum
+{
+    CH_INVALID              = -1,
+    CH_PLAY_LOCAL_FILE      = 0,
+    CH_PLAY_HIK_REAL_STREAM = 1,
+    CH_PLAY_SWIFT_STREAM    = 2,
+} PLAY_CHANNEL_T;
+
+typedef enum
+{
+    PLAY_STATE_NOTPLAY      = 0,
+    PLAY_STATE_PLAYING      = 1,
+} PLAY_STATE_T;
+
+
 class MP4Player : public VideoPlayer
 {
 public:
@@ -75,9 +90,13 @@ private:
     LONG        lUserID;
     LONG        lRealPlayHandle;
     LPSTR       sHistoryFileName;
+    LPSTR       sFileName;
     int         speedChangeVal;
     bool        isTerminted;        // 是否已经停止标志
     ulong       lastError;          // 线程运行至今最后一次出现的错误
+    int         channelID;
+    int         recordChannelID;
+    int         playState;
 protected:
   
 public:
@@ -95,9 +114,13 @@ public:
     void        RealPlayExit(void);                    //停止预览
     void        SetPlayOnWindow(int playOnWin);
     int         GetPlayOnWindow(void);
+    void        SetPlayLocalFileName(LPSTR sFileName);
     LONG        PlayLocalFile( LPSTR sFileName );      //播放本地文件
     void        PlayLocalFileExit(void);             //退出播放本地文件
     void        PlayLocalFileCtrl(void);            // 本地播放控制
+    int         SetPlayChannel(int channelID);       //选择播放通道
+    int         OpenChannel(int channelID);
+    int         CloseChannel(int channelID);
     void        Play(void);                                // 正常速度播放
     void        Pause(void);                               // 暂停播放
     void        Resume(void);                   // 恢复正常速度播放

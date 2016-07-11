@@ -49,6 +49,8 @@ void MP4Player::Init(void)
     this->pSelectedCamera = NULL;
     this->pSelectedRealVideoBuffer = NULL;
     this->SaveDataInit();
+    channelID = CH_INVALID;
+    this->sFileName = NULL;
 }
 
 void MP4Player::SetCameraCtrl(CameraCtrl *pCameraCtrl)
@@ -332,6 +334,12 @@ int MP4Player::GetPlayOnWindow(void)
 }
 
 
+void MP4Player::SetPlayLocalFileName(LPSTR sFileName)
+{
+    this->sFileName = sFileName;
+}
+
+
 /***
  * desc:            播放本地文件
  * para:            None
@@ -560,6 +568,110 @@ void MP4Player::PlayLocalFileCtrl(void)
             break;
         }
         Sleep(10);
+    }
+}
+
+/***
+ * desc:            设置播放通道
+ * channelID:       通道号
+ * retc:            错误返回-1， 成功返回通道号
+ */
+int MP4Player::SetPlayChannel(int channelID)
+{
+    this->channelID = channelID;
+    return channelID;
+}
+
+int MP4Player::OpenChannel(int channelID)
+{
+    if ( this->playState == PLAY_STATE_PLAYING )
+    {
+        this->CloseChannel(recordChannelID);
+        //this->CloseChannel(channelID);
+    }
+    
+    switch (this->channelID)
+    {
+        case CH_PLAY_LOCAL_FILE:
+        {
+            printf("Open channel CH_PLAY_LOCAL_FILE!\n");
+            if ( !this->sFileName )
+            {
+                printf("Please set play filename!");
+                this->playState = PLAY_STATE_NOTPLAY;
+                this->recordChannelID = CH_INVALID;
+                return -1;
+            }
+            else
+            {
+                this->PlayLocalFile(sFileName);
+                this->playState = PLAY_STATE_PLAYING;
+                this->recordChannelID = CH_PLAY_LOCAL_FILE;
+            }
+        }
+        break;
+
+        case CH_PLAY_HIK_REAL_STREAM:
+        {
+            printf("Open channel CH_PLAY_HIK_REAL_STREAM!\n");
+            this->RealPlayInit(this->pSelectedCamera->GetUsrID());
+            this->playState = PLAY_STATE_PLAYING;
+            this->recordChannelID = CH_PLAY_HIK_REAL_STREAM;
+        }
+        break;
+
+        case CH_PLAY_SWIFT_STREAM:
+        {
+            printf("Open channel CH_PLAY_SWIFT_STREAM!\n");
+            this->playState = PLAY_STATE_PLAYING;
+            this->recordChannelID = CH_PLAY_SWIFT_STREAM;
+        }
+        break;
+
+        default:
+        {
+            printf("Open channel invalid!\n");
+        }
+        break;
+    }
+}
+
+int MP4Player::CloseChannel(int channelID)
+{
+    if ( (this->playState == PLAY_STATE_NOTPLAY) || (channelID == CH_INVALID) )
+    {
+        return -1;
+    }
+    
+    switch (this->channelID)
+    {
+        case CH_PLAY_LOCAL_FILE:
+        {
+            printf("Close channel CH_PLAY_LOCAL_FILE!\n");
+            this->PlayLocalFileExit();
+            this->playState = PLAY_STATE_NOTPLAY;
+        }
+        break;
+
+        case CH_PLAY_HIK_REAL_STREAM:
+        {
+            printf("Close channel CH_PLAY_HIK_REAL_STREAM!\n");
+            this->RealPlayExit();
+            this->playState = PLAY_STATE_NOTPLAY;
+        }
+        break;
+
+        case CH_PLAY_SWIFT_STREAM:
+        {
+            printf("Close channel CH_PLAY_SWIFT_STREAM!\n");
+        }
+        break;
+
+        default:
+        {
+            printf("Close channel invalid!\n");
+        }
+        break;
     }
 }
 
