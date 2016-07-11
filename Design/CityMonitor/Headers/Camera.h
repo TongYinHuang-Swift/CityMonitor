@@ -28,19 +28,19 @@ class VideoPlayer;
 class Camera : public BasicObj
 {
 public:
-    Camera(CameraCtrl* cameraCtrl, VideoPlayer* videoPlayer);
+    Camera(char *ipAddr, CameraCtrl* cameraCtrl, VideoPlayer* videoPlayer);
     virtual ~Camera();
 
 private:
     CameraCtrl*     cameraCtrl;     // 摄像机的控制器
     VideoPlayer*    videoPlayer;    // 摄像机的播放器
-    char*           ipAddr;         // 摄像机的IP地址
+    char			ipAddr[20];     // 摄像机的IP地址
 
 protected:
   
 public:
     void    Init();                 // 摄像机初始化
-    LONG    Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPassword, LPNET_DVR_DEVICEINFO_V30 DeviceInfo);    // 登录具有指定IP地址的摄像机
+    LONG    Login();				// 登录具有指定IP地址的摄像机
     void    Play();                 // 正常速度播放
     void    PausePlay();            // 暂停播放
     void    ResumePlay();           // 恢复正常速度播放

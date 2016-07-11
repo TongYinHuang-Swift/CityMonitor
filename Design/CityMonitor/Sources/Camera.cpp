@@ -23,8 +23,9 @@
 #else
 #endif
 
-Camera::Camera(CameraCtrl* cameraCtrl, VideoPlayer* videoPlayer)
+Camera::Camera(char *ipAddr, CameraCtrl* cameraCtrl, VideoPlayer* videoPlayer)
 {
+	strcpy(this->ipAddr, ipAddr);
     this->cameraCtrl  = cameraCtrl;
     this->videoPlayer = videoPlayer;
 }
@@ -36,9 +37,9 @@ void Camera::Init()
     cameraCtrl->Init();
     videoPlayer->Init();
 }
-LONG Camera::Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPassword, LPNET_DVR_DEVICEINFO_V30 DeviceInfo)
+LONG Camera::Login()
 {
-    return cameraCtrl->Login( pDVRIP, wDVRPort, pUserName, pPassword, DeviceInfo );
+    return cameraCtrl->Login(ipAddr);
 }
 void Camera::SetPlaySpeed(int speed)
 {

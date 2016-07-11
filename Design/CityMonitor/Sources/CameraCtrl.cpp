@@ -42,28 +42,35 @@ void CameraCtrl::Init(void)
 {
     /* 初始化海康摄像头SDK */
     NET_DVR_Init();
-    //pSelectedVideoPlayer = NULL;
+    
+    /* 初始化摄像头登陆参数 */
+    memset( &(this->deviceInfo), 0, sizeof(LPNET_DVR_DEVICEINFO_V30) );
 }
 
-#if 0
-/***
- * desc:            选择播放器
- * pVideoPlayer:    播放器类型
- * retc:            None
- */
-void CameraCtrl::SetVideoPlayer(VideoPlayer* pVideoPlayer)
+void CameraCtrl::SetLoginConfig(LPNET_DVR_DEVICEINFO_V30 *pDeviceInfo)
 {
-    /* 设置播放器 */
-    this->pSelectedVideoPlayer = pVideoPlayer;
+    if (pDeviceInfo)
+    {
+        memcpy( &this->deviceInfo, pDeviceInfo, sizeof(LPNET_DVR_DEVICEINFO_V30) );
+    }
 }
+
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-extern "C" void CALLBACK CCallExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
+void CALLBACK CCallExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
-    CameraCtrl* pFunc = new CameraCtrl();
-    pFunc->ExceptionCallBack(dwType, lUserID, lHandle, pUser);
-    delete pFunc;
+    //CameraCtrl* pFunc = new CameraCtrl();
+    //pFunc->ExceptionCallBack(dwType, lUserID, lHandle, pUser);
+    //delete pFunc;
+    ((CameraCtrl *)pUser)->ExceptionCallBack(dwType, lUserID, lHandle, pUser);
 }
+
+#ifdef __cplusplus
+    }
+#endif /* ENDIF __cplusplus */
 
 void CALLBACK CameraCtrl::ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
@@ -91,9 +98,13 @@ void CALLBACK CameraCtrl::ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHa
  * pDeviceInfo:     设备信息
  * retc:            UserID--Success, -1--Error
  */
-LONG CameraCtrl::Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPassword, LPNET_DVR_DEVICEINFO_V30 DeviceInfo)
+LONG CameraCtrl::Login(char *ipAddr)
 {
-    lUserID = NET_DVR_Login_V30( pDVRIP, wDVRPort, pUserName, pPassword, DeviceInfo );
+    //LPNET_DVR_DEVICEINFO_V30 deviceInfo;
+
+    memset( &deviceInfo, 0, sizeof(LPNET_DVR_DEVICEINFO_V30) );
+
+    lUserID = NET_DVR_Login_V30(ipAddr, CAMERA_PORT, CAMERA_USER_NAME, CAMERA_PASSWORD, deviceInfo);
     
     if ( lUserID < 0)
     {
@@ -107,7 +118,7 @@ LONG CameraCtrl::Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPass
     }
     
     /* 设置异常消息回调函数 */
-    NET_DVR_SetExceptionCallBack_V30(0, NULL, CCallExceptionCallBack, NULL);
+    NET_DVR_SetExceptionCallBack_V30(0, NULL, CCallExceptionCallBack, this);
     return lUserID;
 }
 

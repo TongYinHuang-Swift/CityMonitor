@@ -26,16 +26,17 @@
 #define _SAVE_H264_STREAM
 #endif
 
-static int _g_playOnWinEn = 0;
+MP4Player mp4Player;
 static LONG _g_lPort = 0;           //全局的播放库port号
+static HWND _g_hWnd;
 
 MP4Player::MP4Player()
 {
-    //PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
+    PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
 }
 MP4Player::~MP4Player()
 {
-    //PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
+    PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
 }
 
 /***
@@ -174,10 +175,17 @@ void MP4Player::SaveDataExit(void)
 
 void MP4Player::SaveRealVideoData(BYTE *pRcvData, int dataLen)
 {
-    if (!this->pSelectedRealVideoBuffer)
-    this->SaveData(this->pSelectedRealVideoBuffer, pRcvData, dataLen);
+    if (this->pSelectedRealVideoBuffer != NULL)
+    {
+        this->SaveData(this->pSelectedRealVideoBuffer, pRcvData, dataLen);
+    }
+    else
+    {
+        //printf("Can't save real data! No buffer init!\n");
+    }
 }
 
+// 暂时没有用
 void MP4Player::SaveToFile(BYTE *pBuffer, DWORD dwBufSize)
 {
     FILE* fpsave = fopen("test.record", "ab+");
@@ -192,12 +200,19 @@ void MP4Player::SaveToFile(BYTE *pBuffer, DWORD dwBufSize)
     fclose(fpsave);
 }
 
-extern "C" void CALLBACK CCallRealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser )
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void CALLBACK CCallRealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, DWORD dwUser )
 {
-    MP4Player* pFunc = new MP4Player();
-    pFunc->RealDataCallBack_V30( lRealHandle, dwDataType, pBuffer, dwBufSize, dwUser);
-    delete pFunc;
+    mp4Player.RealDataCallBack_V30( lRealHandle, dwDataType, pBuffer, dwBufSize, dwUser);
 }
+
+#ifdef __cplusplus
+    }
+#endif /* ENDIF __cplusplus */
+
 
 /***
  * desc:            摄像头视频流回调函数
@@ -212,21 +227,11 @@ void CALLBACK MP4Player::RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType
 {
     /* 实时流处理 */
     this->PlayRealData(dwDataType, pBuffer, dwBufSize);     /* 实时预览 */
-    return ;
-
-    this->SaveRealVideoData(pBuffer, dwBufSize);            /* 保存 */
+    //this->SaveRealVideoData(pBuffer, dwBufSize);            /* 保存实时视频数据 */
 }
 
-void MP4Player::PlayRealData(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
+void MP4Player::PlayRealData(DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize)
 {
-    HWND hWnd = NULL;
-#ifdef WIN32
-    if ( this->GetPlayOnWindow() == DISPLAY_ENABLE )
-    {
-         hWnd = GetConsoleWindow();
-    }
-#endif
-
     switch (dwDataType)
     {
         case NET_DVR_SYSHEAD:               /* 系统头 */
@@ -250,7 +255,7 @@ void MP4Player::PlayRealData(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize)
                     break;
                 }
                 
-                if ( !PlayM4_Play(_g_lPort, hWnd) ) /* 播放开始 */
+                if ( !PlayM4_Play(_g_lPort, _g_hWnd) ) /* 播放开始 */
                 {
                     break;
                 }
@@ -323,17 +328,6 @@ void MP4Player::RealPlayExit(void)
     NET_DVR_StopRealPlay(lRealPlayHandle);
 }
 
-void MP4Player::SetPlayOnWindow(int playOnWin)
-{
-    _g_playOnWinEn = playOnWin;
-}
-
-int MP4Player::GetPlayOnWindow(void)
-{
-    return _g_playOnWinEn;
-}
-
-
 void MP4Player::SetPlayLocalFileName(LPSTR sFileName)
 {
     this->sFileName = sFileName;
@@ -347,14 +341,6 @@ void MP4Player::SetPlayLocalFileName(LPSTR sFileName)
  */
 LONG MP4Player::PlayLocalFile( LPSTR sFileName )
 {
-    HWND hWnd = NULL;
-#ifdef WIN32
-    if ( this->GetPlayOnWindow() == DISPLAY_ENABLE )
-    {
-         hWnd = GetConsoleWindow();
-    }
-#endif
-
     int ErrorCode = 0;
 
     if ( !sFileName )
@@ -386,7 +372,7 @@ LONG MP4Player::PlayLocalFile( LPSTR sFileName )
         goto ERR_EXIT;
     }
     
-    if ( !PlayM4_Play(lPort, hWnd) ) //播放开始
+    if ( !PlayM4_Play(lPort, _g_hWnd) ) //播放开始
     {
         printf("Start play failed!\n");
         ErrorCode = ERR_START_PLAY_FAIL;
@@ -447,7 +433,7 @@ void MP4Player::PlayLocalFileCtrl(void)
             case SW_HIK_PLAY_START:
             {
                 printf("Play start!\n");
-                PlayM4_Pause( this->lPort, PLAY_MODE_START );
+                PlayM4_Play( this->lPort, hWnd );
             }
             break;
 
@@ -468,9 +454,7 @@ void MP4Player::PlayLocalFileCtrl(void)
             case SW_HIK_PLAY_RESUME:
             {
                 printf("Play resume!\n");
-                this->speedChangeVal = 0;
-                this->PlayLocalFileExit();
-                this->PlayLocalFile(this->sHistoryFileName);
+                PlayM4_Pause( this->lPort, PLAY_MODE_START );
             }
             break;
 
@@ -548,22 +532,7 @@ void MP4Player::PlayLocalFileCtrl(void)
  
             default:
             {
-                if ( this->speedChangeVal >= 0 )
-                {
-                    while (this->speedChangeVal--)
-                    {
-                        PlayM4_Slow(this->lPort);
-                        Sleep(2);
-                    }
-                }
-                else
-                {
-                    while (this->speedChangeVal++)
-                    {
-                        PlayM4_Fast(this->lPort);
-                        Sleep(2);
-                    }
-                }
+                PlayM4_Play(this->lPort, hWnd);
             }
             break;
         }
@@ -631,9 +600,11 @@ int MP4Player::OpenChannel(int channelID)
         default:
         {
             printf("Open channel invalid!\n");
+            return -1;
         }
         break;
     }
+    return 0;
 }
 
 int MP4Player::CloseChannel(int channelID)
@@ -670,9 +641,11 @@ int MP4Player::CloseChannel(int channelID)
         default:
         {
             printf("Close channel invalid!\n");
+            return -1;
         }
         break;
     }
+    return 0;
 }
 
 
@@ -685,7 +658,7 @@ void MP4Player::Play(void)
 {
     PRINT(DEBUG_LEVEL_9, "MP4Player", __FUNCTION__, __LINE__);
     
-    PlayM4_Pause( lPort, PLAY_MODE_START );
+    PlayM4_Play(this->lPort, hWnd);
 } 
 
 /***
@@ -707,6 +680,7 @@ void MP4Player::Pause(void)
 void MP4Player::Resume(void)
 {
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
+    PlayM4_Pause( lPort, PLAY_MODE_PAUSE );
 }
 
 /***
@@ -802,4 +776,11 @@ void MP4Player::PlayOneByOneBack(void)
 {
     PRINT(DEBUG_LEVEL_1, "MP4Player", __FUNCTION__, __LINE__);
 }
+
+void MP4Player::SetConsoleWindow(HWND hWnd)
+{
+    //this->hWnd = hWnd;
+    _g_hWnd = hWnd;
+}
+
 

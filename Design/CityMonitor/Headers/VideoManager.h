@@ -44,15 +44,15 @@
 
 数据结构   消息标识符 + 消息类型 + 站点ID + 摄像机ID + 消息字长度 + 消息字 + 消息结束符 + 校验码
 字节数         2            1         2        2          1                     2          1
-数值      0x5AC3                                                            0x3CA5
+数值        0x5AC3                                                            0x3CA5
 
 注：8位校验码值为除校验码自己外本数据包所有数据之和。
 
 消息类型：
-1．  心跳：0x1。消息字长度为0，无消息字。无视频数据传输时，每5秒钟传一次心跳包。无视频数据期间超过30秒没有收到心跳包，监控中心可视为该节点离线或失去联系。
-2．  视频节点报名：0x2。消息字长度为单字节，其值为8，消息字前4个字节为放大10000000倍的经度，后4个字节为放大10000000倍的纬度，高字节在前。视频节点向监控中心报告自己的存在及其物理位置，用于监控中心软件做节点列表。摄像机ID>=1。
-3．  视频站点报名：0x3。消息字长度为0，无消息字。视频站点向监控中心报告自己的存在，用于监控中心软件做站点及所属节点的列表。摄像机ID=0。
-4．  工作异常上报：0x4。消息字长度为1字节，其值为1。异常消息按位定义。
+1． 心跳：0x1。消息字长度为0，无消息字。无视频数据传输时，每5秒钟传一次心跳包。无视频数据期间超过30秒没有收到心跳包，监控中心可视为该节点离线或失去联系。
+2． 视频节点报名：0x2。消息字长度为单字节，其值为8，消息字前4个字节为放大10000000倍的经度，后4个字节为放大10000000倍的纬度，高字节在前。视频节点向监控中心报告自己的存在及其物理位置，用于监控中心软件做节点列表。摄像机ID>=1。
+3． 视频站点报名：0x3。消息字长度为0，无消息字。视频站点向监控中心报告自己的存在，用于监控中心软件做站点及所属节点的列表。摄像机ID=0。
+4． 工作异常上报：0x4。消息字长度为1字节，其值为1。异常消息按位定义。
 
 消息字值     异常内容
 Bit0=1      无法读取指定节点视频数据
@@ -64,17 +64,17 @@ Bit5=1      暂无定义
 Bit6=1      暂无定义 
 Bit7=1      暂无定义 
 
-5．  历史视频列表：0x5。消息字长度为2字节，消息字为如下结构：
+5． 历史视频列表：0x5。消息字长度为2字节，消息字为如下结构：
 本节点历史视频段个数（2字节） + { 6字节起始时间 + 6字节结束时间 } … … +  { 6字节起始时间 + 6字节结束时间 }
 其中起始时间和结束时间为该历史视频列表中的某一段视频的录制起始时间和结束时间。时间分别为年、月、日、时、分、秒。
 
-6．  系统监测：0x6。消息字长度为2字节，消息字为ASCII字符串。监控中心在控制台打印消息字并按站点名称分文件存储。同时将消息字发往124.162.183.185:6666。
+6． 系统监测：0x6。消息字长度为2字节，消息字为ASCII字符串。监控中心在控制台打印消息字并按站点名称分文件存储。同时将消息字发往124.162.183.185:6666。
 
 四、视频前端上行视频数据格式：
 
 数据结构 消息标识符 + 站点ID + 摄像机ID + 开始时间 + 结束时间 + 数据长度 + 视频数据 + 结束符 + 校验码
-字节数        2            2         2          6         6           4                    2        2
-数值     0x55AA                                                                     0x33CC
+字节数        2         2         2          6         6           4                    2        2
+数值       0x55AA                                                                     0x33CC
 
 其中：
 1．开始时间 – 监控中心指定的历史视频播放开始时间，6字节（分别为年、月、日、时、分、秒）
@@ -89,7 +89,6 @@ Bit7=1      暂无定义
 #include "BasicObj.h" 
 #include "HistoryVideoManager.h"
 #include "VideoRecorder.h"
-//#include "SwiftHikSDK.h"
 
 #define     CMD_BUFFER_LEN          256
 #define     VIDEO_BUFFER_LEN        409600
@@ -108,6 +107,9 @@ class HistoryVideoPlayer;
 class HistoryVideoManager;
 class VideoRecorder;
 class TcpConn;
+class CameraCtrl;
+class VideoPlayer;
+class Camera;
 class Codec;
 class DateTime;
 class SwiftHikSDK;
@@ -115,33 +117,46 @@ class SwiftHikSDK;
 class VideoManager : BasicObj
 {
 public:
-    VideoManager();
+    VideoManager(Camera* camera);
     virtual ~VideoManager();
 
 private:
-    Codec*              codec;
+    Camera*             camera;                     // 本地摄像机
+    Buffer*             cmdBuffer;                  // 命令通道的下行命令数据缓冲器
+    Buffer*             cmdAckBuffer;               // 命令通道的上行响应数据缓冲器
+    Buffer*             cameraCtrlBuffer;           // 本地摄像机控制数据缓冲器
+    Buffer*             videoSendBuffer;            // 本地视频发送缓冲器
+    Buffer*             videoRecordBuffer;          // 本地视频录像缓冲器
+    Codec*              codec;                      // 下行命令译码器、上行视频数据头产生器
+    TcpConn*            videoClient4LeftNode;       // 本地视频节点的实时视频
     TcpConn*            videoServer4LocalCam;       // 本地视频节点的实时视频
     TcpConn*            videoServer4RightNode;      // 右邻视频节点传送来的视频和命令响应信息
     TcpConn*            cmdServer4LeftNode;         // 接收下行命令的服务器
     TcpConn*            cmdClient4RightNode;        // 向下一个远程视频节点转发下行命令的客户端
-    VideoRecorder*      videoRecorder;              // 本地视频录像机          
+    VideoRecorder*      videoRecorder;              // 本地视频录像机           
     HistoryVideoPlayer* historyVideoPlayer;         // 本地历史视频播放器，最大播放5个本地历史视频文件
     byte                numHistoryVideoPlayers;     // 同时播放的本地文件视频流数量，最大5个
     byte                playSpeed;                  // 播放速度: 1 - 30，分别对应每秒 1 - 30 帧
-    char localIpAddr[20];
-private:
-    char* GetIpAddr();
+    char                leftNodeAddr[20];           // 左邻节点IP地址
+    char                localIpAddr[20];            // 本机IP地址
+    char                rightNodeAddr[20];          // 右邻节点IP地址
 
-public:
+private:
     void    Init();
     void    ReleaseMemory();
     void    Reset();
-    void    SystemRestart();                                            // 监控中心系统重启命令执行入口
-    void    PlayRealTimeVideo();                                        // 监控中心系统实时视频直播命令执行入口
-    void    PlayHistoryVideo(DateTime* startTime, DateTime* endTime);   // 监控中心点播历史视频命令执行入口
-    void    SendHistoyVideoList();                                      // 监控中心获取录像列表命令执行入口
-    void    SetPlaySpeed(byte playSpeed);                               // 设置视频播放速度
-    char*   GetLocalIpAddr();                                           // 获取本机的IP地址
-    char*   GetLeftNodeIpAddr(char* localIPAddress);                    // 获取左邻节点的IP地址
-    char*   GetRightNodeIpAddr(char* localIPAddress);                   // 获取左邻节点的IP地址
+    void    GetLocalIpAddr();                                               // 获取本机的IP地址
+    void    GetLeftNodeIpAddr(char* localIPAddress);                        // 获取左邻节点的IP地址
+    void    GetRightNodeIpAddr(char* localIPAddress);                       // 获取左邻节点的IP地址
+
+public:
+    void    Run();
+    // 下面是监控中心命令执行函数
+    void    SystemRestart();                                                // 监控中心系统重启命令执行入口
+    void    PlayRealTimeVideo();                                            // 监控中心实时视频直播命令执行入口
+    void    StopPlayRealTimeVideo();                                        // 监控中心结束实时视频直播命令执行入口
+    void    PlayHistoryVideo(DateTime* startTime, DateTime* endTime, byte mode, byte speed); // 监控中心点播历史视频命令执行入口
+    void    StopPlayHistoryVideo(DateTime* startTime, DateTime* endTime);   // 监控中心结束点播历史视频命令执行入口
+    void    SendHistoyVideoList();                                          // 监控中心获取录像列表命令执行入口
 };
+

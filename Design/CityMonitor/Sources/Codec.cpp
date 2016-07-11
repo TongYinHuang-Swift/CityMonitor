@@ -212,7 +212,7 @@ void Codec::Start()
                     videoManager->PlayRealTimeVideo();
                     break;
                 case DOWN_COMMEND_HISTORYVIDEO:             // 这是录像点播命令
-                    videoManager->PlayHistoryVideo(&historyVideoStTime, &historyVideoEndTime);
+                    videoManager->PlayHistoryVideo(&historyVideoStTime, &historyVideoEndTime, 0, 0);
                     break;
                 case DOWN_COMMEND_HISTORYLIST:              // 这是获取录像列表命令
                     videoManager->SendHistoyVideoList();

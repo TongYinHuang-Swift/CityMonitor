@@ -21,6 +21,10 @@
 #include "BasicObj.h" 
 #include "HCNetSDK.h"
 
+#define CAMERA_PORT         (8000)
+#define CAMERA_USER_NAME    ("admin")
+#define CAMERA_PASSWORD     ("admin0123")
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -38,14 +42,15 @@ public:
     virtual         ~CameraCtrl(void);
 
 private:
-    LONG            lUserID;
-    //VideoPlayer*    pSelectedVideoPlayer;
+    LONG                        lUserID;
+    LPNET_DVR_DEVICEINFO_V30    deviceInfo;
     
 protected:
   
 public:
     void            Init(void);                 /* 摄像机控制器初始化 */
-    LONG            Login(char *pDVRIP, WORD wDVRPort, char *pUserName, char *pPassword, LPNET_DVR_DEVICEINFO_V30 DeviceInfo);    /* 登录具有指定IP地址的摄像机 */
+    void            SetLoginConfig(LPNET_DVR_DEVICEINFO_V30 *pDeviceInfo);
+    LONG            Login(char *ipAddr);		/* 登录具有指定IP地址的摄像机 */
     LONG            GetUsrID(void);
     void            CALLBACK ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser);
     void            Exit(void);

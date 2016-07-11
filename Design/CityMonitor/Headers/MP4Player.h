@@ -55,13 +55,6 @@ typedef enum
     
 } PLAY_LOCAL_FILE_ERR_T;
 
-
-typedef enum
-{
-    DISPLAY_DISABLE = 0,
-    DISPLAY_ENABLE  = 1,
-} PLAY_ON_WINDOW_EN_T;
-
 typedef enum
 {
     CH_INVALID              = -1,
@@ -87,6 +80,7 @@ private:
     CameraCtrl  *pSelectedCamera;
     Buffer      *pSelectedRealVideoBuffer;
     LONG        lPort;
+	HWND        hWnd;
     LONG        lUserID;
     LONG        lRealPlayHandle;
     LPSTR       sHistoryFileName;
@@ -112,8 +106,6 @@ public:
     void        PlayRealData(DWORD dwDataType,BYTE *pBuffer, DWORD dwBufSize);
     void        RealPlayInit(LONG lUserID);           //开始实时预览
     void        RealPlayExit(void);                    //停止预览
-    void        SetPlayOnWindow(int playOnWin);
-    int         GetPlayOnWindow(void);
     void        SetPlayLocalFileName(LPSTR sFileName);
     LONG        PlayLocalFile( LPSTR sFileName );      //播放本地文件
     void        PlayLocalFileExit(void);             //退出播放本地文件
@@ -133,5 +125,6 @@ public:
     void        PlaySlowBack(void);             // 按指定速度慢速倒退
     void        PlayOneFrameBack(void);         // 倒退一帧
     void        PlayOneByOneBack(void);         // 每秒倒退一帧，连续播放
+	void		SetConsoleWindow(HWND hWnd);
 };
 #endif

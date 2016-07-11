@@ -7,9 +7,10 @@
 #include "DateTime.h" 
 #include "Debugger.h" 
 #include <cstring>
-//#include "SwiftHikSDK.h"
-#include "Camera.h"
+
 #include "CameraCtrl.h"
+#include "Camera.h"
+#include "VideoPlayer.h"
 #include "MP4Player.h"
 
 #ifndef WIN32
@@ -25,8 +26,9 @@
 #endif
 
 
-VideoManager::VideoManager()
+VideoManager::VideoManager(Camera* camera)
 {
+    this->camera = camera;
     Init();
 }
 VideoManager::~VideoManager()
@@ -49,49 +51,50 @@ VideoManager::~VideoManager()
 void VideoManager::Init()
 {
     debugger = new Debugger();
-    GetIpAddr();
-    char* localAddr = GetLocalIpAddr();
-    char* leftNodeAddr  = GetLeftNodeIpAddr(localAddr);
-    char* rightNodeAddr = GetRightNodeIpAddr(localAddr);
+    GetLocalIpAddr();
+    GetLeftNodeIpAddr(localIpAddr);
+    GetRightNodeIpAddr(localIpAddr);
 
-    Buffer* cmdBuffer  = new Buffer(CMD_BUFFER_LEN, CMD_BUFFER_ID);
-    Buffer* cmdAckBuffer = new Buffer(CMD_BUFFER_LEN, CMD_ACK_BUFFER_ID);
-    Buffer* cameraCtrlBuffer  = new Buffer(CAM_CTRL_BUFFER_LEN, CAM_CTRL_BUFFER_ID);
-    Buffer* videoDataBuffer = new Buffer(VIDEO_BUFFER_LEN, VIDEO_BUFFER_ID);
-    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__,"local ip=%s",localAddr);
-
-    #ifndef NO_RIGHT_SERVER
-    // 创建将来自左邻节点的下行命令转发至右邻节点的客户端
-    cmdClient4RightNode = new TcpConn(MODE_CLIENT, COMMAND_CHAN_CONNECTION, this, cmdBuffer, cmdAckBuffer);
-    cmdClient4RightNode->SetLocalInfo(localAddr);
-    cmdClient4RightNode->SetRemoteInfo(rightNodeAddr, CMD_RELAY_CONN_PORT);
-    // 建立TCP/IP客户端
-    cmdClient4RightNode->CreateClient();
-    #endif
+    cmdBuffer  = new Buffer(CMD_BUFFER_LEN, CMD_BUFFER_ID);
+    cmdAckBuffer = new Buffer(CMD_BUFFER_LEN, CMD_ACK_BUFFER_ID);
+    videoRecordBuffer = new Buffer(VIDEO_BUFFER_LEN, VIDEO_BUFFER_ID);
+    cameraCtrlBuffer  = new Buffer(CAM_CTRL_BUFFER_LEN, CAM_CTRL_BUFFER_ID);
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " leftNodeAddr = %s, localIpAddr = %s, rightNodeAddr = %s", leftNodeAddr, localIpAddr, rightNodeAddr);
 
     // 创建接收来自左邻节点的下行命令的服务器
     cmdServer4LeftNode = new TcpConn(MODE_SERVER, COMMAND_CHAN_CONNECTION, this, cmdAckBuffer, cmdBuffer);
-    cmdServer4LeftNode->SetLocalInfo(localAddr, CMD_RELAY_CONN_PORT);
+    cmdServer4LeftNode->SetLocalInfo(localIpAddr, CMD_RELAY_CONN_PORT);
     // 建立TCP/IP服务器
     cmdServer4LeftNode->CreateServer();
 
+//  #ifndef NO_RIGHT_SERVER
+    // 创建将来自左邻节点的下行命令转发至右邻节点的客户端
+    cmdClient4RightNode = new TcpConn(MODE_CLIENT, COMMAND_CHAN_CONNECTION, this, cmdBuffer, cmdAckBuffer);
+    cmdClient4RightNode->SetLocalInfo(localIpAddr);
+    cmdClient4RightNode->SetRemoteInfo(rightNodeAddr, CMD_RELAY_CONN_PORT);
+    // 建立TCP/IP客户端
+    cmdClient4RightNode->CreateClient();
+//  #endif
+
+    // 下行命令译码器
+    codec = new Codec(this,cmdBuffer);
+    codec->Init();
+
     // 创建本地摄像机视频数据接收服务器（由于我们不知道所连接的摄像机IP地址，所以只能通过服务器的方式获取视频数据，让摄像机通过push的方式传输数据）
-    videoServer4LocalCam = new TcpConn(MODE_SERVER, LOCAL_CAMERA_CONNECTION, this, cameraCtrlBuffer, videoDataBuffer);
-    videoServer4LocalCam->SetLocalInfo(localAddr, LOCAL_CAMERA_CONN_PORT);
+    videoServer4LocalCam = new TcpConn(MODE_SERVER, LOCAL_CAMERA_CONNECTION, this, cameraCtrlBuffer, videoRecordBuffer);
+    videoServer4LocalCam->SetLocalInfo(localIpAddr, LOCAL_CAMERA_CONN_PORT);
     // 建立TCP/IP服务器
     videoServer4LocalCam->CreateServer4Cam();
 
     // 创建本地摄像机视频录像机
-    videoRecorder = new VideoRecorder(videoDataBuffer);
+    videoRecorder = new VideoRecorder(videoRecordBuffer);
 
-    // 创建接收来自右邻节点视频流的服务器
+    // 创建接收来自右邻节点视频流的服务器。转发视频给左邻节点的客户端在该服务器的Acceptor线程中创建。
     videoServer4RightNode = new TcpConn(MODE_SERVER, RIGHT_NODE_CONNECTION, this);
-    videoServer4RightNode->SetLocalInfo(localAddr, VIDEO_RELAY_CONN_PORT);
+    videoServer4RightNode->SetLocalInfo(localIpAddr, VIDEO_RELAY_CONN_PORT);
     // 建立TCP/IP服务器
     videoServer4RightNode->CreateServer();
 
-    codec = new Codec(this,cmdBuffer);
-    codec->Init();
 
 #define TEST_REAL_PLAY_0
 #ifdef TEST_REAL_PLAY_0
@@ -102,11 +105,15 @@ void VideoManager::Init()
     
     LPNET_DVR_DEVICEINFO_V30 DeviceInfo;
     memset( &DeviceInfo, 0, sizeof(LPNET_DVR_DEVICEINFO_V30) );
-    LONG lUserID = CamTest->Login( "192.168.1.65", 8000, "admin", "admin0123", DeviceInfo );
+    LONG lUserID = CamTest->Login( "192.168.1.65" );
     MP4Player *MP4PlayTest = new MP4Player();
     MP4PlayTest->SetCameraCtrl(CamTest);
     MP4PlayTest->Init();
-    MP4PlayTest->SetPlayOnWindow(DISPLAY_ENABLE);
+#ifdef WIN32
+    MP4PlayTest->SetConsoleWindow(GetConsoleWindow());
+#endif
+    MP4PlayTest->SetRealVideoBuffer(cameraCtrlBuffer);
+    
     if ( lUserID != -1 )
     {
         MP4PlayTest->RealPlayInit(lUserID);
@@ -148,15 +155,26 @@ void VideoManager::Init()
     MP4PlayTest->PlayLocalFileCtrl();
     delete MP4PlayTest;
 #endif
-}
 
+}
+void VideoManager::Run()
+{
+    while (1)
+    {
+        #ifdef WIN32
+            Sleep(1000);
+        #else
+            sleep(1000);
+        #endif
+    }
+}
 /**
  * 监控中心系统重启命令执行入口
  * 完成系统重启，包括所有模块的重启。先释放内存，然后重建系统。
  */
 void VideoManager::SystemRestart()
 {
-    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " %s", localIpAddr);
     Reset();            // 热复位VideoManager
 
     // TODO
@@ -167,31 +185,40 @@ void VideoManager::SystemRestart()
  */
 void VideoManager::PlayRealTimeVideo()
 {
-    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " %s", localIpAddr);
     // TODO
-    // 创建一个与左邻节点服务器相连的客户端连接发送本地实时视频
-
-    char buf[20];
-        strcpy(buf,"123456789");
-        cmdServer4LeftNode->readBuffer->Write((byte *)buf,strlen(buf));
-
-
+    // 创建与左邻节点服务器相连的客户端连接发送本地实时视频
+    videoClient4LeftNode = new TcpConn(MODE_CLIENT, COMMAND_CHAN_CONNECTION, this, cmdBuffer, cmdAckBuffer);
+    videoClient4LeftNode->SetLocalInfo(localIpAddr);
+    videoClient4LeftNode->SetRemoteInfo(rightNodeAddr, CMD_RELAY_CONN_PORT);
+    // 建立TCP/IP客户端
+    videoClient4LeftNode->CreateClient();
+}
+// 监控中心结束实时视频直播命令执行入口
+void VideoManager::StopPlayRealTimeVideo()
+{
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " %s", localIpAddr);
 }
 /**
  * 监控中心点播历史视频命令执行入口
  */
-void VideoManager::PlayHistoryVideo(DateTime* startTime, DateTime* endTime)
+void VideoManager::PlayHistoryVideo(DateTime* startTime, DateTime* endTime, byte mode, byte speed)
 {
-    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " %s", localIpAddr);
     // TODO
     // 在HistoryVideoPlayer中创建一个VideoFileReader和一个与左邻节点服务器相连的客户端连接
+}
+// 监控中心结束点播历史视频命令执行入口
+void VideoManager::StopPlayHistoryVideo(DateTime* startTime, DateTime* endTime)
+{
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " %s", localIpAddr);
 }
 /**
  * 监控中心获取录像列表命令执行入口
  */
 void VideoManager::SendHistoyVideoList()
 {
-    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " %s", localIpAddr);
     // TODO
     // 从HistoryVideoManager获取录像列表，并将此录像列表写入cmdAckBuffer
 }
@@ -200,7 +227,7 @@ void VideoManager::SendHistoyVideoList()
  */
 void VideoManager::ReleaseMemory()
 {
-    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " %s", localIpAddr);
     delete debugger;
     delete videoRecorder;
     delete cmdClient4RightNode;
@@ -208,44 +235,40 @@ void VideoManager::ReleaseMemory()
     delete videoServer4LocalCam;
     delete videoServer4RightNode;
     delete codec;
+    delete cmdBuffer;
+    delete cmdAckBuffer;
+    delete cameraCtrlBuffer;
+    delete videoSendBuffer;
+    delete videoRecordBuffer;
 }
 /**
  * 完成VideoManager初始化。先释放内存，然后重建。
  */
 void VideoManager::Reset()
 {
-    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__);
+    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " %s", localIpAddr);
     //ReleaseMemory();
     //Init();
 }
 // 获取左邻节点的IP地址
-char* VideoManager::GetLeftNodeIpAddr(char* localIPAddress)
+void VideoManager::GetLeftNodeIpAddr(char* localIPAddress)
 {
-    PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " LeftNodeIpAddr = %s", LEFTNODE_IP_ADDR);
-    return LEFTNODE_IP_ADDR;
-}
-// 获取本机的IP地址（注意：不是 "127.0.0.1"）
-char* VideoManager::GetLocalIpAddr()
-{
-    PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " LocalIpAddr = %s", LOCAL_IP_ADDR);
-#ifdef WIN32
-    return LOCAL_IP_ADDR;
-#else
-    return localIpAddr;
-#endif
+    PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " localIpAddr = %s, LeftNodeIpAddr = %s", localIpAddr, LEFTNODE_IP_ADDR);
+    strcpy(leftNodeAddr, LEFTNODE_IP_ADDR);
 }
 // 获取右邻节点的IP地址
-char* VideoManager::GetRightNodeIpAddr(char* localIPAddress)
+void VideoManager::GetRightNodeIpAddr(char* localIPAddress)
 {
-    PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " LeftNodeIpAddr = %s", RIGHTNODE_IP_ADDR);
-    return RIGHTNODE_IP_ADDR;
+    PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " localIpAddr = %s, RightNodeIpAddr = %s", localIpAddr, RIGHTNODE_IP_ADDR);
+    strcpy(rightNodeAddr, RIGHTNODE_IP_ADDR);
 }
 
-char* VideoManager::GetIpAddr()
+// 获取本机的IP地址（注意：不是 "127.0.0.1"）
+void VideoManager::GetLocalIpAddr()
 {
-    PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__);
+    PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, " %s", localIpAddr);
 #ifdef WIN32
-    return LOCAL_IP_ADDR;
+    strcpy(localIpAddr, LOCAL_IP_ADDR);
 #else
     int sock_get_ip;
     //char ipaddr[50];
@@ -253,28 +276,23 @@ char* VideoManager::GetIpAddr()
     struct   ifreq ifr_ip;
     if ((sock_get_ip=socket(AF_INET, SOCK_STREAM, 0)) == -1)
     {
-        PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, "open socket error");
-        return "";
+        PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, "socket open error");
+        strcpy(localIpAddr, "Invalid IP Addr");
+        return;
     }
     memset(&ifr_ip, 0, sizeof(ifr_ip));
     strncpy(ifr_ip.ifr_name, (const char *)"eth0", sizeof(ifr_ip.ifr_name) - 1);
     if( ioctl( sock_get_ip, SIOCGIFADDR, &ifr_ip) < 0 )
     {
         PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, "ioctrl  error");
-        return "";
+        strcpy(localIpAddr, "Invalid IP Addr");
+        return;
     }
     sin = (struct sockaddr_in *)&ifr_ip.ifr_addr;
-    //strcpy(ipaddr,inet_ntoa(sin->sin_addr));
     strcpy(localIpAddr,inet_ntoa(sin->sin_addr));
     close( sock_get_ip );
-    //PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, "localipaddr=%s",localipaddr);
-    return localIpAddr;
-
+    PRINT(ALWAYS_PRINT, "VideoManager", __FUNCTION__, __LINE__, "localIpAddr = %s",localIpAddr);
 #endif
-}
-void VideoManager::SetPlaySpeed(byte playSpeed)
-{
-    PRINT(ALWAYS_PRINT, "VideoManager",  __FUNCTION__, __LINE__, " playSpeed = %d", playSpeed);
 }
 
 
